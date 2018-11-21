@@ -10,6 +10,20 @@ namespace Wallace.UI.Controllers
 {
     public class HomeController : Controller
     {
+
+        public IActionResult EmployeesPage()
+        {
+            string info = "Employees are people who work for your company.";
+            ViewData["Information"] = info;
+            EmployeesPageModel model = new EmployeesPageModel();
+            model.Employees.Add("Ken");
+            model.Employees.Add("Dave");
+            model.Employees.Add("Dan");
+            model.Employees.Add("Alex");
+
+            return View(model);
+        }
+
         public IActionResult Index()
         {
             return View();
