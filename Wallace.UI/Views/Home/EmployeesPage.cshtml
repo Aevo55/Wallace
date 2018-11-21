@@ -1,0 +1,9 @@
+﻿@model EmployeesPageModel
+<h2>Employees Page</h2>
+<h3>@ViewData["Information"]</h3>
+@{
+    for(int i = 0; i < Model.Employees.Count; i++)
+    {
+        @Html.Raw("<li>" + Model.Employees[i] + "</li>");
+    }
+ }
