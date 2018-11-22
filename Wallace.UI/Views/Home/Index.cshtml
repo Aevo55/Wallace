@@ -1,7 +1,8 @@
-﻿@{
+﻿@model  IndexPageModel
+@{
     ViewData["Title"] = "Home Page";
 }
-
+@using Wallace.Common.Models;
 <div class="row">
     <div class="col-md-3">
         <h1>Places</h1>
@@ -12,3 +13,14 @@
     </div>
 
 </div>
+
+@foreach (Project p in Model.Projects)
+{
+    <h2>
+    Project name @Html.Raw(p.name);
+    </h2>
+    <body>
+    Description:
+    @Html.Raw(p.desc);
+    </body>
+}

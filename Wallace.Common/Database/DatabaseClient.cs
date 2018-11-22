@@ -14,9 +14,10 @@ namespace Wallace.Common.Database
         private SqlConnection conn;
         public DatabaseClient()
         {
-            conn = new SqlConnection("Data Source=DESKTOP-IO1PN0S;Initial Catalog=Wallace;Integrated Security=True");
+            conn = new SqlConnection("Data Source=.;Initial Catalog=Wallace;Integrated Security=True");
         }
-
+        //"Data Source=SEAN-LAPTOP;Initial Catalog=Wallace;Integrated Security=True"
+        //"Data Source=DESKTOP-IO1PN0S;Initial Catalog=Wallace;Integrated Security=True"
         public List<DBProject> getProjects(){
             List<DBProject> projects = new List<DBProject>();
             query = @"  SELECT
