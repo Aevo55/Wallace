@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[TeamMembers]
+(
+	[eId] INT NOT NULL FOREIGN KEY REFERENCES Employees(eId),
+	[tId] INT NOT NULL FOREIGN KEY REFERENCES Teams(tId),
+	PRIMARY KEY (eId, tId)
+)

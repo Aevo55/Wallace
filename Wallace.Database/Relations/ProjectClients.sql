@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[ProjectClients]
+(
+	[pId] INT NOT NULL FOREIGN KEY REFERENCES Projects(pId),
+	[cId] INT NOT NULL FOREIGN KEY REFERENCES Clients(cId),
+	PRIMARY KEY (pId, cId)
+)

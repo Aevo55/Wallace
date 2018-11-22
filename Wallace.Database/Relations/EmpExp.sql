@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[EmpExp]
+(
+	[eId] INT NOT NULL FOREIGN KEY REFERENCES Employees(eId),
+	[xId] INT NOT NULL FOREIGN KEY REFERENCES Experience(xId),
+	PRIMARY KEY (eId, xId)
+)

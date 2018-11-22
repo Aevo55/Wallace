@@ -60,11 +60,17 @@
     <Folder Include="Relations" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Projects.sql" />
-    <Build Include="Versions.sql" />
-    <Build Include="Specifications.sql" />
     <Build Include="Relations\VersionSpecs.sql" />
     <Build Include="Teams.sql" />
     <Build Include="Employees.sql" />
+    <Build Include="Projects.sql" />
+    <Build Include="Specifications.sql" />
+    <Build Include="Versions.sql" />
+    <Build Include="Relations\TeamMembers.sql" />
+    <Build Include="Relations\VersionTeams.sql" />
+    <Build Include="Clients.sql" />
+    <Build Include="Relations\ProjectClients.sql" />
+    <Build Include="Experience.sql" />
+    <Build Include="Relations\EmpExp.sql" />
   </ItemGroup>
 </Project>
