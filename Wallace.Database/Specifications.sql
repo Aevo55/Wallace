@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Specifications]
+(
+	[sId] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[sName] VARCHAR(20) NOT NULL,
+	[sDesc] VARCHAR(200) NULL,
+	[pId] INT NOT NULL FOREIGN KEY REFERENCES Projects(pId)
+)

@@ -6,5 +6,6 @@ namespace Wallace.Common.Database
 {
     class DatabaseInterface
     {
+        
     }
 }
