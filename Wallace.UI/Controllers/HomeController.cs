@@ -17,6 +17,14 @@ namespace Wallace.UI.Controllers
             TeamsPageModel model = new TeamsPageModel();
             string info = "Teams are groups of people who work together.";
             ViewData["Information"] = info;
+            List<Employee> group1 = new List<Employee>();
+            group1.Add(new Employee("Ken", 8072922, 50000, 1));
+            group1.Add(new Employee("Dan", 8081010, 44500, 2));
+            List<Employee> group2 = new List<Employee>();
+            group2.Add(new Employee("Dave", 6062282, 77800, 3));
+            group2.Add(new Employee("Steve", 5052773, 33500, 4));
+            model.teams.Add(new Team(group1, "Dev Team", 1));
+            model.teams.Add(new Team(group2, "SQA Team", 2));
             return View(model);
         }
 
