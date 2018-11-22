@@ -64,5 +64,7 @@
     <Build Include="Versions.sql" />
     <Build Include="Specifications.sql" />
     <Build Include="Relations\VersionSpecs.sql" />
+    <Build Include="Teams.sql" />
+    <Build Include="Employees.sql" />
   </ItemGroup>
 </Project>
