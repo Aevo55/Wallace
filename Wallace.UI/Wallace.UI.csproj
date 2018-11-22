@@ -10,6 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wallace.Common\Wallace.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Home\TeamsPage.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\EmployeesPage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
