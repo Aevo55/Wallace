@@ -1,9 +1,23 @@
 ﻿@model EmployeesPageModel
 <h2>Employees Page</h2>
 <h3>@ViewData["Information"]</h3>
-@{
-    for(int i = 0; i < Model.Employees.Count; i++)
-    {
-        @Html.Raw("<li>" + Model.Employees[i] + "</li>");
+
+
+<table style="width=100%">
+    <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Salary</th>
+    </tr>
+
+    @{
+        for (int i = 0; i < Model.Employees.Count; i++)
+        {
+            @Html.Raw("<tr>");
+            @Html.Raw("<td>" + Model.Employees[i].name + "</td>");
+            @Html.Raw("<td>" + Model.Employees[i].phone.ToString() + "</td>");
+            @Html.Raw("<td>" + Model.Employees[i].salary.ToString() + "</td>");
+            @Html.Raw("</tr>");
+        }
     }
- }
+</table>

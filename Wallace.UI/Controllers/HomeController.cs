@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Wallace.UI.Models;
+using Wallace.Common.Models;
 
 namespace Wallace.UI.Controllers
 {
@@ -24,10 +25,10 @@ namespace Wallace.UI.Controllers
             string info = "Employees are people who work for your company.";
             ViewData["Information"] = info;
             EmployeesPageModel model = new EmployeesPageModel();
-            model.Employees.Add("Ken");
-            model.Employees.Add("Dave");
-            model.Employees.Add("Dan");
-            model.Employees.Add("Alex");
+            model.Employees.Add(new Employee("Ken", 8072922,50000,1));
+            model.Employees.Add(new Employee("Dan", 8081010, 44500, 2));
+            model.Employees.Add(new Employee("Dave", 6062282, 77800, 3));
+            model.Employees.Add(new Employee("Steve", 5052773, 33500,4));
 
             return View(model);
         }
