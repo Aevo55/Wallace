@@ -12,7 +12,7 @@ namespace Wallace.Common.Database.DBModels
         public string name;
         public int budget;
         public string desc;
-        public int manager;
+        public int? manager;
         public DBProject(int _pid, string _name, int _budget, string _desc, int _manager)
         {
             pid = _pid;
@@ -21,5 +21,6 @@ namespace Wallace.Common.Database.DBModels
             desc = _desc;
             manager = _manager;
         }
+        public DBProject() { }
     }
 }
