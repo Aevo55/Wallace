@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Wallace.Common.Database.DBModels;
 
 namespace Wallace.Common.Models
 {
@@ -12,8 +13,18 @@ namespace Wallace.Common.Models
         public string name;
         public int budget;
         public int id;
+        public string desc;
         public Employee manager;
 
+        public Project(DBProject project)
+        {
+            name = project.name;
+            id = project.pid;
+            budget = project.budget;
+            desc = project.desc;
+            versions = new List<PVersion>();
+            specs = new List<Spec>();
+        }
         public Project(List<PVersion> _versions, List<Spec> _specs, string _name, int _budget, int _id, Employee _manager)
         {
             versions = new List<PVersion>();
