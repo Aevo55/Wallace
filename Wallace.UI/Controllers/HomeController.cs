@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Wallace.UI.Models;
+
 namespace Wallace.UI.Controllers
 {
     public class HomeController : Controller
