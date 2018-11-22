@@ -5,11 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Wallace.UI.Models;
-
 namespace Wallace.UI.Controllers
 {
     public class HomeController : Controller
     {
+
+        public IActionResult TeamsPage()
+        {
+            TeamsPageModel model = new TeamsPageModel();
+            string info = "Teams are groups of people who work together.";
+            ViewData["Information"] = info;
+            return View(model);
+        }
 
         public IActionResult EmployeesPage()
         {
@@ -26,6 +33,7 @@ namespace Wallace.UI.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 
