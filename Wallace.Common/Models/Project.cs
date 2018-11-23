@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Wallace.Common.Database.DBModels;
+using Wallace.Common.Database;
 
 namespace Wallace.Common.Models
 {
@@ -19,7 +19,7 @@ namespace Wallace.Common.Models
         public Project(DBProject project)
         {
             name = project.name;
-            id = project.pid;
+            id = project.id;
             budget = project.budget;
             desc = project.desc;
             versions = new List<PVersion>();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Wallace.Common.Models;
 using System.Data.SqlClient;
-using Wallace.Common.Database.DBModels;
+using Wallace.Common.Database;
 namespace Wallace.Common.Database
 {
     public class DatabaseInterface
@@ -19,9 +19,16 @@ namespace Wallace.Common.Database
             List<Project> projects = new List<Project>();
             foreach(DBProject p in dbprojects)
             {
-                projects.Add(new Project(p));
+                Project _p = new Project(p);
+                foreach(DBVersion version in client.getVersions(p))
+                {
+                    _p.versions.Add(new PVersion(version));
+                }
+                projects.Add(_p);
             }
             return projects;
         }
+
+        
     }
 }
