@@ -7,11 +7,35 @@ using Microsoft.AspNetCore.Mvc;
 using Wallace.UI.Models;
 using Wallace.Common.Models;
 using Wallace.Common.Database;
-
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 namespace Wallace.UI.Controllers
 {
     public class HomeController : Controller
     {
+
+        public IActionResult EditProject(int projectId)
+        {
+            HttpContext.Session.SetString("projectId", projectId.ToString());
+            return RedirectToAction("ProjectEditPage");
+        }
+
+        public IActionResult ProjectEditPage()
+        {
+
+            DatabaseInterface database = new DatabaseInterface();
+            List<Project> projects = database.getProjects();
+            Project current = new Project();
+            int currentid = int.Parse(HttpContext.Session.GetString("projectId"));
+            foreach(Project p in projects)
+            {
+                if (p.id == currentid) current = p;
+            }
+            ProjectEditPageModel model = new ProjectEditPageModel(current);
+
+            return View(model);
+
+        }
 
         public IActionResult TeamsPage()
         {

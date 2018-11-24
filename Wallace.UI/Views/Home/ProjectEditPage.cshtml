@@ -1,0 +1,37 @@
+﻿@model ProjectEditPageModel
+@using Wallace.Common.Models
+<h2>Project View Page</h2>
+<h3>@ViewData["Information"]</h3>
+
+
+<body >
+    <h1>
+        @Model.project.name
+    </h1>
+    @Model.project.desc
+    
+    <h2>Project Specifications</h2>
+
+    @{ 
+        foreach(Spec s in Model.project.specs)
+        {
+            <h3>
+                @s.name
+            </h3>
+            @s.description
+        }
+    }
+
+    <h2>Project Versions</h2>
+
+    @{ 
+        foreach(PVersion v in Model.project.versions)
+        {
+            <h3>
+                @v.versionNumber
+            </h3>
+            
+            @v.releaseDate.ToLongDateString()
+        }
+    }
+ </body>
