@@ -25,9 +25,13 @@ namespace Wallace.Common.Database
                     PVersion _v = new PVersion(v);
                     foreach(DBSpecification s in client.getSpecs(v))
                     {
-
+                        _v.specs.Add(new Spec(s));
                     }
                     _p.versions.Add(_v);
+                }
+                foreach(DBSpecification s in client.getSpecs(p))
+                {
+                    _p.specs.Add(new Spec(s));
                 }
                 projects.Add(_p);
             }

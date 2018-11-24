@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Wallace.Common.Database;
 namespace Wallace.Common.Models
 {
     public class Spec
@@ -17,6 +17,11 @@ namespace Wallace.Common.Models
             name = _name;
             description = _description;
         }
-
+        public Spec(DBSpecification s)
+        {
+            id = s.id;
+            name = s.name;
+            description = s.desc;
+        }
     }
 }
