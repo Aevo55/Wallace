@@ -20,6 +20,7 @@ namespace Wallace.UI.Controllers
             List<Employee> group1 = new List<Employee>();
             group1.Add(new Employee("Ken", 8072922, 50000, 1));
             group1.Add(new Employee("Dan", 8081010, 44500, 2));
+
             List<Employee> group2 = new List<Employee>();
             group2.Add(new Employee("Dave", 6062282, 77800, 3));
             group2.Add(new Employee("Steve", 5052773, 33500, 4));
