@@ -20,9 +20,14 @@ namespace Wallace.Common.Database
             foreach(DBProject p in dbprojects)
             {
                 Project _p = new Project(p);
-                foreach(DBVersion version in client.getVersions(p))
+                foreach(DBVersion v in client.getVersions(p))
                 {
-                    _p.versions.Add(new PVersion(version));
+                    PVersion _v = new PVersion(v);
+                    foreach(DBSpecification s in client.getSpecs(v))
+                    {
+
+                    }
+                    _p.versions.Add(_v);
                 }
                 projects.Add(_p);
             }

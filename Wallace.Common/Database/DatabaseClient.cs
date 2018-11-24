@@ -12,13 +12,35 @@ namespace Wallace.Common.Database
                                                         *
                                                     FrOm
                                                         Projects";
+
         private const string getVersionsString = @" SeLeCt
                                                         *
                                                     FrOm
                                                         Versions
                                                     WhErE
                                                         pid = @pid";
-        
+
+        private const string getVerSpecsString = @" SELECT
+                                                        *
+                                                    FROM
+                                                        Specifications
+                                                    WHERE
+                                                        sId IN (
+                                                            SELECT
+                                                                sId
+                                                            FROM
+                                                                VersionSpecs
+                                                            WHERE
+                                                                vId = @vId)";
+
+        private const string getSpecsString = @"    SELECT
+                                                        *
+                                                    FROM
+                                                        Specifications
+                                                    WHERE
+                                                        sId = @pId";
+
+
         private SqlCommand cmd;
         private SqlConnection conn;
 
@@ -78,8 +100,61 @@ namespace Wallace.Common.Database
             {
                 conn.Close();
             }
-
             return versions;
+        }
+
+        public List<DBSpecification> getSpecs(DBVersion v)
+        {
+            int id = v.id;
+            List<DBSpecification> specs = new List<DBSpecification>();
+            cmd = new SqlCommand(getVerSpecsString, conn);
+            try
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("vId", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DBSpecification currSpec = new DBSpecification();
+                    currSpec.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    currSpec.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    currSpec.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                    currSpec.pid = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
+                    specs.Add(currSpec);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return specs;
+        }
+
+        public List<DBSpecification> getSpecs(DBProject p)
+        {
+            int id = p.id;
+            List<DBSpecification> specs = new List<DBSpecification>();
+            cmd = new SqlCommand(getSpecsString, conn);
+            try
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("pId", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DBSpecification currSpec = new DBSpecification();
+                    currSpec.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    currSpec.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    currSpec.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                    currSpec.pid = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
+                    specs.Add(currSpec);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return specs;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Wallace.Common.Database
     public class DBSpecification
     {
         public int id;
-        public int name;
+        public string name;
         public string desc;
         public int pid;
     }
