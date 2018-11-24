@@ -17,6 +17,9 @@ namespace Wallace.Common.Models
             releaseDate = v.release;
             versionNumber = v.vnum;
             id = v.id;
+            specs = new List<Spec>();
+            releaseDate = new DateTime();
+            teams = new List<Team>();
         }
 
         public PVersion(List<Spec> _specs, DateTime _releaseDate, int _versionNumber, List<Team> _teams)
