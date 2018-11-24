@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Wallace.UI.Models;
 using Wallace.Common.Models;
+using Wallace.Common.Database;
 
 namespace Wallace.UI.Controllers
 {
@@ -44,8 +45,11 @@ namespace Wallace.UI.Controllers
 
         public IActionResult Index()
         {
+            IndexPageModel model = new IndexPageModel();
+            DatabaseInterface database = new DatabaseInterface();
 
-            return View();
+            model.Projects = database.getProjects();
+            return View(model);
         }
 
         public IActionResult About()
