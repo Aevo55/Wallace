@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Teams]
 (
 	[tId] INT NOT NULL PRIMARY KEY,
-	[tName] VARCHAR(20) NOT NULL,
-	[tDesc] VARCHAR(100) NULL,
+	[tName] VARCHAR(MAX) NOT NULL,
+	[tDesc] VARCHAR(MAX) NULL,
 	[tLeader] INT NOT NULL FOREIGN KEY REFERENCES Employees(eId)
 )

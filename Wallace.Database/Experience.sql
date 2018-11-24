@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Experience]
 (
 	[xId] INT NOT NULL PRIMARY KEY,
-	[xName] VARCHAR(20) NOT NULL,
-	[xDesc] VARCHAR(100) NULL,
+	[xName] VARCHAR(MAX) NOT NULL,
+	[xDesc] VARCHAR(MAX) NULL,
 	[xLength] INT NULL,
 )
