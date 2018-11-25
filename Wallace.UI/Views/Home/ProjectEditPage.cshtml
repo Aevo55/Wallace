@@ -4,16 +4,16 @@
 <h3>@ViewData["Information"]</h3>
 
 
-<body >
+<body>
     <h1>
         @Model.project.name
     </h1>
     @Model.project.desc
-    
+
     <h2>Project Specifications</h2>
 
-    @{ 
-        foreach(Spec s in Model.project.specs)
+    @{
+        foreach (Spec s in Model.project.specs)
         {
             <h3>
                 @s.name
@@ -24,14 +24,20 @@
 
     <h2>Project Versions</h2>
 
-    @{ 
-        foreach(PVersion v in Model.project.versions)
+    @{
+        foreach (PVersion v in Model.project.versions)
         {
             <h3>
                 @v.versionNumber
             </h3>
-            
+
             @v.releaseDate.ToLongDateString()
+            @using (Html.BeginForm("VersionEditPage", "Home", FormMethod.Post))
+            {
+                <input type="hidden" name="projectId" value="@Model.project.id" />
+                <input type="hidden" name="versionId" value="@v.id" />
+                <input type="submit" value="Edit" />
+            }
         }
     }
- </body>
+</body>

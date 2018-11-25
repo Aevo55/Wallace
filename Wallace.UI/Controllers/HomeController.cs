@@ -14,20 +14,14 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
-        public IActionResult EditProject(int projectId)
-        {
-            HttpContext.Session.SetString("projectId", projectId.ToString());
-            return RedirectToAction("ProjectEditPage");
-        }
-
-        public IActionResult ProjectEditPage()
+        public IActionResult ProjectEditPage(int projectId)
         {
 
             DatabaseInterface database = new DatabaseInterface();
             List<Project> projects = database.getProjects();
             Project current = new Project();
-            int currentid = int.Parse(HttpContext.Session.GetString("projectId"));
-            foreach(Project p in projects)
+            int currentid = projectId;
+            foreach (Project p in projects)
             {
                 if (p.id == currentid) current = p;
             }
@@ -35,6 +29,27 @@ namespace Wallace.UI.Controllers
 
             return View(model);
 
+        }
+
+        public IActionResult VersionEditPage(int projectId, int versionId)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            List<Project> projects = database.getProjects();
+            Project current = new Project();
+            int currentid = projectId;
+            foreach (Project p in projects)
+            {
+                if (p.id == currentid) current = p;
+            }
+            PVersion currentversion = new PVersion(); 
+            foreach(PVersion v in current.versions)
+            {
+                if (v.id == versionId) currentversion = v;
+            }
+            VersionEditPageModel model = new VersionEditPageModel();
+            model.version = currentversion;
+
+            return View(model);
         }
 
         public IActionResult TeamsPage()

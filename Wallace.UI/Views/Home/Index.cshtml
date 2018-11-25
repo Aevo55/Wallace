@@ -23,7 +23,7 @@
     Description:
     @Html.Raw(p.desc);
 
-    @using(Html.BeginForm("EditProject","Home", FormMethod.Post))
+    @using(Html.BeginForm("ProjectEditPage","Home", FormMethod.Post))
     {
         <input type="hidden" name="projectId"value="@p.id"/>
         <input type="submit" value="Edit"/>

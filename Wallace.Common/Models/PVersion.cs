@@ -12,6 +12,12 @@ namespace Wallace.Common.Models
         public int versionNumber;
         public List<Team> teams;
 
+        public PVersion()
+        {
+            specs = new List<Spec>();
+            teams = new List<Team>();
+        }
+
         public PVersion(DBVersion v)
         {
             releaseDate = v.release;
