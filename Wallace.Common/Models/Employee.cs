@@ -9,14 +9,14 @@ namespace Wallace.Common.Models
     {
         public String name;
         public int salary;
-        public int phone;
+        public string title;
         public int id;
         public List<Team> teams;
 
-        public Employee(string _name, int _phone, int _salary, int _id)
+        public Employee(string _name, string _title, int _salary, int _id)
         {
             name = _name;
-            phone = _phone;
+            title = _title;
             salary = _salary;
             id = _id;
             teams = new List<Team>();
@@ -26,6 +26,7 @@ namespace Wallace.Common.Models
         {
             name = e.name;
             salary = e.salary;
+            title = e.title;
             id = e.id;
             teams = new List<Team>();
         }

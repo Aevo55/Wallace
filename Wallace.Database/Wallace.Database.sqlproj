@@ -73,4 +73,7 @@
     <Build Include="Experience.sql" />
     <Build Include="Relations\EmpExp.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Wallace.Database.refactorlog" />
+  </ItemGroup>
 </Project>
