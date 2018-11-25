@@ -8,6 +8,14 @@ namespace Wallace.Common.Database
 {
     class DatabaseWriter
     {
+        private const string 
 
+        private SqlCommand cmd;
+        private SqlConnection conn;
+
+        public DatabaseWriter()
+        {
+            conn = new SqlConnection("Data Source=.;Initial Catalog=Wallace;Integrated Security=True");
+        }
     }
 }
