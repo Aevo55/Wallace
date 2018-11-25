@@ -16,6 +16,12 @@ namespace Wallace.Common.Models
         public string desc;
         public Employee manager;
 
+        public Project()
+        {
+            versions = new List<PVersion>();
+            specs = new List<Spec>();
+        }
+
         public Project(DBProject project)
         {
             name = project.name;

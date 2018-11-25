@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.AspNetCore.Session;
 namespace Wallace.UI
 {
     public class Startup
@@ -31,8 +31,11 @@ namespace Wallace.UI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            //services.AddCaching();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +53,8 @@ namespace Wallace.UI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            //app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
