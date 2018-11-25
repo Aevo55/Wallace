@@ -41,3 +41,31 @@ INSERT INTO VersionSpecs VALUES(4, 5);
 INSERT INTO VersionSpecs VALUES(4, 6);
 --------------------------------------
 
+Insert into Employees values (0, 50000,'Dave');
+Insert into Employees values (1, 55000,'Dan');
+Insert into Employees values (2, 60000,'Derek');
+Insert into Employees values (3, 35000,'Ken');
+Insert into Employees values (4, 44000,'Melon');
+Insert into Employees values (5, 54700,'Jeremy');
+Insert into Employees values (6, 100000,'Jim');
+Insert into Employees values (7, 20000,'Ronald');
+Insert into Employees values (8, 12500,'Arnold');
+Insert into Employees values (9, 33400,'Benold');
+
+Insert into Teams values (0,'Dev Team','Team that writes code', 0);
+Insert into Teams values (1,'SQA Team','Team that reads code', 1);
+Insert into Teams values (2,'Sales','Team that makes money', 2);
+
+Insert into TeamMembers values (0,0);
+Insert into TeamMembers values (1,1);
+Insert into TeamMembers values (2,2);
+
+Insert into TeamMembers values (3,0);
+Insert into TeamMembers values (4,0);
+
+Insert into TeamMembers values (5,1);
+Insert into TeamMembers values (6,1);
+
+Insert into TeamMembers values (7,2);
+Insert into TeamMembers values (8,2);
+Insert into TeamMembers values (9,2);
