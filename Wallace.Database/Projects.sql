@@ -4,5 +4,5 @@
 	[pName] varchar(MAX) NOT NULL,
 	[pBudget] INT NOT NULL,
 	[pDesc] varchar(MAX) NOT NULL,
-	[Manager] INT NULL FOREIGN KEY REFERENCES Employees(eId)
+	[Manager] INT NULL FOREIGN KEY REFERENCES Employees(eId) ON DELETE SET NULL
 )
