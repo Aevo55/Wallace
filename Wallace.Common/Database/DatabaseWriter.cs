@@ -8,7 +8,6 @@ namespace Wallace.Common.Database
 {
     class DatabaseWriter
     {
-        private const string 
 
         private SqlCommand cmd;
         private SqlConnection conn;
