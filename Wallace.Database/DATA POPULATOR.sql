@@ -41,16 +41,16 @@ INSERT INTO VersionSpecs VALUES(4, 5);
 INSERT INTO VersionSpecs VALUES(4, 6);
 --------------------------------------
 
-Insert into Employees values (0, 50000,'Dave');
-Insert into Employees values (1, 55000,'Dan');
-Insert into Employees values (2, 60000,'Derek');
-Insert into Employees values (3, 35000,'Ken');
-Insert into Employees values (4, 44000,'Melon');
-Insert into Employees values (5, 54700,'Jeremy');
-Insert into Employees values (6, 100000,'Jim');
-Insert into Employees values (7, 20000,'Ronald');
-Insert into Employees values (8, 12500,'Arnold');
-Insert into Employees values (9, 33400,'Benold');
+Insert into Employees values (0, 'Lead Developer',50000,'Dave');
+Insert into Employees values (1, 'Head Tester',55000,'Dan');
+Insert into Employees values (2,'Sales Manager',60000,'Derek');
+Insert into Employees values (3, 'Code Monkey',35000,'Ken');
+Insert into Employees values (4,'Mascot',44000,'Melon');
+Insert into Employees values (5,'Tester',54700,'Jeremy');
+Insert into Employees values (6,'Code testing man',100000,'Jim');
+Insert into Employees values (7,'Salesperson', 20000,'Ronald');
+Insert into Employees values (8,'Selling Man',12500,'Arnold');
+Insert into Employees values (9,'Sells Persons',33400,'Benold');
 
 Insert into Teams values (0,'Dev Team','Team that writes code', 0);
 Insert into Teams values (1,'SQA Team','Team that reads code', 1);

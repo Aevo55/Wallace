@@ -337,7 +337,7 @@ namespace Wallace.Common.Database
 
         public List<DBTeam> getTeams(DBVersion v)
         {
-
+            return null;
         }
     }
 }

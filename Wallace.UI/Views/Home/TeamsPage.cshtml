@@ -14,7 +14,7 @@
 
                     <tr>
                         <th>Name</th>
-                        <th>Phone Number</th>
+                        <th>Title</th>
                         <th>Salary</th>
                     </tr>
 
@@ -23,7 +23,7 @@
 
                         @Html.Raw("<tr>");
                         @Html.Raw("<td>" + Model.teams[i].members[j].name + "</td>");
-                        @Html.Raw("<td>" + Model.teams[i].members[j].phone.ToString() + "</td>");
+                        @Html.Raw("<td>" + Model.teams[i].members[j].title + "</td>");
                         @Html.Raw("<td>" + Model.teams[i].members[j].salary.ToString() + "</td>");
                         @Html.Raw("</tr>");
                     }
