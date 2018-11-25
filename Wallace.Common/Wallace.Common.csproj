@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\DatabaseClient.cs" />
+    <Compile Include="Database\DatabaseReader.cs" />
     <Compile Include="Database\DatabaseInterface.cs" />
     <Compile Include="Database\DBModels.cs" />
     <Compile Include="Models\Employee.cs" />

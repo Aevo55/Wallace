@@ -41,7 +41,3 @@ INSERT INTO VersionSpecs VALUES(4, 5);
 INSERT INTO VersionSpecs VALUES(4, 6);
 --------------------------------------
 
-DELETE FROM Projects;
-DELETE FROM Specifications;
-DELETE FROM Versions;
-DELETE FROM VersionSpecs;

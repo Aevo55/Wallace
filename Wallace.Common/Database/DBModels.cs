@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wallace.Common.Models;
 
 namespace Wallace.Common.Database
 {
@@ -27,6 +28,7 @@ namespace Wallace.Common.Database
     {
         public int id;
         public int salary;
+        public int phone;
         public string name;
     }
 
@@ -52,6 +54,13 @@ namespace Wallace.Common.Database
         public string name;
         public string desc;
         public DBEmployee leader;
+        public DBTeam() { }
+        public DBTeam(Team t)
+        {
+            id = t.id;
+            name = t.name;
+            desc = t.desc;
+        }
     }
 
     public class DBVersion

@@ -8,16 +8,15 @@ namespace Wallace.Common.Database
 {
     public class DatabaseInterface
     {
-        DatabaseClient client;
+        DatabaseReader client;
         public DatabaseInterface() {
-            client = new DatabaseClient();
+            client = new DatabaseReader();
         }
 
         public List<Project> getProjects()
         {
-            List<DBProject> dbprojects = client.getProjects();
             List<Project> projects = new List<Project>();
-            foreach(DBProject p in dbprojects)
+            foreach(DBProject p in client.getProjects())
             {
                 Project _p = new Project(p);
                 foreach(DBVersion v in client.getVersions(p))
@@ -38,6 +37,34 @@ namespace Wallace.Common.Database
             return projects;
         }
 
-        
+        public List<Team> getTeams()
+        {
+            List<Team> teams = new List<Team>();
+            foreach(DBTeam t in client.getTeams())
+            {
+                Team _t = new Team(t);
+                foreach(DBEmployee e in client.getEmployees(t))
+                {
+                    _t.members.Add(new Employee(e));
+                }
+                teams.Add(_t);
+            }
+            return teams;
+        }
+
+        public List<Employee> getEmployees()
+        {
+            List<Employee> employees = new List<Employee>();
+            foreach(DBEmployee e in client.getEmployees())
+            {
+                Employee _e = new Employee(e);
+                foreach(DBTeam t in client.getTeams(e))
+                {
+                    _e.teams.Add(new Team(t));
+                }
+                employees.Add(_e);
+            }
+            return employees;
+        }
     }
 }
