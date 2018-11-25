@@ -55,17 +55,14 @@ namespace Wallace.UI.Controllers
         public IActionResult TeamsPage()
         {
             TeamsPageModel model = new TeamsPageModel();
+
+            DatabaseInterface database = new DatabaseInterface();
             string info = "Teams are groups of people who work together.";
             ViewData["Information"] = info;
-            List<Employee> group1 = new List<Employee>();
-            group1.Add(new Employee("Ken", 8072922, 50000, 1));
-            group1.Add(new Employee("Dan", 8081010, 44500, 2));
-              
-            List<Employee> group2 = new List<Employee>();
-            group2.Add(new Employee("Dave", 6062282, 77800, 3));
-            group2.Add(new Employee("Steve", 5052773, 33500, 4));
-            model.teams.Add(new Team(group1, "Dev Team", 1));
-            model.teams.Add(new Team(group2, "SQA Team", 2));
+
+            List<Team> teams = new List<Team>();
+            teams = database.getTeams();
+            model.teams = teams;
             return View(model);
         }
 
@@ -74,11 +71,10 @@ namespace Wallace.UI.Controllers
             string info = "Employees are people who work for your company.";
             ViewData["Information"] = info;
             EmployeesPageModel model = new EmployeesPageModel();
-            model.Employees.Add(new Employee("Ken", 8072922,50000,1));
-            model.Employees.Add(new Employee("Dan", 8081010, 44500, 2));
-            model.Employees.Add(new Employee("Dave", 6062282, 77800, 3));
-            model.Employees.Add(new Employee("Steve", 5052773, 33500,4));
-
+            DatabaseInterface database = new DatabaseInterface();
+            List<Employee> employees = new List<Employee>();
+            employees = database.getEmployees();
+            model.Employees = employees;
             return View(model);
         }
         
