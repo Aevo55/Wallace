@@ -69,3 +69,16 @@ Insert into TeamMembers values (6,1);
 Insert into TeamMembers values (7,2);
 Insert into TeamMembers values (8,2);
 Insert into TeamMembers values (9,2);
+
+
+delete  from Employees;
+delete from TeamMembers;
+delete from Teams;
+delete from ProjectClients;
+delete from Versions;
+delete from VersionTeams;
+delete from VersionSpecs;
+delete from Experience;
+delete from Clients;
+delete from Projects;
+delete from Specifications;
