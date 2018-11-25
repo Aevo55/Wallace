@@ -28,7 +28,7 @@ namespace Wallace.Common.Database
     {
         public int id;
         public int salary;
-        public int phone;
+        public string title;
         public string name;
     }
 

@@ -274,7 +274,7 @@ namespace Wallace.Common.Database
                 {
                     DBEmployee currEmp = new DBEmployee();
                     currEmp.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
-                    currEmp.phone = !reader.IsDBNull(1) ? reader.GetInt32(1) : -1;
+                    currEmp.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
                     currEmp.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
                     currEmp.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
 
@@ -300,7 +300,7 @@ namespace Wallace.Common.Database
                 {
                     DBEmployee currEmp = new DBEmployee();
                     currEmp.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
-                    currEmp.phone = !reader.IsDBNull(1) ? reader.GetInt32(1) : -1;
+                    currEmp.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
                     currEmp.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
                     currEmp.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
 
@@ -324,7 +324,7 @@ namespace Wallace.Common.Database
                 SqlDataReader reader = cmd.ExecuteReader();
                 reader.Read();
                 leader.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
-                leader.phone = !reader.IsDBNull(1) ? reader.GetInt32(1) : -1;
+                leader.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
                 leader.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
                 leader.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
             }
