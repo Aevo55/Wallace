@@ -83,6 +83,19 @@ namespace Wallace.Common.Database
                                                 WHERE
                                                     eId = @eId";
 
+        private const string getVersionTeamsStr = @"SELECT
+                                                        *
+                                                    FROM
+                                                        Teams
+                                                    WHERE
+                                                        tId IN (
+                                                            SELECT
+                                                                tId
+                                                            FROM    
+                                                                VersionTeams
+                                                            WHERE
+                                                                vId = @vId)";
+
         private SqlCommand cmd;
         private SqlConnection conn;
 
@@ -320,6 +333,11 @@ namespace Wallace.Common.Database
                 conn.Close();
             }
             return leader;
+        }
+
+        public List<DBTeam> getTeams(DBVersion v)
+        {
+
         }
     }
 }
