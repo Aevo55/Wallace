@@ -241,6 +241,7 @@ namespace Wallace.Common.Database
         {
             List<DBTeam> teams = new List<DBTeam>();
             cmd = new SqlCommand(getTeamsByEmpStr, conn);
+            cmd.Parameters.AddWithValue("eId", e.id);
             try
             {
                 conn.Open();
@@ -292,6 +293,7 @@ namespace Wallace.Common.Database
         {
             List<DBEmployee> employees = new List<DBEmployee>();
             cmd = new SqlCommand(getEmpsByTeamStr, conn);
+            cmd.Parameters.AddWithValue("tId", t.id);
             try
             {
                 conn.Open();
@@ -318,6 +320,7 @@ namespace Wallace.Common.Database
         {
             cmd = new SqlCommand(getTeamLeaderStr, conn);
             DBEmployee leader = new DBEmployee();
+            cmd.Parameters.AddWithValue("tId", t.id);
             try
             {
                 conn.Open();
@@ -337,7 +340,28 @@ namespace Wallace.Common.Database
 
         public List<DBTeam> getTeams(DBVersion v)
         {
-            return null;
+            List<DBTeam> teams = new List<DBTeam>();
+            cmd = new SqlCommand(getTeamsByEmpStr, conn);
+            cmd.Parameters.AddWithValue("vId", v.id);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DBTeam currTeam = new DBTeam();
+                    currTeam.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    currTeam.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    currTeam.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+
+                    teams.Add(currTeam);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return teams;
         }
     }
 }
