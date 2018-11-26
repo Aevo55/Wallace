@@ -1,42 +1,80 @@
 ﻿@model ProjectEditPageModel
 @using Wallace.Common.Models
-<h2>Project View Page</h2>
-<h3>@ViewData["Information"]</h3>
+<h1>.</h1>
+<h3>.</h3>
+<style>
+    .page-container{
+        width:1200px;
+        height:auto;
+        border: 2px solid black;
+    }
+    .project-name {
+        width: 1200px;
+        height: auto;
+        border: 2px solid black;
+        margin: -357px 0px 0px -1px;
+    }
+    .spec-container {
+        width: 700px;
+        height: auto;
+        border: 2px solid black;
+        margin: 0px 8px -1px 0px;
+    }
+    .version-container {
+        border: 2px solid black;
+        background-color: green;
+        margin: 0px -4px 0px 698px;
+        width: 500px;
+        height: auto;
+    }
 
-
+</style>
 <body>
-    <h1>
-        @Model.project.name : @Model.project.desc
-    </h1>
-    
+    <div class="page-container">
+        
+        <div class="version-container">
+          <h2>Versions</h2>
+            @{ foreach (PVersion v in Model.project.versions)
+                {
+                    <h3>
+                        @v.versionNumber
+                    </h3>
 
-    <h2>Project Specifications</h2>
-
-    @{
-        foreach (Spec s in Model.project.specs)
-        {
-            <h3>
-                @s.name
-            </h3>
-            @s.description
-        }
-    }
-
-    <h2>Project Versions</h2>
-
-   @{ foreach (PVersion v in Model.project.versions)
-        {
-            <h3>
-                @v.versionNumber
-            </h3>
-
-            @v.releaseDate.ToLongDateString()
-            @using (Html.BeginForm("VersionEditPage", "Home", FormMethod.Post))
-            {
-                <input type="hidden" name="projectId" value="@Model.project.id" />
-                <input type="hidden" name="versionId" value="@v.id" />
-                <input type="submit" value="Edit" />
+                    @v.releaseDate.ToLongDateString()
+                    @using (Html.BeginForm("VersionEditPage", "Home", FormMethod.Post))
+                    {
+                        <input type="hidden" name="projectId" value="@Model.project.id" />
+                        <input type="hidden" name="versionId" value="@v.id" />
+                        <input type="submit" value="Edit" />
+                    }
+                }
             }
-        }
-    }
+        </div>
+        <div class="project-name">
+
+            <h1>
+                @Model.project.name : @Model.project.desc
+            </h1>
+        </div>
+
+
+        <div class="spec-container">
+            <h2>Project Specifications</h2>
+
+            @{
+                foreach (Spec s in Model.project.specs)
+                {
+                    
+                    <h3>
+                        @s.name
+                    </h3>
+                    @s.description
+                }
+            }
+        </div>
+      
+
+
+
+    </div>
 </body>
