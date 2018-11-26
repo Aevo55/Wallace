@@ -1,0 +1,48 @@
+﻿@model EmployeeEditPageModel
+<h2>Employees Page</h2>
+<h3>@ViewData["Information"]</h3>
+
+<body>
+    <table style="width=100%">
+
+        @using (Html.BeginForm("SubmitEmployee", "Home", FormMethod.Post))
+        {
+
+        <tr>
+
+            <td>
+                Name:
+            </td>
+
+            <td>
+                <input type="text"value="@Model.employee.name" name="_name"/>
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <td>
+                Salary:
+            </td>
+
+            <td>
+                <input type="text" value="@Model.employee.name" name="_name" />
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                Title:
+            </td>
+
+            <td>
+
+            </td>
+        </tr>
+        }
+    </table>
+</body>

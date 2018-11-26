@@ -13,6 +13,8 @@ namespace Wallace.Common.Models
         public int id;
         public List<Team> teams;
 
+        public Employee() { }
+
         public Employee(string _name, string _title, int _salary, int _id)
         {
             name = _name;

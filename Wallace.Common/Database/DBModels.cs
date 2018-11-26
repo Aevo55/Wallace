@@ -14,6 +14,17 @@ namespace Wallace.Common.Database
         public int budget;
         public string desc;
         public int? manager;
+
+        public DBProject() { }
+
+        public DBProject(Project p)
+        {
+            id = p.id;
+            name = p.name;
+            budget = p.budget;
+            desc = p.desc;
+            manager = p.manager.id;
+        }
     }
 
     public class DBClient
@@ -22,6 +33,11 @@ namespace Wallace.Common.Database
         public string name;
         public string company;
         public string contact;
+
+        public DBClient()
+        {
+
+        }
     }
 
     public class DBEmployee
@@ -30,6 +46,16 @@ namespace Wallace.Common.Database
         public int salary;
         public string title;
         public string name;
+
+        public DBEmployee() { }
+
+        public DBEmployee(Employee e)
+        {
+            id = e.id;
+            salary = e.salary;
+            title = e.title;
+            name = e.name;
+        }
     }
 
     public class DBExperience
@@ -38,6 +64,11 @@ namespace Wallace.Common.Database
         public string name;
         public string desc;
         public int length;
+
+        public DBExperience()
+        {
+
+        }
     }
 
     public class DBSpecification
@@ -46,6 +77,16 @@ namespace Wallace.Common.Database
         public string name;
         public string desc;
         public int pid;
+
+        public DBSpecification() { }
+
+        public DBSpecification(Spec s)
+        {
+            id = s.id;
+            name = s.name;
+            desc = s.description;
+            pid = s.pid;
+        }
     }
 
     public class DBTeam
@@ -55,6 +96,8 @@ namespace Wallace.Common.Database
         public string desc;
         public DBEmployee leader;
         public DBTeam() { }
+
+
         public DBTeam(Team t)
         {
             id = t.id;
@@ -68,5 +111,14 @@ namespace Wallace.Common.Database
         public int id;
         public int vnum;
         public DateTime release;
+
+        public DBVersion() { }
+
+        public DBVersion(PVersion v)
+        {
+            id = v.id;
+            vnum = v.versionNumber;
+            release = v.releaseDate;
+        }
     }
 }

@@ -15,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Home\EmployeesPage.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\VersionEditPage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -24,7 +27,7 @@
     <Content Update="Views\Home\TeamsPage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\EmployeesPage.cshtml">
+    <Content Update="Views\Home\EditEmployeePage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
