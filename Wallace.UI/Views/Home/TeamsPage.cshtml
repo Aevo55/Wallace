@@ -35,6 +35,13 @@
                                 }
                             </td>
 
+                            <td>
+                                @using (Html.BeginForm("EditTeamPage", "Home", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="teamId" value="@Model.teams[i].id" />
+                                    <input type="submit" value="Edit" />
+                                }
+                            </td>
                         </tr>
                     }
 
