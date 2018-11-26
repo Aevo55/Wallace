@@ -76,4 +76,7 @@
   <ItemGroup>
     <RefactorLog Include="Wallace.Database.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Wallace.Database.publish.xml" />
+  </ItemGroup>
 </Project>
