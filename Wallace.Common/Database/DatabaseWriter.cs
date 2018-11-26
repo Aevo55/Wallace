@@ -137,7 +137,7 @@ namespace Wallace.Common.Database
             cmd = new SqlCommand(insertTeamStr, conn);
             cmd.Parameters.AddWithValue("@name", t.name);
             cmd.Parameters.AddWithValue("@desc", t.desc);
-            cmd.Parameters.AddWithValue("@leader", t.leader.id);
+            cmd.Parameters.AddWithValue("@leader", t.leader);
             execute(cmd);
         }
     }
