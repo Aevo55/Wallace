@@ -11,10 +11,12 @@ namespace Wallace.Common.Database
         DatabaseReader reader;
         DatabaseDeleter deleter;
         DatabaseWriter writer;
+        DatabaseUpdater updater;
         public DatabaseInterface() {
             reader = new DatabaseReader();
             deleter = new DatabaseDeleter();
             writer = new DatabaseWriter();
+            updater = new DatabaseUpdater();
         }
 
         public List<Project> getProjects()
