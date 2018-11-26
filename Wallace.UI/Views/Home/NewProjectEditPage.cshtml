@@ -1,0 +1,95 @@
+﻿@model NewProjectEditPageModel
+@using Wallace.Common.Models
+<h1>.</h1>
+<h3>.</h3>
+<style>
+    .page-container{
+        width:1200px;
+        height:auto;
+        border: 2px solid black;
+    }
+    .project-name {
+        width: 1200px;
+        height: auto;
+        border: 2px solid black;
+        margin: -357px 0px 0px -1px;
+    }
+    .spec-container {
+        width: 700px;
+        height: auto;
+        border: 2px solid black;
+        margin: 0px 8px -1px 0px;
+    }
+    .version-container {
+        border: 2px solid black;
+        background-color: green;
+        margin: 0px -4px 0px 698px;
+        width: 500px;
+        height: auto;
+    }
+
+</style>
+<body>
+    <table style="width=100%">
+
+        @using (Html.BeginForm("SubmitNewTeam", "Home", FormMethod.Post))
+        {
+
+            <tr>
+
+                <td>
+                    Name:
+                </td>
+
+                <td>
+                    <input type="text" value="New Project" name="_name" />
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Description:
+                </td>
+
+                <td>
+                    <input type="text" value="A New Project" name="_desc" />
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    Manager:
+                </td>
+
+                <td>
+                    <select name="_manager">
+
+                        @foreach (Employee e in Model.employees)
+                        {
+
+                            {
+                                @Html.Raw("<option value=" + e.id + ">" + e.name + "</option>");
+                            }
+
+                        }
+
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="confirm" />
+                </td>
+            </tr>
+
+
+
+        }
+    </table>
+</body>

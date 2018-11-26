@@ -14,6 +14,26 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
+        public IActionResult SubmitNewProject(string _name, int _budget,string _desc, int _manager)
+        {
+            Project newproject = new Project();
+            newproject.name = _name;
+            newproject.budget = _budget;
+            newproject.desc = _desc;
+            DatabaseInterface database = new DatabaseInterface();
+            List<Employee> employees = database.getEmployees();
+            foreach (Employee e in employees)// add the employees from the array into the team
+            {
+                if (_manager == e.id)
+                {
+                    newproject.manager = e;
+                }
+            }
+
+            database.addProject(newproject);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult SubmitEmployee(string _name, int _salary, string _title, int _employeeId)
         {
 
@@ -87,10 +107,7 @@ namespace Wallace.UI.Controllers
                     }
                 }
 
-                
             }
-            
-            
 
             return RedirectToAction("TeamsPage");
         }
@@ -142,15 +159,26 @@ namespace Wallace.UI.Controllers
             DatabaseInterface database = new DatabaseInterface();
             List<Project> projects = database.getProjects();
             Project current = new Project();
-            int currentid = projectId;
-            foreach (Project p in projects)
+            if (projectId != -1)
             {
-                if (p.id == currentid) current = p;
+                foreach (Project p in projects)
+                {
+                    if (p.id == projectId) current = p;
+                }
             }
+            
             ProjectEditPageModel model = new ProjectEditPageModel(current);
 
             return View(model);
 
+        }
+
+        public IActionResult NewProjectEditPage()
+        {
+            NewProjectEditPageModel model = new NewProjectEditPageModel();
+            DatabaseInterface database = new DatabaseInterface();
+            model.employees = database.getEmployees();
+            return View(model);
         }
 
         public IActionResult VersionEditPage(int projectId, int versionId)

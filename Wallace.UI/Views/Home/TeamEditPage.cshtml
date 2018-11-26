@@ -45,11 +45,14 @@
 
                         @foreach (Employee e in Model.employees)
                         {
-                            if (e.id == Model.team.leader.id)
+                            if (Model.team.leader != null)
                             {
-                                @Html.Raw("<option selected=selected value=" + e.id + ">" + e.name + "</option>");
+                                if (e.id == (Model.team.leader.id))
+                                {
+                                    @Html.Raw("<option selected=selected value=" + e.id + ">" + e.name + "</option>");
+                                }
                             }
-                            else
+                            
                             {
                                 @Html.Raw("<option value=" + e.id + ">" + e.name + "</option>");
                             }
