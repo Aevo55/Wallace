@@ -14,6 +14,26 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
+        public IActionResult SubmitEmployee(string _name, int _salary, string _title, int _employeeId)
+        {
+
+            DatabaseInterface database = new DatabaseInterface();
+
+            if (_employeeId != -1)
+            {
+                Employee newemp = new Employee(_name, _title, _salary, _employeeId);
+                //database modify employee
+            }
+            if(_employeeId == -1)
+            {
+                Employee newemp = new Employee(_name, _title, _salary);
+                database.addEmployee(newemp);
+            }
+
+
+            return RedirectToAction("EmployeesPage");
+        }
+
         public IActionResult TeamEditPage(int teamId)
         {
             TeamEditPageModel model = new TeamEditPageModel();
