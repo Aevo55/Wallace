@@ -30,8 +30,8 @@ namespace Wallace.UI.Controllers
                 database.addEmployee(newemp);
             }
 
-
             return RedirectToAction("EmployeesPage");
+
         }
 
         public IActionResult TeamEditPage(int teamId)
@@ -52,6 +52,11 @@ namespace Wallace.UI.Controllers
             else model.isNew = false;
             ViewData["Information"] = "This is where you can edit a team";
             return View(model);
+        }
+
+        public IActionResult SubmitTeam(string _name, string _desc, int _id)
+        {
+            return RedirectToAction("TeamsPage");
         }
 
         public IActionResult EditEmployeePage(int employeeId)
