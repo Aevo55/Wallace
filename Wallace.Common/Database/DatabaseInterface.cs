@@ -97,7 +97,14 @@ namespace Wallace.Common.Database
 
         public void deleteEmployee(int id)
         {
+            deleter.delTeamMemByEmp(id);
+            deleter.delEmployee(id);
+        }
 
+        public void deleteTeam(int id)
+        {
+            deleter.delTeamMemByTeam(id);
+            deleter.delTeam(id);
         }
     }
 }
