@@ -10,7 +10,7 @@ namespace Wallace.Common.Models
         public int id;
         public string name;
         public string description;
-        int pid;
+        public int pid;
 
         public Spec(int _id, string _name, string _description, int _pid)
         {
