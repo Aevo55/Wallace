@@ -17,7 +17,7 @@ namespace Wallace.UI.Controllers
         public IActionResult EditTeamPage(int teamId)
         {
 
-
+            ViewData["Information"] = "This is where you can edit a team";
             return View();
         }
 
