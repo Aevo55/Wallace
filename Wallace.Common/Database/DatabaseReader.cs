@@ -104,7 +104,7 @@ namespace Wallace.Common.Database
             conn = new SqlConnection("Data Source=.;Initial Catalog=Wallace;Integrated Security=True");
         }
 
-        public List<DBProject> getProjects(){
+        public List<DBProject> getAllProjects(){
             List<DBProject> projects = new List<DBProject>();
             cmd = new SqlCommand(getProjectsQuery, conn);
             try
@@ -131,9 +131,9 @@ namespace Wallace.Common.Database
             return projects;
         }
 
-        public List<DBVersion> getVersions(DBProject p)
+        public List<DBVersion> getVersionsByProj(int p)
         {
-            int id = p.id;
+            int id = p;
             List<DBVersion> versions = new List<DBVersion>();
             cmd = new SqlCommand(getVersionsString, conn);
             try
@@ -158,9 +158,9 @@ namespace Wallace.Common.Database
             return versions;
         }
 
-        public List<DBSpecification> getSpecs(DBVersion v)
+        public List<DBSpecification> getSpecsByVer(int v)
         {
-            int id = v.id;
+            int id = v;
             List<DBSpecification> specs = new List<DBSpecification>();
             cmd = new SqlCommand(getVerSpecsString, conn);
             try
@@ -185,9 +185,9 @@ namespace Wallace.Common.Database
             return specs;
         }
 
-        public List<DBSpecification> getSpecs(DBProject p)
+        public List<DBSpecification> getSpecsByProj(int p)
         {
-            int id = p.id;
+            int id = p;
             List<DBSpecification> specs = new List<DBSpecification>();
             cmd = new SqlCommand(getSpecsString, conn);
             try
@@ -212,7 +212,7 @@ namespace Wallace.Common.Database
             return specs;
         }
 
-        public List<DBTeam> getTeams()
+        public List<DBTeam> getAllTeams()
         {
             List<DBTeam> teams = new List<DBTeam>();
             cmd = new SqlCommand(getAllTeamsString, conn);
@@ -237,11 +237,11 @@ namespace Wallace.Common.Database
             return teams;
         }
         
-        public List<DBTeam> getTeams(DBEmployee e)
+        public List<DBTeam> getTeamsByEmp(int e)
         {
             List<DBTeam> teams = new List<DBTeam>();
             cmd = new SqlCommand(getTeamsByEmpStr, conn);
-            cmd.Parameters.AddWithValue("eId", e.id);
+            cmd.Parameters.AddWithValue("eId", e);
             try
             {
                 conn.Open();
@@ -263,7 +263,7 @@ namespace Wallace.Common.Database
             return teams;
         }
 
-        public List<DBEmployee> getEmployees()
+        public List<DBEmployee> getAllEmployees()
         {
             List<DBEmployee> employees = new List<DBEmployee>();
             cmd = new SqlCommand(getAllEmpsString, conn);
@@ -289,11 +289,11 @@ namespace Wallace.Common.Database
             return employees;
         }
 
-        public List<DBEmployee> getEmployees(DBTeam t)
+        public List<DBEmployee> getEmpsByTeam(int t)
         {
             List<DBEmployee> employees = new List<DBEmployee>();
             cmd = new SqlCommand(getEmpsByTeamStr, conn);
-            cmd.Parameters.AddWithValue("tId", t.id);
+            cmd.Parameters.AddWithValue("tId", t);
             try
             {
                 conn.Open();
@@ -316,11 +316,11 @@ namespace Wallace.Common.Database
             return employees;
         }
 
-        public DBEmployee getLeader(DBTeam t)
+        public DBEmployee getLeader(int t)
         {
             cmd = new SqlCommand(getTeamLeaderStr, conn);
             DBEmployee leader = new DBEmployee();
-            cmd.Parameters.AddWithValue("tId", t.id);
+            cmd.Parameters.AddWithValue("tId", t);
             try
             {
                 conn.Open();
@@ -338,11 +338,11 @@ namespace Wallace.Common.Database
             return leader;
         }
 
-        public List<DBTeam> getTeams(DBVersion v)
+        public List<DBTeam> getTeamsByVersion(int v)
         {
             List<DBTeam> teams = new List<DBTeam>();
             cmd = new SqlCommand(getTeamsByEmpStr, conn);
-            cmd.Parameters.AddWithValue("vId", v.id);
+            cmd.Parameters.AddWithValue("vId", v);
             try
             {
                 conn.Open();
