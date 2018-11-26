@@ -21,11 +21,21 @@
                     @for (int j = 0; j < Model.teams[i].members.Count; j++)
                     {
 
-                        @Html.Raw("<tr>");
+                        <tr>
                         @Html.Raw("<td>" + Model.teams[i].members[j].name + "</td>");
                         @Html.Raw("<td>" + Model.teams[i].members[j].title + "</td>");
                         @Html.Raw("<td>" + Model.teams[i].members[j].salary.ToString() + "</td>");
                         @Html.Raw("</tr>");
+
+                            <td>
+                                @using (Html.BeginForm("DeleteTeam", "Home", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="teamId" value="@Model.teams[i].id" />
+                                    <input type="submit" value="Delete" />
+                                }
+                            </td>
+
+                        </tr>
                     }
 
                 </table>

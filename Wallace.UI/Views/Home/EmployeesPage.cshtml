@@ -116,16 +116,27 @@
                 <th>Name</th>
                 <th>Title </th>
                 <th>Salary</th>
+                <th>Fire</th>
             </tr>
 
             @{
                 for (int i = 0; i < Model.Employees.Count; i++)
                 {
-                    @Html.Raw("<tr>");
+                    <tr>
                     @Html.Raw("<td>" + Model.Employees[i].name + "</td>");
                     @Html.Raw("<td>" + Model.Employees[i].title + "</td>");
                     @Html.Raw("<td>" + Model.Employees[i].salary.ToString() + "</td>");
-                    @Html.Raw("</tr>");
+
+
+                    <td>
+                        @using (Html.BeginForm("DeleteEmployee", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" name="employeeId" value="@Model.Employees[i].id" />
+                            <input type="submit" value="Delete" />
+                        }
+                    </td>
+
+                    </tr>
                 }
             }
         </table>
@@ -134,13 +145,6 @@
             <p>
                 <button id="button1" type="button" onclick="alert('Your current employees are fine. You don\'t need new one')">ADD EMPLOYEE</button>
             </p>
-        </div>
-        <div class="delete-employee">
-            <p>  <button id="button2" type="button" onclick="alert('Hell yeah. We fire them')">FIRE EMPLOYEE</button></p>
-        </div>
-        <p>.</p>
-        <div class="modify-employee">
-            <p> <button id="button3" type="button" onclick="alert('No need to modify. Just kick him out')">MODIFY EMPLOYEE</button></p>
         </div>
         <div class="Search-Bar">
             <form action="">

@@ -33,7 +33,7 @@ namespace Wallace.Common.Models
         public void findLeader()
         {
             DatabaseReader reader = new DatabaseReader();
-            leader = new Employee(reader.getLeader(new DBTeam(this)));
+            leader = new Employee(reader.getLeader(id));
         }
     }
 }

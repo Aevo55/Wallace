@@ -24,6 +24,7 @@ namespace Wallace.UI.Controllers
         public IActionResult DeleteTeam(int teamId)
         {
             DatabaseInterface database = new DatabaseInterface();
+            database.deleteTeam(teamId);
             return RedirectToAction("TeamsPage");
         }
 
