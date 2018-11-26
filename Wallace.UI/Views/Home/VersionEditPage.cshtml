@@ -3,16 +3,20 @@
 <h2>Project View Page</h2>
 <h3>@ViewData["Information"]</h3>
 
-
+@using (Html.BeginForm("SubmitVersion", "Home", FormMethod.Post))
+{
     <h1>
         version: @Model.version.versionNumber
+        <input type="number" value="@Model.version.versionNumber" name="_versionNumber" />
+
     </h1>
-    Due:
+
     @Model.version.releaseDate
+    <input type="datetime" value="@Model.version.releaseDate" name="_releaseDate" />
 
     <h2>Version Specifications</h2>
 
-    @{
+    {
         foreach (Spec s in Model.version.specs)
         {
             <h3>
@@ -22,21 +26,37 @@
         }
     }
 
+    <select name="_specs" multiple>
+
+        @foreach (Spec s in Model.version.specs)
+        {
+            @Html.Raw("<option value=" + s.id + ">" + s.name + "</option>");
+        }
+    </select>
+
+
     <h2>
         Teams Working on this version
     </h2>
-    @{
+    {
         foreach (Team t in Model.version.teams)
         {
             <h3>
                 @t.name
             </h3>
-            foreach(Employee e in t.members)
-            {
-                <li>
-                    @e.name
-                </li>
-            }
+
         }
+        <select name="_teams" multiple>
+
+            @foreach (Team t in Model.version.teams)
+            {
+                @Html.Raw("<option value=" + t.id + ">" + t.name + "</option>");
+            }
+
+        </select>
     }
+            <input type="hidden" name="_id"value="@Model.version.id" />
+            <input type="submit"value="Save" />
+}
+
 

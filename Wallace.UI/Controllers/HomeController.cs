@@ -14,6 +14,13 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
+
+        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, int[] specs, int[]teams, int _id)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            return RedirectToAction("Index");
+        }
+
         public IActionResult SubmitNewProject(string _name, int _budget,string _desc, int _manager)
         {
             Project newproject = new Project();
