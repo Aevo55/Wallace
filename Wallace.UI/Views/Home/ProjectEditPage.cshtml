@@ -6,9 +6,9 @@
 
 <body>
     <h1>
-        @Model.project.name
+        @Model.project.name : @Model.project.desc
     </h1>
-    @Model.project.desc
+    
 
     <h2>Project Specifications</h2>
 
@@ -24,8 +24,7 @@
 
     <h2>Project Versions</h2>
 
-    @{
-        foreach (PVersion v in Model.project.versions)
+   @{ foreach (PVersion v in Model.project.versions)
         {
             <h3>
                 @v.versionNumber
