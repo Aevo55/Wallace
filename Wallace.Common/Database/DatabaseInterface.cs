@@ -118,21 +118,32 @@ namespace Wallace.Common.Database
             deleter.delTeam(id);
         }
 
+        public void deleteEmployeeFromTeam(int tid, int eid)
+        {
+            deleter.delTeamMemByBoth(tid, eid);
+
+        }
+
+        public void deleteTeamFromVersion(int tid, int vid)
+        {
+            deleter.delVerTeamByBoth(tid, vid);
+        }
+
         /***************************************/
 
-        public void addProject(Project p)
+        public int addProject(Project p)
         {
-            writer.addProject(new DBProject(p));
+            return writer.addProject(new DBProject(p));
         }
 
-        public void addVersion(PVersion v)
+        public int addVersion(PVersion v)
         {
-            writer.addVersion(new DBVersion(v));
+            return writer.addVersion(new DBVersion(v));
         }
 
-        public void addSpecToProject(Spec s)
+        public int addSpecToProject(Spec s)
         {
-            writer.addSpec(new DBSpecification(s));
+            return writer.addSpec(new DBSpecification(s));
         }
 
         public void addSpecToVersion(PVersion v, Spec s)
@@ -140,14 +151,14 @@ namespace Wallace.Common.Database
             writer.addVersionSpec(v.id, s.id);
         }
         
-        public void addTeam(Team t)
+        public int addTeam(Team t)
         {
-            writer.addTeam(new DBTeam(t));
+            return writer.addTeam(new DBTeam(t));
         }
 
-        public void addEmployee(Employee e)
+        public int addEmployee(Employee e)
         {
-            writer.addEmployee(new DBEmployee(e));
+            return writer.addEmployee(new DBEmployee(e));
         }
 
         public void addEmpToTeam(Employee e, Team t)
