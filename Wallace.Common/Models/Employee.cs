@@ -32,5 +32,15 @@ namespace Wallace.Common.Models
             id = e.id;
             teams = new List<Team>();
         }
+
+        public void getTeams()
+        {
+            DatabaseReader reader = new DatabaseReader();
+            teams.Clear();
+            foreach(DBTeam t in reader.getTeamsByEmp(id))
+            {
+                teams.Add(new Team(t));
+            }
+        }
     }
 }

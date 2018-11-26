@@ -35,5 +35,15 @@ namespace Wallace.Common.Models
             DatabaseReader reader = new DatabaseReader();
             leader = new Employee(reader.getLeader(id));
         }
+
+        public void getMembers()
+        {
+            DatabaseReader reader = new DatabaseReader();
+            members.Clear();
+            foreach (DBEmployee e in reader.getEmpsByTeam(id))
+            {
+                members.Add(new Employee(e));
+            }
+        }
     }
 }
