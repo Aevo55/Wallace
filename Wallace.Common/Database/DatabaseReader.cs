@@ -146,6 +146,7 @@ namespace Wallace.Common.Database
                     currVersion.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
                     currVersion.vnum = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
                     currVersion.release = !reader.IsDBNull(3) ? reader.GetDateTime(3) : DateTime.UtcNow;
+                    currVersion.pid = !reader.IsDBNull(1) ? reader.GetInt32(1) : -1;
 
                     versions.Add(currVersion);
                 }

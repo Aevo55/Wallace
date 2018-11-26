@@ -7,6 +7,7 @@ namespace Wallace.Common.Models
     public class PVersion
     {
         public int id;
+        public int pid;
         public List<Spec> specs;
         public DateTime releaseDate;
         public int versionNumber;
@@ -22,6 +23,7 @@ namespace Wallace.Common.Models
         {
             releaseDate = v.release;
             versionNumber = v.vnum;
+            pid = v.pid;
             id = v.id;
             specs = new List<Spec>();
             releaseDate = new DateTime();

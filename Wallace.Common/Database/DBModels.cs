@@ -110,6 +110,7 @@ namespace Wallace.Common.Database
     {
         public int id;
         public int vnum;
+        public int pid;
         public DateTime release;
 
         public DBVersion() { }
@@ -117,6 +118,7 @@ namespace Wallace.Common.Database
         public DBVersion(PVersion v)
         {
             id = v.id;
+            pid = v.pid;
             vnum = v.versionNumber;
             release = v.releaseDate;
         }
