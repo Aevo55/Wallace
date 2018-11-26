@@ -19,6 +19,8 @@ namespace Wallace.Common.Database
             updater = new DatabaseUpdater();
         }
 
+        /***************************************/
+
         public List<Project> getProjects()
         {
             List<Project> projects = new List<Project>();
@@ -173,6 +175,29 @@ namespace Wallace.Common.Database
 
         /***************************************/
 
+        public void updateEmployee(Employee e)
+        {
+            updater.updateEmployee(new DBEmployee(e));
+        }
 
+        public void updateProject(Project p)
+        {
+            updater.updateProject(new DBProject(p));
+        }
+
+        public void updateSpecification(Spec s)
+        {
+            updater.updateSpecification(new DBSpecification(s));
+        }
+
+        public void updateTeam(Team t)
+        {
+            updater.updateTeam(new DBTeam(t));
+        }
+
+        public void updateVersion(PVersion v)
+        {
+            updater.updateVersion(new DBVersion(v));
+        }
     }
 }
