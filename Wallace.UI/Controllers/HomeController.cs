@@ -40,22 +40,58 @@ namespace Wallace.UI.Controllers
             DatabaseInterface database = new DatabaseInterface();
             List<Team> teams = database.getTeams();
             Team current = new Team();
-            foreach(Team t in teams)
-            {
-                if (t.id == teamId) current = t;
-            }
-            model.team = current;
+
             if (teamId == -1)
             {
                 model.isNew = true;
+                current.id = -1;
             }
-            else model.isNew = false;
+            else
+            {
+                model.isNew = false;
+
+                foreach (Team t in teams)
+                {
+                    if (t.id == teamId) current = t;
+                }
+            }
+            
+            model.team = current;
+
+            List<Employee> _employees = database.getEmployees();
+            model.employees = _employees;
+
             ViewData["Information"] = "This is where you can edit a team";
             return View(model);
         }
 
-        public IActionResult SubmitTeam(string _name, string _desc, int _id)
+        public IActionResult SubmitTeam(string _name, string _desc, int _id, string[] _employees)
         {
+            DatabaseInterface database = new DatabaseInterface();
+            List<Employee> employees = database.getEmployees();
+
+            if(_id == -1)
+            {
+                Team newteam = new Team();
+                newteam.name = _name;
+                newteam.desc = _desc;
+                database.addTeam(newteam);
+                foreach (Employee e in employees)// add the employees from the array into the team
+                {
+                    foreach(string s in _employees)
+                    {
+                        if (int.Parse(s) == e.id)
+                        {
+                            database.addEmpToTeam(e, newteam); 
+                        }
+                    }
+                }
+
+                
+            }
+            
+            
+
             return RedirectToAction("TeamsPage");
         }
 
@@ -68,11 +104,18 @@ namespace Wallace.UI.Controllers
             DatabaseInterface database = new DatabaseInterface();
             List<Employee> employees = database.getEmployees();
             Employee current = new Employee();
-            foreach(Employee e in employees)
+            if (!model.isNew)
             {
-                if (e.id == employeeId) current = e;
+                foreach (Employee e in employees)
+                {
+                    if (e.id == employeeId) current = e;
+                }
+                model.employee = current;
             }
-            model.employee = current;
+            if (model.isNew)
+            {
+                current.id = -1;
+            }
             ViewData["Information"] = "This is where you can edit an employee's record";
 
             return View(model);

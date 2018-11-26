@@ -4,56 +4,63 @@
 
 
 
-    @{
-        for (int i = 0; i < Model.teams.Count; i++)
-        {
-            <div>
+@{
+    for (int i = 0; i < Model.teams.Count; i++)
+    {
+        <div>
 
-                <h2>@Model.teams[i].name</h2>
-                <table style="width=100%">
+            <h2>@Model.teams[i].name</h2>
+            <table style="width=100%">
+
+                <tr>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Salary</th>
+                </tr>
+
+                @for (int j = 0; j < Model.teams[i].members.Count; j++)
+                {
 
                     <tr>
-                        <th>Name</th>
-                        <th>Title</th>
-                        <th>Salary</th>
-                    </tr>
-
-                    @for (int j = 0; j < Model.teams[i].members.Count; j++)
-                    {
-
-                        <tr>
                         @Html.Raw("<td>" + Model.teams[i].members[j].name + "</td>");
                         @Html.Raw("<td>" + Model.teams[i].members[j].title + "</td>");
                         @Html.Raw("<td>" + Model.teams[i].members[j].salary.ToString() + "</td>");
                         @Html.Raw("</tr>");
 
-                        </tr>
-                    }
-
-                    <tr>
-                        <td>
-                                @using (Html.BeginForm("TeamEditPage", "Home", FormMethod.Post))
-                                {
-                                    <input type="hidden" name="teamId" value="@Model.teams[i].id" />
-                                    <input type="submit" value="Edit" />
-                                }
-                        </td>
                     </tr>
+                }
 
-                    <tr>
-                        <td>
-                                 @using (Html.BeginForm("DeleteTeam", "Home", FormMethod.Post))
-                                {
-                                    <input type="hidden" name="teamId" value="@Model.teams[i].id" />
-                                    <input type="submit" value="Delete" />
-                                }  
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @using (Html.BeginForm("TeamEditPage", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" name="teamId" value="@Model.teams[i].id" />
+                            <input type="submit" value="Edit" />
+                        }
+                    </td>
+                </tr>
 
-                </table>
+                <tr>
+                    <td>
+                        @using (Html.BeginForm("DeleteTeam", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" name="teamId" value="@Model.teams[i].id" />
+                            <input type="submit" value="Delete" />
+                        }
+                    </td>
+                </tr>
 
-            </div>
-            
-        }
+            </table>
+
+        </div>
+
     }
+
+    @using (Html.BeginForm("TeamEditPage", "Home", FormMethod.Post))
+    {
+        <input type="hidden" name="teamId" value="-1" />
+        <input type="submit" value="Add Team" />
+    }
+
+}
 
