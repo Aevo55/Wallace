@@ -14,6 +14,13 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
+        public IActionResult EditTeamPage(int teamId)
+        {
+
+
+            return View();
+        }
+
         public IActionResult EditEmployeePage(int employeeId)
         {
             EmployeeEditPageModel model = new EmployeeEditPageModel();
