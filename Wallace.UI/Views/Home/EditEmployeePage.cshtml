@@ -45,6 +45,15 @@
         </tr>
         <tr>
             <td>
+                @if (Model.isNew)
+                {
+                    <input type="hidden" value="-1" name="_employeeId" />
+                }
+                @if (!Model.isNew)
+                {
+                    <input type="hidden" value="@Model.employee.id" name="_employeeId" />
+                }
+
                 <input type="submit" value="confirm" />
             </td>
         </tr>

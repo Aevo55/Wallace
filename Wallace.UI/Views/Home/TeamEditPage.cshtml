@@ -1,4 +1,5 @@
 ﻿@model TeamEditPageModel
+@using Wallace.Common.Models;
 <h2>Employees Page</h2>
 <h3>@ViewData["Information"]</h3>
 
@@ -8,46 +9,79 @@
         @using (Html.BeginForm("SubmitTeam", "Home", FormMethod.Post))
         {
 
-        <tr>
+            <tr>
 
-            <td>
-                Name:
-            </td>
+                <td>
+                    Name:
+                </td>
 
-            <td>
-                <input type="text"value="@Model.team.name" name="_name"/>
-            </td>
+                <td>
+                    <input type="text" value="@Model.team.name" name="_name" />
+                </td>
 
-        </tr>
+            </tr>
 
 
-        <tr>
+            <tr>
 
-            <td>
-                Description:
-            </td>
+                <td>
+                    Description:
+                </td>
 
-            <td>
-                <input type="text" value="@Model.team.desc" name="_desc" />
-            </td>
+                <td>
+                    <input type="text" value="@Model.team.desc" name="_desc" />
+                </td>
 
-        </tr>
+            </tr>
 
-        <tr>
+            <tr>
 
-            <td>
-                Leader:
-            </td>
+                <td>
+                    Leader:
+                </td>
 
-            <td>
-                <input type="number" value="@Model.team.leader" name="_title" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="confirm" />
-            </td>
-        </tr>
+                <td>
+                    <select name="_leader">
+
+                        @foreach (Employee e in Model.employees)
+                        {
+                            if (e.id == Model.team.leader.id)
+                            {
+                                @Html.Raw("<option selected=selected value=" + e.id + ">" + e.name + "</option>");
+                            }
+                            else
+                            {
+                                @Html.Raw("<option value=" + e.id + ">" + e.name + "</option>");
+                            }
+
+                        }
+
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <select name="_employees" multiple>
+
+                        @foreach (Employee e in Model.employees)
+                        {
+                            @Html.Raw("<option value="+e.id + ">" + e.name + "</option>");
+                        }
+
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="hidden" name="_id"value="@Model.team.id" />
+                    <input type="submit" value="confirm" />
+                </td>
+            </tr>
+
+
+
         }
     </table>
 </body>
