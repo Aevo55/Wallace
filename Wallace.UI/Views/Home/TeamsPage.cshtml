@@ -27,16 +27,28 @@
                         @Html.Raw("<td>" + Model.teams[i].members[j].salary.ToString() + "</td>");
                         @Html.Raw("</tr>");
 
-                            <td>
-                                @using (Html.BeginForm("DeleteTeam", "Home", FormMethod.Post))
+                        </tr>
+                    }
+
+                    <tr>
+                        <td>
+                                @using (Html.BeginForm("TeamEditPage", "Home", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="teamId" value="@Model.teams[i].id" />
+                                    <input type="submit" value="Edit" />
+                                }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                                 @using (Html.BeginForm("DeleteTeam", "Home", FormMethod.Post))
                                 {
                                     <input type="hidden" name="teamId" value="@Model.teams[i].id" />
                                     <input type="submit" value="Delete" />
-                                }
-                            </td>
-
-                        </tr>
-                    }
+                                }  
+                        </td>
+                    </tr>
 
                 </table>
 
