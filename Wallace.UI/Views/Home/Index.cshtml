@@ -1,37 +1,108 @@
-﻿@model  IndexPageModel
+﻿@model IndexPageModel
 @{
     ViewData["Title"] = "Home Page";
 }
 @using Wallace.Common.Models;
-<div class="row">
-    <div class="col-md-3">
-        <h1>Places</h1>
-        <ul>
-            <li><a asp-area="" asp-controller="Home" asp-action="TeamsPage">Teams List</a></li>
-            <li><a asp-area="" asp-controller="Home" asp-action="EmployeesPage">Employees Page</a></li>
-        </ul>
+
+
+<style>
+    .row {
+        background-color: blue;
+        height: 800px;
+        width: 1200px;
+        background-size: cover;
+        background-position: center;
+    }
+    .col-md-3{
+        height: 100px;
+        width: 200px;
+        background-color: green;
+        margin: 10px -382px 10px 10px;
+    }
+    .DIsplay-image{
+       
+        
+        background-size:cover;
+    }
+    .title{
+        position: absolute;
+        width: 1200px;
+        margin-left: 0;
+        margin-top: 0;
+        background-color: blue;
+        margin: 0px 10px 10px 0px;
+    }
+h1{
+    color: white;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    margin-top: 30px;
+    text-align: center;
+}
+.team-link{
+    margin: -429px 29px 31px 425px;
+    width: 180px;
+    height: 30px;
+    background-color: yellow;
+    font-size: 30px;
+    
+}
+    .employee-link {
+        margin: -66px 35px 43px 648px;
+        width: 250px;
+        height: 30px;
+        background-color: yellow;
+        font-size: 30px;
+    }
+
+</style>
+<body>
+    <div class="row">
+        
+        <div class="title">
+
+            <h1>Wallace Co.</h1>
+
+        </div>
+        <div class="DIsplay-image">
+            <img src="@Url.Content("~/images/wall.jpg")" height="800" width="1200" />
+        </div>
+        
+        <div class="team-link">
+
+            <p id="idk"> <a asp-area="" asp-controller="Home" asp-action="TeamsPage">Teams List</a></p>
+
+        </div>
+        <div class="employee-link">
+
+            <p ><a asp-area="" asp-controller="Home" asp-action="EmployeesPage">Employees Page</a></p>
+
+        </div>
     </div>
 
-</div>
 
 
-</body>
 
- 
 @foreach (Project p in Model.Projects)
 {      
-    
-    <h2>
-    Project name @Html.Raw(p.name)
-    </h2>
     <body>
+    <h2>
+        Project name @Html.Raw(p.name)
+    </h2>
+   
     Description:
     @Html.Raw(p.desc)
 
-    @using(Html.BeginForm("ProjectEditPage","Home", FormMethod.Post))
-    {
-        <input type="hidden" name="projectId"value="@p.id"/>
-        <input type="submit" value="Edit"/>
-    }
+        @using (Html.BeginForm("ProjectEditPage", "Home", FormMethod.Post))
+        {
+            <input type="hidden" name="projectId" value="@p.id" />
+            <input type="submit" value="Edit" />
+        }
     </body>
+}
+
+@using (Html.BeginForm("ProjectEditPage", "Home", FormMethod.Post))
+{
+    <input type="hidden" name="projectId" value="-1" />
+    <input type="submit" value="Add New Project" />
 }
