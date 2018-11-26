@@ -53,6 +53,13 @@ namespace Wallace.Common.Database
                                                         WHERE
                                                             sId = @id;";
 
+        private const string deleteVersionSpecsStr3 = @"DELETE FROM
+                                                            VersionSpecs
+                                                        WHERE
+                                                            vId = @vid
+                                                            AND
+                                                            sId = @sid";
+
         private const string deleteVersionTeamsStr1 = @"DELETE FROM
                                                             VersionTeams
                                                         WHERE
@@ -62,6 +69,8 @@ namespace Wallace.Common.Database
                                                             VersionTeams
                                                         WHERE
                                                             vId = @id";
+
+        
         private SqlCommand cmd;
         private SqlConnection conn;
 
@@ -143,6 +152,14 @@ namespace Wallace.Common.Database
         {
             cmd = new SqlCommand(deleteVersionSpecsStr2, conn);
             cmd.Parameters.AddWithValue("id", id);
+            execute(cmd);
+        }
+
+        public void delVerSpecByBoth(int vid, int sid)
+        {
+            cmd = new SqlCommand(deleteVersionSpecsStr3, conn);
+            cmd.Parameters.AddWithValue("vid", vid);
+            cmd.Parameters.AddWithValue("sid", sid);
             execute(cmd);
         }
 

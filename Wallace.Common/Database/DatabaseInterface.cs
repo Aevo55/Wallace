@@ -10,9 +10,11 @@ namespace Wallace.Common.Database
     {
         DatabaseReader reader;
         DatabaseDeleter deleter;
+        DatabaseWriter writer;
         public DatabaseInterface() {
             reader = new DatabaseReader();
             deleter = new DatabaseDeleter();
+            writer = new DatabaseWriter();
         }
 
         public List<Project> getProjects()
@@ -30,7 +32,7 @@ namespace Wallace.Common.Database
                     }
                     _p.versions.Add(_v);
                 }
-                foreach(DBSpecification s in reader.getSpecsByVer(p.id))
+                foreach(DBSpecification s in reader.getSpecsByProj(p.id))
                 {
                     _p.specs.Add(new Spec(s));
                 }
@@ -69,6 +71,8 @@ namespace Wallace.Common.Database
             return employees;
         }
 
+        /***************************************/
+
         public void deleteProject(int id)
         {
             foreach(DBSpecification s in reader.getSpecsByProj(id))
@@ -95,6 +99,11 @@ namespace Wallace.Common.Database
             deleter.delSpec(id);
         }
 
+        public void deleteSpecFromVersion(int sid, int vid)
+        {
+            deleter.delVerSpecByBoth(vid, sid);
+        }
+
         public void deleteEmployee(int id)
         {
             deleter.delTeamMemByEmp(id);
@@ -107,6 +116,50 @@ namespace Wallace.Common.Database
             deleter.delTeam(id);
         }
 
-        public void add
+        /***************************************/
+
+        public void addProject(Project p)
+        {
+            writer.addProject(new DBProject(p));
+        }
+
+        public void addVersion(PVersion v)
+        {
+            writer.addVersion(new DBVersion(v));
+        }
+
+        public void addSpecToProject(Spec s)
+        {
+            writer.addSpec(new DBSpecification(s));
+        }
+
+        public void addSpecToVersion(PVersion v, Spec s)
+        {
+            writer.addVersionSpec(v.id, s.id);
+        }
+        
+        public void addTeam(Team t)
+        {
+            writer.addTeam(new DBTeam(t));
+        }
+
+        public void addEmployee(Employee e)
+        {
+            writer.addEmployee(new DBEmployee(e));
+        }
+
+        public void addEmpToTeam(Employee e, Team t)
+        {
+            writer.addTeamMem(e.id, t.id);
+        }
+
+        public void addTeamToVersion(Team t, PVersion v)
+        {
+            writer.addVersionTeam(v.id, t.id);
+        }
+
+        /***************************************/
+
+
     }
 }

@@ -31,14 +31,14 @@ namespace Wallace.Common.Database
                                                             FROM
                                                                 VersionSpecs
                                                             WHERE
-                                                                vId = @vId)";
+                                                                vId = @vid)";
 
         private const string getSpecsString = @"    SELECT
                                                         *
                                                     FROM
                                                         Specifications
                                                     WHERE
-                                                        sId = @pId";
+                                                        pId = @pid";
 
         private const string getAllTeamsString = @" SELECT
                                                         *
@@ -56,7 +56,7 @@ namespace Wallace.Common.Database
                                                             FROM
                                                                 TeamMembers
                                                             WHERE
-                                                                eId = @eId)";
+                                                                eId = @eid)";
 
         private const string getAllEmpsString = @"  SELECT
                                                         *
@@ -74,9 +74,9 @@ namespace Wallace.Common.Database
                                                             FROM
                                                                 TeamMembers
                                                             WHERE
-                                                                tId = @tId)";
+                                                                tId = @tid)";
 
-        private const string getTeamLeaderStr = @"SELECT
+        private const string getEmployeeStr = @"SELECT
                                                     *
                                                 FROM
                                                     Employees
@@ -94,7 +94,7 @@ namespace Wallace.Common.Database
                                                             FROM    
                                                                 VersionTeams
                                                             WHERE
-                                                                vId = @vId)";
+                                                                vId = @vid)";
 
         private SqlCommand cmd;
         private SqlConnection conn;
@@ -138,15 +138,15 @@ namespace Wallace.Common.Database
             try
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("@pid", id);
+                cmd.Parameters.AddWithValue("pid", id);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     DBVersion currVersion = new DBVersion();
                     currVersion.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    currVersion.pid = !reader.IsDBNull(1) ? reader.GetInt32(1) : -1;
                     currVersion.vnum = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
                     currVersion.release = !reader.IsDBNull(3) ? reader.GetDateTime(3) : DateTime.UtcNow;
-                    currVersion.pid = !reader.IsDBNull(1) ? reader.GetInt32(1) : -1;
 
                     versions.Add(currVersion);
                 }
@@ -166,7 +166,7 @@ namespace Wallace.Common.Database
             try
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("vId", id);
+                cmd.Parameters.AddWithValue("vid", id);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -193,7 +193,7 @@ namespace Wallace.Common.Database
             try
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("pId", id);
+                cmd.Parameters.AddWithValue("pid", id);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -226,6 +226,7 @@ namespace Wallace.Common.Database
                     currTeam.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
                     currTeam.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
                     currTeam.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                    currTeam.leader = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
 
                     teams.Add(currTeam);
                 }
@@ -241,7 +242,7 @@ namespace Wallace.Common.Database
         {
             List<DBTeam> teams = new List<DBTeam>();
             cmd = new SqlCommand(getTeamsByEmpStr, conn);
-            cmd.Parameters.AddWithValue("eId", e);
+            cmd.Parameters.AddWithValue("eid", e);
             try
             {
                 conn.Open();
@@ -252,6 +253,7 @@ namespace Wallace.Common.Database
                     currTeam.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
                     currTeam.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
                     currTeam.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                    currTeam.leader = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
 
                     teams.Add(currTeam);
                 }
@@ -293,7 +295,7 @@ namespace Wallace.Common.Database
         {
             List<DBEmployee> employees = new List<DBEmployee>();
             cmd = new SqlCommand(getEmpsByTeamStr, conn);
-            cmd.Parameters.AddWithValue("tId", t);
+            cmd.Parameters.AddWithValue("tid", t);
             try
             {
                 conn.Open();
@@ -316,33 +318,33 @@ namespace Wallace.Common.Database
             return employees;
         }
 
-        public DBEmployee getLeader(int t)
+        public DBEmployee getEmployee(int e)
         {
-            cmd = new SqlCommand(getTeamLeaderStr, conn);
-            DBEmployee leader = new DBEmployee();
-            cmd.Parameters.AddWithValue("tId", t);
+            cmd = new SqlCommand(getEmployeeStr, conn);
+            DBEmployee employee = new DBEmployee();
+            cmd.Parameters.AddWithValue("eid", e);
             try
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 reader.Read();
-                leader.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
-                leader.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
-                leader.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
-                leader.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
+                employee.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                employee.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                employee.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
+                employee.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
             }
             finally
             {
                 conn.Close();
             }
-            return leader;
+            return employee;
         }
 
         public List<DBTeam> getTeamsByVersion(int v)
         {
             List<DBTeam> teams = new List<DBTeam>();
             cmd = new SqlCommand(getTeamsByEmpStr, conn);
-            cmd.Parameters.AddWithValue("vId", v);
+            cmd.Parameters.AddWithValue("vid", v);
             try
             {
                 conn.Open();

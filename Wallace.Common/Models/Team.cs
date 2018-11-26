@@ -28,12 +28,7 @@ namespace Wallace.Common.Models
             name = t.name;
             id = t.id;
             desc = t.desc;
-        }
-
-        public void findLeader()
-        {
-            DatabaseReader reader = new DatabaseReader();
-            leader = new Employee(reader.getLeader(id));
+            leader = new Employee((new DatabaseReader()).getEmployee(t.leader));
         }
 
         public void getMembers()

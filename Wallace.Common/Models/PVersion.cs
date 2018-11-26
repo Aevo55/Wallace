@@ -26,7 +26,7 @@ namespace Wallace.Common.Models
             pid = v.pid;
             id = v.id;
             specs = new List<Spec>();
-            releaseDate = new DateTime();
+            releaseDate = v.release;
             teams = new List<Team>();
         }
 
