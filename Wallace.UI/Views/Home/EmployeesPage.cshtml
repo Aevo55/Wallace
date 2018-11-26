@@ -136,6 +136,14 @@
                         }
                     </td>
 
+                    <td>
+                        @using (Html.BeginForm("EditEmployeePage", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" name="employeeId" value="@Model.Employees[i].id" />
+                            <input type="submit" value="Edit" />
+                        }
+                    </td>
+
                     </tr>
                 }
             }

@@ -27,7 +27,7 @@ namespace Wallace.UI.Controllers
             {
                 if (e.id == employeeId) current = e;
             }
-
+            model.employee = current;
             ViewData["Information"] = "This is where you can edit an employee's record";
 
             return View(model);
