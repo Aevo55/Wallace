@@ -107,6 +107,6 @@ namespace Wallace.Common.Database
             deleter.delTeam(id);
         }
 
-        public void add
+        //public void add
     }
 }

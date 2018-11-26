@@ -17,11 +17,11 @@
 @foreach (Project p in Model.Projects)
 {
     <h2>
-    Project name @Html.Raw(p.name);
+    Project name @Html.Raw(p.name)
     </h2>
     <body>
     Description:
-    @Html.Raw(p.desc);
+    @Html.Raw(p.desc)
 
     @using(Html.BeginForm("ProjectEditPage","Home", FormMethod.Post))
     {
