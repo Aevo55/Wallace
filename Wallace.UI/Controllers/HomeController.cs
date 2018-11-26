@@ -14,6 +14,19 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
+        public IActionResult DeleteEmployee(int employeeId)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            database.deleteEmployee(employeeId);
+            return RedirectToAction("EmployeesPage");
+        }
+
+        public IActionResult DeleteTeam(int teamId)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            return RedirectToAction("TeamsPage");
+        }
+
         public IActionResult ProjectEditPage(int projectId)
         {
 
