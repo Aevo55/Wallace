@@ -4,7 +4,7 @@
 
 <style>
    .container-table{
-       background-color: black;
+       background-color: white;
        margin: 10px 0px 70px ;
        height: 800px;
        width: 1200px;
@@ -27,24 +27,14 @@
         margin: 100px 20px 0px 930px;
         background-color: yellow;
     }
-    #button1{
+    #button-add{
         align-items:center;
         height:70px;
         width: 190px;
         font-size: 20px;
     }
-    #button2 {
-        align-items: center;
-        height: 70px;
-        width: 190px;
-        font-size: 20px;
-    }
-    #button3 {
-        align-items: center;
-        height: 70px;
-        width: 190px;
-        font-size: 20px;
-    }
+   
+    
     .Search-Bar {
         background-color: black;
         margin: -540px 10px 10px 905px;
@@ -105,18 +95,21 @@
         font-family: sans-serif;
         font-size: 40px;
     }
+    p{
+        font-size:30px;
+    }
 </style>
 <body >
     <div class="container-table">
         <table align="left">
             <tr>
-                <td id="header" colspan="4">Employees Record</td>
+                <td id="header" colspan="6">Employees Record</td>
             </tr>
             <tr>
                 <th>Name</th>
                 <th>Title </th>
                 <th>Salary</th>
-                <th>Fire</th>
+                <th colspan="2"></th>
             </tr>
 
             @{
@@ -132,7 +125,7 @@
                         @using (Html.BeginForm("DeleteEmployee", "Home", FormMethod.Post))
                         {
                             <input type="hidden" name="employeeId" value="@Model.Employees[i].id" />
-                            <input type="submit" value="Delete" />
+                            <input type="submit" value="FIRE" />
                         }
                     </td>
 
@@ -148,13 +141,13 @@
                 }
             }
         </table>
-        <p>.</p>
+        
         <div class="add-employee">
             <p>
                 @using (Html.BeginForm("EditEmployeePage", "Home", FormMethod.Post))
                 {
                     <input type="hidden" name="employeeId" value="-1" />
-                    <input type="submit" value="Add" />
+                    <input id="button-add" type="submit" value="Add" />
                 }
             </p>
         </div>

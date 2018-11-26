@@ -59,15 +59,15 @@ h1{
 <body>
     <div class="row">
         
-       
-        <div class="DIsplay-image">
-            <img src="@Url.Content("~/images/wall.jpg")" height="800" width="1200" />
-        </div>
         <div class="title">
 
             <h1>Wallace Co.</h1>
 
         </div>
+        <div class="DIsplay-image">
+            <img src="@Url.Content("~/images/wall.jpg")" height="800" width="1200" />
+        </div>
+        
         <div class="team-link">
 
             <p id="idk"> <a asp-area="" asp-controller="Home" asp-action="TeamsPage">Teams List</a></p>
@@ -86,11 +86,11 @@ h1{
  
 @foreach (Project p in Model.Projects)
 {      
-    
+    <body>
     <h2>
     Project name @Html.Raw(p.name)
     </h2>
-   <body>
+   
     Description:
     @Html.Raw(p.desc)
 
