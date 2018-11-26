@@ -14,6 +14,26 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
+        public IActionResult EditEmployeePage(int employeeId)
+        {
+            EmployeeEditPageModel model = new EmployeeEditPageModel();
+            if (employeeId == -1) { model.isNew = true; }
+            else model.isNew = false;
+
+            DatabaseInterface database = new DatabaseInterface();
+            List<Employee> employees = database.getEmployees();
+            Employee current = new Employee();
+            foreach(Employee e in employees)
+            {
+                if (e.id == employeeId) current = e;
+            }
+
+            ViewData["Information"] = "This is where you can edit an employee's record";
+
+            return View(model);
+
+        }
+
         public IActionResult DeleteEmployee(int employeeId)
         {
             DatabaseInterface database = new DatabaseInterface();
@@ -24,6 +44,7 @@ namespace Wallace.UI.Controllers
         public IActionResult DeleteTeam(int teamId)
         {
             DatabaseInterface database = new DatabaseInterface();
+            database.deleteTeam(teamId);
             return RedirectToAction("TeamsPage");
         }
 
