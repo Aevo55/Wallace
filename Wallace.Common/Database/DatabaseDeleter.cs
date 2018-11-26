@@ -33,6 +33,13 @@ namespace Wallace.Common.Database
                                                         WHERE
                                                             tId = @id";
 
+        private const string deleteTeamMemsString3 = @" DELETE FROM
+                                                            TeamMembers
+                                                        Where
+                                                            tId = @tid
+                                                            AND
+                                                            eId = @eid";
+
         private const string deleteTeamString = @"      DELETE FROM
                                                             Teams
                                                         WHERE
@@ -69,6 +76,15 @@ namespace Wallace.Common.Database
                                                             VersionTeams
                                                         WHERE
                                                             vId = @id";
+
+        private const string deleteVersionTeamsStr3 = @"DELETE FROM
+                                                            VersionTeams
+                                                        WHERE
+                                                            tId = @tid
+                                                            AND
+                                                            vId = @vid";
+
+
 
         
         private SqlCommand cmd;
@@ -127,6 +143,14 @@ namespace Wallace.Common.Database
             execute(cmd);
         }
 
+        public void delTeamMemByBoth(int tid, int eid)
+        {
+            cmd = new SqlCommand(deleteTeamMemsString3, conn);
+            cmd.Parameters.AddWithValue("tid", tid);
+            cmd.Parameters.AddWithValue("eid", eid);
+            execute(cmd);
+        }
+
         public void delTeam(int id)
         {
             cmd = new SqlCommand(deleteTeamString, conn);
@@ -175,6 +199,13 @@ namespace Wallace.Common.Database
             cmd = new SqlCommand(deleteVersionTeamsStr2, conn);
             cmd.Parameters.AddWithValue("id", id);
             execute(cmd);
+        }
+
+        public void delVerTeamByBoth(int tid, int vid)
+        {
+            cmd = new SqlCommand(deleteVersionTeamsStr3, conn);
+            cmd.Parameters.AddWithValue("tid", tid);
+            cmd.Parameters.AddWithValue("vid", vid);
         }
     }
 }
