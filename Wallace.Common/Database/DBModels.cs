@@ -13,7 +13,7 @@ namespace Wallace.Common.Database
         public string name;
         public int budget;
         public string desc;
-        public int? manager;
+        public int manager;
     }
 
     public class DBClient
@@ -53,7 +53,7 @@ namespace Wallace.Common.Database
         public int id;
         public string name;
         public string desc;
-        public DBEmployee leader;
+        public int leader;
         public DBTeam() { }
         public DBTeam(Team t)
         {
