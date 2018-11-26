@@ -14,11 +14,24 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
-        public IActionResult EditTeamPage(int teamId)
+        public IActionResult TeamEditPage(int teamId)
         {
-
+            TeamEditPageModel model = new TeamEditPageModel();
+            DatabaseInterface database = new DatabaseInterface();
+            List<Team> teams = database.getTeams();
+            Team current = new Team();
+            foreach(Team t in teams)
+            {
+                if (t.id == teamId) current = t;
+            }
+            model.team = current;
+            if (teamId == -1)
+            {
+                model.isNew = true;
+            }
+            else model.isNew = false;
             ViewData["Information"] = "This is where you can edit a team";
-            return View();
+            return View(model);
         }
 
         public IActionResult EditEmployeePage(int employeeId)
