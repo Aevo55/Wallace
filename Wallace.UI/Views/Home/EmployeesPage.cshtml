@@ -151,7 +151,11 @@
         <p>.</p>
         <div class="add-employee">
             <p>
-                <button id="button1" type="button" onclick="alert('Your current employees are fine. You don\'t need new one')">ADD EMPLOYEE</button>
+                @using (Html.BeginForm("EditEmployeePage", "Home", FormMethod.Post))
+                {
+                    <input type="hidden" name="employeeId" value="-1" />
+                    <input type="submit" value="Add" />
+                }
             </p>
         </div>
         <div class="Search-Bar">

@@ -22,7 +22,10 @@ namespace Wallace.Common.Models
             id = _id;
         }
 
-        public Team() { }
+        public Team()
+        {
+            members = new List<Employee>();
+        }
 
         public Team(DBTeam t)
         {

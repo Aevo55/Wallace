@@ -24,6 +24,14 @@ namespace Wallace.Common.Models
             teams = new List<Team>();
         }
 
+        public Employee(string _name, string _title, int _salary)
+        {
+            name = _name;
+            title = _title;
+            salary = _salary;
+            teams = new List<Team>();
+        }
+
         public Employee(DBEmployee e)
         {
             name = e.name;
