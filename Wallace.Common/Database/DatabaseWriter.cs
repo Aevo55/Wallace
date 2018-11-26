@@ -140,5 +140,30 @@ namespace Wallace.Common.Database
             cmd.Parameters.AddWithValue("@leader", t.leader);
             execute(cmd);
         }
+
+        public void addVersion(DBVersion v)
+        {
+            cmd = new SqlCommand(insertVerStr, conn);
+            cmd.Parameters.AddWithValue("@pid",v.id);
+            cmd.Parameters.AddWithValue("@num",v.vnum);
+            cmd.Parameters.AddWithValue("@date",v.release);
+            execute(cmd);
+        }
+
+        public void addVersionSpec(int v, int s)
+        {
+            cmd = new SqlCommand(insertVerSpecStr, conn);
+            cmd.Parameters.AddWithValue("@vid", v);
+            cmd.Parameters.AddWithValue("@sid", s);
+            execute(cmd);
+        }
+
+        public void addVersionTeam(int v, int t)
+        {
+            cmd = new SqlCommand(insertVerTeamStr, conn);
+            cmd.Parameters.AddWithValue("@tid", v);
+            cmd.Parameters.AddWithValue("@vid", t);
+            execute(cmd);
+        }
     }
 }
