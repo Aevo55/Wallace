@@ -27,6 +27,7 @@ namespace Wallace.Common.Models
             id = s.id;
             name = s.name;
             description = s.desc;
+            pid = s.pid;
         }
     }
 }
