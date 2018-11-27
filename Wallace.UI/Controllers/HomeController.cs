@@ -15,9 +15,18 @@ namespace Wallace.UI.Controllers
     {
 
 
-        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, int[] specs, int[]teams, int _id)
+        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, int[] specs, int[]teams, int _id, int _pid)
         {
             DatabaseInterface database = new DatabaseInterface();
+            PVersion newversion = new PVersion();
+            if(_id == -1)
+            {
+                newversion.versionNumber = _versionNumber;
+                newversion.releaseDate = _releaseDate;
+            }
+            newversion.pid = _pid;
+            database.addVersion();
+
             return RedirectToAction("Index");
         }
 
@@ -102,7 +111,8 @@ namespace Wallace.UI.Controllers
                 Team newteam = new Team();
                 newteam.name = _name;
                 newteam.desc = _desc;
-                database.addTeam(newteam);
+                int newid = database.addTeam(newteam);
+                newteam.id = newid;
                 foreach (Employee e in employees)// add the employees from the array into the team
                 {
                     foreach(string s in _employees)
@@ -194,6 +204,13 @@ namespace Wallace.UI.Controllers
             List<Project> projects = database.getProjects();
             Project current = new Project();
             int currentid = projectId;
+            if(versionId == -1)
+            {
+
+            }
+
+
+
             foreach (Project p in projects)
             {
                 if (p.id == currentid) current = p;
@@ -204,8 +221,9 @@ namespace Wallace.UI.Controllers
                 if (v.id == versionId) currentversion = v;
             }
             VersionEditPageModel model = new VersionEditPageModel();
+            
             model.version = currentversion;
-
+            
             return View(model);
         }
 

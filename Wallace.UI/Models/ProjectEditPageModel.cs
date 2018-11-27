@@ -7,7 +7,6 @@ namespace Wallace.UI.Models
     {
         //public string RequestId { get; set; }
         public Project project;
-
         public ProjectEditPageModel(Project _project)
         {
             project = _project;
