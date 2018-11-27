@@ -4,17 +4,66 @@
 
 
 <style>
-    #header {
-      color: blue;
+
+    table {
+        border-collapse: collapse;
+        border: 2px solid rgb(200, 200, 200);
+        letter-spacing: 1px;
+        font-family: sans-serif;
+        font-size: 20px;
+        width: 800px;
+        margin: 30px;
     }
 
+    td,
+    th {
+        border: 2px solid black;
+        padding: 5px 10px;
+    }
+
+    td {
+        text-align: left;
+        padding: 5px,20px,5px,200px;
+    }
+
+    th {
+        background-color: #a70000;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e8e8e8;
+    }
+
+    tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    #header {
+        text-align: center;
+        background-color: blue;
+        color: white;
+        font-stretch: expanded;
+        height: 60px;
+        font-family: sans-serif;
+        font-size: 40px;
+    }
+    #edit-data{
+        text-align: center;
+    }
+    #delete-data{
+        text-align:center;
+    }
+    #add-new{
+        font-size:40px;
+    }
 </style>
 @{
     for (int i = 0; i < Model.teams.Count; i++)
     {
-
+        
     <table width:"100%">
-        <tr id="header">@Model.teams[i].name</tr>
+      <h1><b> @Model.teams[i].name</b></h1>
 
 
         <tr>
@@ -36,7 +85,7 @@
         }
 
         <tr>
-            <td>
+            <td id="edit-data" colspan="3">
                 @using (Html.BeginForm("TeamEditPage", "Home", FormMethod.Post))
                 {
                     <input type="hidden" name="teamId" value="@Model.teams[i].id" />
@@ -46,7 +95,7 @@
         </tr>
 
         <tr>
-            <td>
+            <td id="delete-data" colspan="3">
                 @using (Html.BeginForm("DeleteTeam", "Home", FormMethod.Post))
                 {
                     <input type="hidden" name="teamId" value="@Model.teams[i].id" />
@@ -60,12 +109,12 @@
 
 
     }
-
+    <p id="add-new">
     @using (Html.BeginForm("TeamEditPage", "Home", FormMethod.Post))
     {
         <input type="hidden" name="teamId" value="-1" />
         <input type="submit" value="Add Team" />
-    }
+    }</p>
 
 }
 
