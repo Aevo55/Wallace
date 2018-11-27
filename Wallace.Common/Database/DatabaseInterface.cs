@@ -34,6 +34,10 @@ namespace Wallace.Common.Database
                     {
                         _v.specs.Add(new Spec(s));
                     }
+                    foreach(DBTeam t in reader.getTeamsByVersion(v.id))
+                    {
+                        _v.teams.Add(new Team(t));
+                    }
                     _p.versions.Add(_v);
                 }
                 foreach(DBSpecification s in reader.getSpecsByProj(p.id))

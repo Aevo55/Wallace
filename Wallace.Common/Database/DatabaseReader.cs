@@ -345,7 +345,7 @@ namespace Wallace.Common.Database
         public List<DBTeam> getTeamsByVersion(int v)
         {
             List<DBTeam> teams = new List<DBTeam>();
-            cmd = new SqlCommand(getTeamsByEmpStr, conn);
+            cmd = new SqlCommand(getVersionTeamsStr, conn);
             cmd.Parameters.AddWithValue("vid", v);
             try
             {
