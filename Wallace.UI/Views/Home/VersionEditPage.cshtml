@@ -48,9 +48,10 @@
             </h3>
 
         }
+        <h2>Teams to Add to this Version</h2>
         <select name="_teams" multiple>
 
-            @foreach (Team t in Model.version.teams)
+            @foreach (Team t in Model.TeamsNotWorking)
             {
                 @Html.Raw("<option value=" + t.id + ">" + t.name + "</option>");
             }

@@ -14,8 +14,8 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
-
-        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, int[] specs, int[]teams, int _id, int _pid)
+        
+        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, string[] _specs, string[] _teams, int _id, int _pid)
         {
             DatabaseInterface database = new DatabaseInterface();
             PVersion newversion = new PVersion();
@@ -23,9 +23,46 @@ namespace Wallace.UI.Controllers
             {
                 newversion.versionNumber = _versionNumber;
                 newversion.releaseDate = _releaseDate;
+                newversion.pid = _pid;
+                int newid = database.addVersion(newversion);
+                newversion.id = newid;
+                foreach(string s in _specs)
+                {
+
+                    List<Spec> allspecs = database.getProjects().Find(x => x.id ==_pid).specs;
+                    Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    database.addSpecToVersion(newversion, spectoadd);
+                }
+                foreach (string t in _teams)
+                {
+                    List<Team> allteams = database.getTeams();
+                    Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    database.addTeamToVersion(teamtoadd,newversion);
+                }
+
             }
-            newversion.pid = _pid;
-            database.addVersion(newversion);
+            else if(_id != -1)
+            {
+                newversion.versionNumber = _versionNumber;
+                newversion.releaseDate = _releaseDate;
+                newversion.pid = _pid;
+                database.updateVersion(newversion);
+
+                foreach (string s in _specs)
+                {
+
+                    List<Spec> allspecs = database.getProjects().Find(x => x.id == _pid).specs;
+                    Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    database.addSpecToVersion(newversion, spectoadd);
+                }
+                foreach (string t in _teams)
+                {
+                    List<Team> allteams = database.getTeams();
+                    Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    database.addTeamToVersion(teamtoadd, newversion);
+                }
+            }
+            
 
             return RedirectToAction("Index");
         }
@@ -293,26 +330,28 @@ namespace Wallace.UI.Controllers
         {
             DatabaseInterface database = new DatabaseInterface();
             List<Project> projects = database.getProjects();
-            
-            if(versionId == -1)
-            {
-
-            }
-            else if(versionId != -1)
-            {
-
-            }
-
             Project current = new Project();
-            foreach (Project p in projects)
+            foreach (Project p in projects)// get the right project
             {
                 if (p.id == projectId) current = p;
             }
-            PVersion currentversion = new PVersion(); 
-            foreach(PVersion v in current.versions)
+
+            PVersion currentversion = new PVersion();
+            
+            if (versionId == -1)
             {
-                if (v.id == versionId) currentversion = v;
+                currentversion.id = -1;
             }
+            else if(versionId != -1)
+            {
+                foreach (PVersion v in current.versions)// get the right version
+                {
+                    if (v.id == versionId) currentversion = v;
+                }
+            }
+
+            
+            
             VersionEditPageModel model = new VersionEditPageModel();
             
             model.version = currentversion;
@@ -334,6 +373,24 @@ namespace Wallace.UI.Controllers
                     model.NotMetSpecs.Add(s);
                 }
             }
+
+            List<Team> teams = database.getTeams();
+            foreach(Team t in teams)
+            {
+                bool isin = false;
+                foreach(Team vt in model.version.teams)
+                {
+                    if(t.id == vt.id)
+                    {
+                        isin = true;
+                    }
+                }
+                if (!isin)
+                {
+                    model.TeamsNotWorking.Add(t);
+                }
+            }
+
 
             return View(model);
         }
