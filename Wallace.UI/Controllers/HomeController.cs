@@ -293,26 +293,28 @@ namespace Wallace.UI.Controllers
         {
             DatabaseInterface database = new DatabaseInterface();
             List<Project> projects = database.getProjects();
-            
-            if(versionId == -1)
-            {
-
-            }
-            else if(versionId != -1)
-            {
-
-            }
-
             Project current = new Project();
-            foreach (Project p in projects)
+            foreach (Project p in projects)// get the right project
             {
                 if (p.id == projectId) current = p;
             }
-            PVersion currentversion = new PVersion(); 
-            foreach(PVersion v in current.versions)
+
+            PVersion currentversion = new PVersion();
+            
+            if (versionId == -1)
             {
-                if (v.id == versionId) currentversion = v;
+                currentversion.id = -1;
             }
+            else if(versionId != -1)
+            {
+                foreach (PVersion v in current.versions)// get the right version
+                {
+                    if (v.id == versionId) currentversion = v;
+                }
+            }
+
+            
+            
             VersionEditPageModel model = new VersionEditPageModel();
             
             model.version = currentversion;
@@ -334,6 +336,24 @@ namespace Wallace.UI.Controllers
                     model.NotMetSpecs.Add(s);
                 }
             }
+
+            List<Team> teams = database.getTeams();
+            foreach(Team t in teams)
+            {
+                bool isin = false;
+                foreach(Team vt in model.version.teams)
+                {
+                    if(t.id == vt.id)
+                    {
+                        isin = true;
+                    }
+                }
+                if (!isin)
+                {
+                    model.TeamsNotWorking.Add(t);
+                }
+            }
+
 
             return View(model);
         }
