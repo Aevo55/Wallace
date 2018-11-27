@@ -38,7 +38,7 @@
             <h2>Versions</h2>
             <table class="table2">
                 <tr><th>No.</th><th>Date</th><th colspan="3"></th></tr>
-                @{ foreach (PVersion v in Model.project.versions)
+                @{foreach (PVersion v in Model.project.versions)
                     {
 
                         <tr>
@@ -48,7 +48,6 @@
                             <td>@v.releaseDate.ToLongDateString()</td>
                             @using (Html.BeginForm("VersionEditPage", "Home", FormMethod.Post))
                             {
-                                <td> <input type="hidden" name="projectId" value="@Model.project.id" /></td>
                                 <td><input type="hidden" name="versionId" value="@v.id" /></td>
                                 <td><input type="hidden" name="projectId" value="@v.pid" /></td>
                                 <td><input type="submit" value="Edit" /></td>
@@ -56,6 +55,17 @@
                         </tr>
                     }
                 }
+
+                <tr>
+
+                    @using (Html.BeginForm("VersionEditPage", "Home", FormMethod.Post))
+                            {
+                                <td> <input type="hidden" name="projectId" value="@Model.project.id" /></td>
+                                <td><input type="hidden" name="versionId" value="-1" /></td>
+                                <td><input type="submit" value="Add New Version" /></td>
+                            }
+
+                </tr>
             </table>
         </div>
     </div>
