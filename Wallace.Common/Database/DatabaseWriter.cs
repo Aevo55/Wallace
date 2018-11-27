@@ -185,11 +185,11 @@ namespace Wallace.Common.Database
             execute(cmd);
         }
 
-        public void addVersionTeam(int v, int t)
+        public void addVersionTeam(int t, int v)
         {
             cmd = new SqlCommand(insertVerTeamStr, conn);
-            cmd.Parameters.AddWithValue("@tid", v);
-            cmd.Parameters.AddWithValue("@vid", t);
+            cmd.Parameters.AddWithValue("@tid", t);
+            cmd.Parameters.AddWithValue("@vid", v);
             execute(cmd);
         }
     }

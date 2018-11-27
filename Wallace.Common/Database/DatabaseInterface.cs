@@ -204,7 +204,7 @@ namespace Wallace.Common.Database
 
         public void addTeamToVersion(Team t, PVersion v)
         {
-            writer.addVersionTeam(v.id, t.id);
+            writer.addVersionTeam(t.id, v.id);
         }
 
         /***************************************/
