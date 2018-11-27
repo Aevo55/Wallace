@@ -17,6 +17,8 @@ namespace Wallace.UI.Controllers
         
         public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, string[] _specs, string[] _teams, int _id, int _pid, int _vid)
         {
+            
+
             DatabaseInterface database = new DatabaseInterface();
             PVersion newversion = new PVersion();
             if(_id == -1)
@@ -24,6 +26,7 @@ namespace Wallace.UI.Controllers
                 newversion.versionNumber = _versionNumber;
                 newversion.releaseDate = _releaseDate;
                 newversion.pid = _pid;
+
                 int newid = database.addVersion(newversion);
                 newversion.id = newid;
                 foreach(string s in _specs)
@@ -46,8 +49,9 @@ namespace Wallace.UI.Controllers
                 newversion.versionNumber = _versionNumber;
                 newversion.releaseDate = _releaseDate;
                 newversion.pid = _pid;
-                database.updateVersion(newversion);
                 newversion.id = _vid;
+                database.updateVersion(newversion);
+                
                 foreach (string s in _specs)
                 {
 
