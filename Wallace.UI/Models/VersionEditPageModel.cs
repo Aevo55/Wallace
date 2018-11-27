@@ -10,5 +10,6 @@ namespace Wallace.UI.Models
         public List<Spec> projectSpecifications = new List<Spec>();
 
         public List<Spec> NotMetSpecs = new List<Spec>();
+        public List<Team> TeamsNotWorking = new List<Team>();
     }
 }

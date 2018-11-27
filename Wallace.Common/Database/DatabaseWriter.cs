@@ -171,9 +171,9 @@ namespace Wallace.Common.Database
         public int addVersion(DBVersion v)
         {
             cmd = new SqlCommand(insertVerStr, conn);
-            cmd.Parameters.AddWithValue("@pid",v.id);
+            cmd.Parameters.AddWithValue("@pid",v.pid);
             cmd.Parameters.AddWithValue("@num",v.vnum);
-            cmd.Parameters.AddWithValue("@date",v.release);
+            cmd.Parameters.AddWithValue("@date",v.release.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             return executeWithId(cmd);
         }
 
@@ -185,11 +185,11 @@ namespace Wallace.Common.Database
             execute(cmd);
         }
 
-        public void addVersionTeam(int v, int t)
+        public void addVersionTeam(int t, int v)
         {
             cmd = new SqlCommand(insertVerTeamStr, conn);
-            cmd.Parameters.AddWithValue("@tid", v);
-            cmd.Parameters.AddWithValue("@vid", t);
+            cmd.Parameters.AddWithValue("@tid", t);
+            cmd.Parameters.AddWithValue("@vid", v);
             execute(cmd);
         }
     }
