@@ -247,6 +247,40 @@ namespace Wallace.UI.Controllers
 
         }
 
+        public IActionResult AddSpecToProject(int _pid, string _name, string _description)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            Spec newspec = new Spec();
+            newspec.name = _name;
+            newspec.description = _description;
+            newspec.pid = _pid;
+            database.addSpecToProject(newspec);
+            return RedirectToAction("ProjectEditPage", new { projectId = _pid});
+
+
+
+        }
+
+        public IActionResult ProjectViewPage(int projectId)
+        {
+
+            DatabaseInterface database = new DatabaseInterface();
+            List<Project> projects = database.getProjects();
+            Project current = new Project();
+            if (projectId != -1)
+            {
+                foreach (Project p in projects)
+                {
+                    if (p.id == projectId) current = p;
+                }
+            }
+
+            ProjectViewPageModel model = new ProjectViewPageModel(current);
+
+            return View(model);
+
+        }
+
         public IActionResult NewProjectEditPage()
         {
             NewProjectEditPageModel model = new NewProjectEditPageModel();

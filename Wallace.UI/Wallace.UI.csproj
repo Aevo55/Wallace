@@ -18,6 +18,9 @@
     <Content Update="Views\Home\NewProjectEditPage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Home\ProjectViewPage.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\TeamEditPage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
