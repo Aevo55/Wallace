@@ -14,8 +14,8 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
-
-        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, int[] specs, int[]teams, int _id, int _pid)
+        
+        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, string[] _specs, string[] _teams, int _id, int _pid)
         {
             DatabaseInterface database = new DatabaseInterface();
             PVersion newversion = new PVersion();
@@ -23,9 +23,46 @@ namespace Wallace.UI.Controllers
             {
                 newversion.versionNumber = _versionNumber;
                 newversion.releaseDate = _releaseDate;
+                newversion.pid = _pid;
+                int newid = database.addVersion(newversion);
+                newversion.id = newid;
+                foreach(string s in _specs)
+                {
+
+                    List<Spec> allspecs = database.getProjects().Find(x => x.id ==_pid).specs;
+                    Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    database.addSpecToVersion(newversion, spectoadd);
+                }
+                foreach (string t in _teams)
+                {
+                    List<Team> allteams = database.getTeams();
+                    Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    database.addTeamToVersion(teamtoadd,newversion);
+                }
+
             }
-            newversion.pid = _pid;
-            database.addVersion(newversion);
+            else if(_id != -1)
+            {
+                newversion.versionNumber = _versionNumber;
+                newversion.releaseDate = _releaseDate;
+                newversion.pid = _pid;
+                database.updateVersion(newversion);
+
+                foreach (string s in _specs)
+                {
+
+                    List<Spec> allspecs = database.getProjects().Find(x => x.id == _pid).specs;
+                    Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    database.addSpecToVersion(newversion, spectoadd);
+                }
+                foreach (string t in _teams)
+                {
+                    List<Team> allteams = database.getTeams();
+                    Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    database.addTeamToVersion(teamtoadd, newversion);
+                }
+            }
+            
 
             return RedirectToAction("Index");
         }
