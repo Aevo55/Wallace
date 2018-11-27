@@ -5,22 +5,16 @@
 
 <style>
     #header {
-        text-align: center;
-        background-color: blue;
-        color: white;
-        font-stretch: expanded;
-        height: 60px;
-        font-family: sans-serif;
-        font-size: 40px;
+      color: blue;
     }
 
 </style>
 @{
     for (int i = 0; i < Model.teams.Count; i++)
     {
-<div>
+
     <table width:"100%">
-        <tr id="header">LEGEND</tr>
+        <tr id="header">@Model.teams[i].name</tr>
 
 
         <tr>
@@ -63,7 +57,7 @@
 
     </table>
 
-</div>
+
 
     }
 
