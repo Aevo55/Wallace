@@ -17,6 +17,7 @@ namespace Wallace.Common.Models
         {
             specs = new List<Spec>();
             teams = new List<Team>();
+            releaseDate = DateTime.Now;
         }
 
         public PVersion(DBVersion v)
