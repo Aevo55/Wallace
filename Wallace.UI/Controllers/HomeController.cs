@@ -298,9 +298,6 @@ namespace Wallace.UI.Controllers
             newspec.pid = _pid;
             database.addSpecToProject(newspec);
             return RedirectToAction("ProjectEditPage", new { projectId = _pid});
-
-
-
         }
 
         public IActionResult ProjectViewPage(int projectId)
