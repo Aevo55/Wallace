@@ -75,6 +75,35 @@ namespace Wallace.Common.Database
             return employees;
         }
 
+        public List<PVersion> getVersionByProject(int id)
+        {
+            List<PVersion> vers = new List<PVersion>();
+            foreach(DBVersion v in reader.getVersionsByProj(id))
+            {
+                vers.Add(new PVersion(v));
+            }
+            return vers;
+        }
+
+        public List<Spec> getSpecsByProject(int id)
+        {
+            List<Spec> specs = new List<Spec>();
+            foreach (DBSpecification s in reader.getSpecsByProj(id))
+            {
+                specs.Add(new Spec(s));
+            }
+            return specs;
+        }
+
+        public List<Spec> getSpecsByVersion(int id)
+        {
+            List<Spec> specs = new List<Spec>();
+            foreach (DBSpecification s in reader.getSpecsByVer(id))
+            {
+                specs.Add(new Spec(s));
+            }
+            return specs;
+        }
         /***************************************/
 
         public void deleteProject(int id)
