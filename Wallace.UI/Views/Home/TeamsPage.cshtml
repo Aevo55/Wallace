@@ -25,6 +25,14 @@
                         @Html.Raw("<td>" + Model.teams[i].members[j].name + "</td>");
                         @Html.Raw("<td>" + Model.teams[i].members[j].title + "</td>");
                         @Html.Raw("<td>" + Model.teams[i].members[j].salary.ToString() + "</td>");
+                        <td>
+                            @using (Html.BeginForm("RemoveTeamMember", "Home", FormMethod.Post))
+                            {
+                                <input type="hidden" name="_teamId" value="@Model.teams[i].id" />
+                                <input type="hidden" name="_empId" value="@Model.teams[i].members[j].id" />
+                                <input type="submit" value="Remove" />
+                            }
+                        </td>
                         @Html.Raw("</tr>");
 
                     </tr>
