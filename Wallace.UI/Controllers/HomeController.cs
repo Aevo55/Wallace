@@ -15,7 +15,7 @@ namespace Wallace.UI.Controllers
     {
 
         
-        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, string[] _specs, string[] _teams, int _id, int _pid)
+        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, string[] _specs, string[] _teams, int _id, int _pid, int _vid)
         {
             DatabaseInterface database = new DatabaseInterface();
             PVersion newversion = new PVersion();
@@ -47,11 +47,12 @@ namespace Wallace.UI.Controllers
                 newversion.releaseDate = _releaseDate;
                 newversion.pid = _pid;
                 database.updateVersion(newversion);
-
+                newversion.id = _vid;
                 foreach (string s in _specs)
                 {
 
-                    List<Spec> allspecs = database.getProjects().Find(x => x.id == _pid).specs;
+                    //List<Spec> allspecs = database.getProjects().Find(x => x.id == _pid).specs;
+                    List<Spec> allspecs = database.getSpecsByProject(_pid);
                     Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
                     database.addSpecToVersion(newversion, spectoadd);
                 }
@@ -353,7 +354,7 @@ namespace Wallace.UI.Controllers
             
             
             VersionEditPageModel model = new VersionEditPageModel();
-            
+            model.pid = projectId;
             model.version = currentversion;
             model.projectSpecifications = current.specs;
             
