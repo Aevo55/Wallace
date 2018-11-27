@@ -12,6 +12,7 @@
         width: 1200px;
         background-size: cover;
         background-position: center;
+        margin:10px 10px 10px 10px;
     }
     .col-md-3{
         height: 100px;
@@ -21,6 +22,7 @@
     }
     .DIsplay-image{
         background-size:cover;
+        margin:0px 10px 10px 10px;
     }
     .title{
         position: absolute;
@@ -38,34 +40,53 @@ h1{
     text-align: center;
 }
 .team-link{
-    margin: -429px 29px 31px 425px;
+    margin: -429px 29px 31px 525px;
     width: 180px;
     height: 30px;
     background-color: yellow;
-    font-size: 30px;
+    font-size: 35px;
     
 }
     .employee-link {
-        margin: -66px 35px 43px 648px;
+        margin: -61px 35px 43px 748px;
+        width: 300px;
+        height: 30px;
+        background-color: yellow;
+        font-size: 35px;
+    }
+    body{
+        background-image:url(~/images/wall.jpg);
+        background-repeat: no-repeat;
+        background-size:cover;
+    }
+    .Current-project {
+        margin: -61px -6px 51px 231px;
         width: 250px;
         height: 30px;
         background-color: yellow;
         font-size: 30px;
     }
-
 </style>
 
+    
+
+
+
+
+
+
+
     <div class="row">
-        
+
         <div class="title">
 
             <h1>Wallace Co.</h1>
 
         </div>
         <div class="DIsplay-image">
-            <img src="@Url.Content("~/images/wall.jpg")" height="800" width="1200" />
+            <img src="@Url.Content("~/images/wall.jpg")" height="800" width="1175" />
         </div>
-        
+
         <div class="team-link">
 
             <p id="idk"> <a asp-area="" asp-controller="Home" asp-action="TeamsPage">Teams List</a></p>
@@ -73,39 +94,13 @@ h1{
         </div>
         <div class="employee-link">
 
-            <p ><a asp-area="" asp-controller="Home" asp-action="EmployeesPage">Employees Page</a></p>
+            <p><a asp-area="" asp-controller="Home" asp-action="EmployeesPage">Employees Page</a></p>
+
+        </div>
+        <div class="Current-project">
+
+            <p><a asp-area="" asp-controller="Home" asp-action="CurrentProject">Current Projects</a></p>
+
 
         </div>
     </div>
-
-
-
-
-@foreach (Project p in Model.Projects)
-{      
-    <body>
-        <h2>
-            Project name @Html.Raw(p.name)
-        </h2>
-
-        Description:
-        @Html.Raw(p.desc)
-
-        @using (Html.BeginForm("ProjectViewPage", "Home", FormMethod.Post))
-        {
-            <input type="hidden" name="projectId" value="@p.id" />
-            <input type="submit" value="View" />
-        }
-        @using (Html.BeginForm("ProjectEditPage", "Home", FormMethod.Post))
-        {
-            <input type="hidden" name="projectId" value="@p.id" />
-            <input type="submit" value="Edit" />
-        }
-    </body>
-}
-
-@using (Html.BeginForm("NewProjectEditPage", "Home", FormMethod.Post))
-{
-    <input type="hidden" name="projectId" value="-1" />
-    <input type="submit" value="Add New Project" />
-}

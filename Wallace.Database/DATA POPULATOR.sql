@@ -87,3 +87,8 @@ DBCC CHECKIDENT ('Teams', RESEED, -1);
 DBCC CHECKIDENT ('Versions', RESEED, -1);
 DBCC CHECKIDENT ('Projects', RESEED, -1);
 DBCC CHECKIDENT ('Specifications', RESEED, -1);
+
+
+DELETE FROM dbo.Projects WHERE dbo.Projects.pName ='AB';
+
+SELECT * FROM TeamMembers;
