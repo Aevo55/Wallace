@@ -6,12 +6,12 @@
 @using (Html.BeginForm("SubmitVersion", "Home", FormMethod.Post))
 {
     <h1>
-        version: @Model.version.versionNumber
+        version:
         <input type="number" value="@Model.version.versionNumber" name="_versionNumber" />
 
     </h1>
 
-    @Model.version.releaseDate
+    @Html.Raw("Release Date:")
     <input type="datetime" value="@Model.version.releaseDate" name="_releaseDate" />
 
     <h2>Version Specifications</h2>
@@ -25,10 +25,12 @@
             @s.description
         }
     }
-
+    <h2>
+        Add Specification to version
+    </h2>
     <select name="_specs" multiple>
 
-        @foreach (Spec s in Model.version.specs)
+        @foreach (Spec s in Model.NotMetSpecs)
         {
             @Html.Raw("<option value=" + s.id + ">" + s.name + "</option>");
         }

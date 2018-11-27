@@ -1,0 +1,39 @@
+﻿@model VersionViewPageModel
+@using Wallace.Common.Models
+<h2>Version View Page</h2>
+<h3>@ViewData["Information"]</h3>
+
+    <h1>
+        version: @Model.version.versionNumber
+
+    </h1>
+    Release Date:
+    @Model.version.releaseDate
+    <h2>Version Specifications</h2>
+
+    @{
+        foreach (Spec s in Model.version.specs){
+            <h3>
+                @s.name
+            </h3>
+            @s.description
+        }
+    }
+
+    <h2>
+        Teams Working on this version
+    </h2>
+    @{
+        foreach (Team t in Model.version.teams)
+        {
+            <h3>
+                @t.name
+            </h3>
+
+        }
+
+    }
+
+
+
+

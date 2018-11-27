@@ -80,12 +80,12 @@
 
 
                             <td>@v.releaseDate.ToLongDateString()</td>
-                            @using (Html.BeginForm("VersionEditPage", "Home", FormMethod.Post))
+                            @using (Html.BeginForm("VersionViewPage", "Home", FormMethod.Post))
                             {
                                 <td> <input type="hidden" name="projectId" value="@Model.project.id" /></td>
                                 <td><input type="hidden" name="versionId" value="@v.id" /></td>
                                 <td><input type="hidden" name="projectId" value="@v.pid" /></td>
-                                <td><input type="submit" value="Edit" /></td>
+                                <td><input type="submit" value="View" /></td>
                             }
                         </tr>
                     }
