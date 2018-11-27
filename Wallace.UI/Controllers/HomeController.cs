@@ -25,7 +25,7 @@ namespace Wallace.UI.Controllers
                 newversion.releaseDate = _releaseDate;
             }
             newversion.pid = _pid;
-            database.addVersion();
+            database.addVersion(newversion);
 
             return RedirectToAction("Index");
         }
@@ -58,7 +58,7 @@ namespace Wallace.UI.Controllers
             if (_employeeId != -1)
             {
                 Employee newemp = new Employee(_name, _title, _salary, _employeeId);
-                //database modify employee
+                database.updateEmployee(newemp);
             }
             if(_employeeId == -1)
             {
@@ -125,7 +125,64 @@ namespace Wallace.UI.Controllers
                 }
 
             }
+            if(_id != -1)
+            {
+                List<Team> teams = database.getTeams();
+                Team current = new Team();
+                foreach(Team t in teams)
+                {
+                    if (t.id == _id) current = t;
+                }
 
+                foreach(string s in _employees)
+                {
+                    bool isin = false;
+                    foreach(Employee e in current.members)
+                    {
+                        if (int.Parse(s) == e.id) isin = true;
+                    }
+                    if (!isin)
+                    {
+                        Employee newmember = new Employee();
+                        List<Employee> allemployees = database.getEmployees();
+                        foreach(Employee e in allemployees)
+                        {
+                            if(e.id == int.Parse(s))
+                            {
+                                newmember = e;
+                            }
+                        }
+                        database.addEmpToTeam(newmember, current);
+                    }
+                }
+
+                current.name = _name;
+                current.desc = _desc;
+
+            }
+
+
+
+            return RedirectToAction("TeamsPage");
+        }
+
+        public IActionResult RemoveTeamMember(int _empId, int _teamId)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            List<Team> teams = database.getTeams();
+            List<Employee> employees = database.getEmployees();
+            Team currentTeam = new Team();
+            Employee currentEmp = new Employee();
+            foreach(Team t in teams)
+            {
+                if (t.id == _teamId) currentTeam = t;
+            }
+            foreach(Employee e in employees)
+            {
+                if (e.id == _empId) currentEmp = e;
+            }
+
+            database.deleteEmployeeFromTeam(_teamId, _empId);
             return RedirectToAction("TeamsPage");
         }
 
