@@ -293,18 +293,20 @@ namespace Wallace.UI.Controllers
         {
             DatabaseInterface database = new DatabaseInterface();
             List<Project> projects = database.getProjects();
-            Project current = new Project();
-            int currentid = projectId;
+            
             if(versionId == -1)
             {
 
             }
+            else if(versionId != -1)
+            {
 
+            }
 
-
+            Project current = new Project();
             foreach (Project p in projects)
             {
-                if (p.id == currentid) current = p;
+                if (p.id == projectId) current = p;
             }
             PVersion currentversion = new PVersion(); 
             foreach(PVersion v in current.versions)
@@ -314,7 +316,30 @@ namespace Wallace.UI.Controllers
             VersionEditPageModel model = new VersionEditPageModel();
             
             model.version = currentversion;
+            model.projectSpecifications = current.specs;
             
+            return View(model);
+        }
+
+        public IActionResult VersionViewPage(int projectId, int versionId)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            List<Project> projects = database.getProjects();
+            Project current = new Project();
+            int currentid = projectId;
+            foreach (Project p in projects)
+            {
+                if (p.id == currentid) current = p;
+            }
+            PVersion currentversion = new PVersion();
+            foreach (PVersion v in current.versions)
+            {
+                if (v.id == versionId) currentversion = v;
+            }
+            VersionViewPageModel model = new VersionViewPageModel();
+
+            model.version = currentversion;
+
             return View(model);
         }
 

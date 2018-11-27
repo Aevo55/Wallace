@@ -27,6 +27,9 @@
     <Content Update="Views\Home\EmployeesPage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Home\VersionViewPage.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\VersionEditPage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
