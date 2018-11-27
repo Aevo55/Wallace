@@ -8,5 +8,7 @@ namespace Wallace.UI.Models
         public PVersion version;
         public int pid;
         public List<Spec> projectSpecifications = new List<Spec>();
+
+        public List<Spec> NotMetSpecs = new List<Spec>();
     }
 }

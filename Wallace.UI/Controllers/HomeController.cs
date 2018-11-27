@@ -318,6 +318,23 @@ namespace Wallace.UI.Controllers
             model.version = currentversion;
             model.projectSpecifications = current.specs;
             
+
+            foreach(Spec s in model.projectSpecifications)
+            {
+                bool isin = false;
+                foreach(Spec vs in model.version.specs)
+                {
+                    if (vs.id == s.id)
+                    {
+                        isin = true;
+                    }
+                }
+                if (!isin)
+                {
+                    model.NotMetSpecs.Add(s);
+                }
+            }
+
             return View(model);
         }
 
