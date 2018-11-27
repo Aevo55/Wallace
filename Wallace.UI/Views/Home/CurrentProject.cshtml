@@ -1,0 +1,89 @@
+﻿@model IndexPageModel
+@using Wallace.Common.Models;
+@{
+    ViewData["Title"] = "Current Projects";
+}
+
+<style>
+
+    table {
+        border-collapse: collapse;
+        border: 2px solid rgb(200, 200, 200);
+        letter-spacing: 1px;
+        font-family: sans-serif;
+        font-size: 20px;
+        width: 800px;
+        margin: 30px;
+    }
+    #LOGIC {
+        text-align: center;
+        background-color: blue;
+        color: white;
+        font-stretch: expanded;
+        height: 60px;
+        font-family: sans-serif;
+        font-size: 20px;
+    }
+    .HOT{
+        display:inline;
+        text-align:center;
+    }
+    tbody {
+        background-color: #e4f0f5;
+    }
+    td {
+        border: 2px solid #e4f0f5;
+        text-align: left;
+        padding: 5px,20px,5px,200px;
+    }
+</style>
+
+<h1><b><u>Current Projects</u></b></h1>
+
+@foreach (Project p in Model.Projects)
+{
+<body>
+    <ul>
+        <li>
+            <table>
+
+                <tr>
+                    <th id="LOGIC">@Html.Raw(p.name)</th>
+                </tr>
+
+
+                <tr>
+                    <td colspan="1">
+                        Description:
+                        @Html.Raw(p.desc)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" spam class="HOT">
+                        @using (Html.BeginForm("ProjectViewPage", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" name="projectId" value="@p.id" />
+                            <input type="submit" value="View" />
+                        }
+                    </td>
+                <tr>
+                    <td spam class="HOT">
+                        @using (Html.BeginForm("ProjectEditPage", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" name="projectId" value="@p.id" />
+                            <input type="submit" value="Edit" />
+                        }
+                </td>
+            </tr>
+            <h1> </h1>
+        </table>
+    </li>
+</ul>
+</body>
+}
+@using (Html.BeginForm("NewProjectEditPage", "Home", FormMethod.Post))
+{
+    <input type="hidden" name="projectId" value="-1" />
+    <input type="submit" value="Add New Project" />
+}
