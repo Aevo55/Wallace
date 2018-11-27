@@ -173,7 +173,7 @@ namespace Wallace.Common.Database
             cmd = new SqlCommand(insertVerStr, conn);
             cmd.Parameters.AddWithValue("@pid",v.id);
             cmd.Parameters.AddWithValue("@num",v.vnum);
-            cmd.Parameters.AddWithValue("@date",v.release);
+            cmd.Parameters.AddWithValue("@date",v.release.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             return executeWithId(cmd);
         }
 
