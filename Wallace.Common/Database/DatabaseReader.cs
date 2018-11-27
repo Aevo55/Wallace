@@ -327,11 +327,13 @@ namespace Wallace.Common.Database
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                employee.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
-                employee.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
-                employee.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
-                employee.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
+                while (reader.Read())
+                {
+                    employee.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    employee.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    employee.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
+                    employee.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
+                }
             }
             finally
             {
