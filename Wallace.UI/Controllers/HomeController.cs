@@ -14,6 +14,22 @@ namespace Wallace.UI.Controllers
     public class HomeController : Controller
     {
 
+
+        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, int[] specs, int[]teams, int _id, int _pid)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            PVersion newversion = new PVersion();
+            if(_id == -1)
+            {
+                newversion.versionNumber = _versionNumber;
+                newversion.releaseDate = _releaseDate;
+            }
+            newversion.pid = _pid;
+            database.addVersion(newversion);
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult SubmitNewProject(string _name, int _budget,string _desc, int _manager)
         {
             Project newproject = new Project();
@@ -42,7 +58,7 @@ namespace Wallace.UI.Controllers
             if (_employeeId != -1)
             {
                 Employee newemp = new Employee(_name, _title, _salary, _employeeId);
-                //database modify employee
+                database.updateEmployee(newemp);
             }
             if(_employeeId == -1)
             {
@@ -95,7 +111,8 @@ namespace Wallace.UI.Controllers
                 Team newteam = new Team();
                 newteam.name = _name;
                 newteam.desc = _desc;
-                database.addTeam(newteam);
+                int newid = database.addTeam(newteam);
+                newteam.id = newid;
                 foreach (Employee e in employees)// add the employees from the array into the team
                 {
                     foreach(string s in _employees)
@@ -108,7 +125,64 @@ namespace Wallace.UI.Controllers
                 }
 
             }
+            if(_id != -1)
+            {
+                List<Team> teams = database.getTeams();
+                Team current = new Team();
+                foreach(Team t in teams)
+                {
+                    if (t.id == _id) current = t;
+                }
 
+                foreach(string s in _employees)
+                {
+                    bool isin = false;
+                    foreach(Employee e in current.members)
+                    {
+                        if (int.Parse(s) == e.id) isin = true;
+                    }
+                    if (!isin)
+                    {
+                        Employee newmember = new Employee();
+                        List<Employee> allemployees = database.getEmployees();
+                        foreach(Employee e in allemployees)
+                        {
+                            if(e.id == int.Parse(s))
+                            {
+                                newmember = e;
+                            }
+                        }
+                        database.addEmpToTeam(newmember, current);
+                    }
+                }
+
+                current.name = _name;
+                current.desc = _desc;
+
+            }
+
+
+
+            return RedirectToAction("TeamsPage");
+        }
+
+        public IActionResult RemoveTeamMember(int _empId, int _teamId)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            List<Team> teams = database.getTeams();
+            List<Employee> employees = database.getEmployees();
+            Team currentTeam = new Team();
+            Employee currentEmp = new Employee();
+            foreach(Team t in teams)
+            {
+                if (t.id == _teamId) currentTeam = t;
+            }
+            foreach(Employee e in employees)
+            {
+                if (e.id == _empId) currentEmp = e;
+            }
+
+            database.deleteEmployeeFromTeam(_teamId, _empId);
             return RedirectToAction("TeamsPage");
         }
 
@@ -187,6 +261,13 @@ namespace Wallace.UI.Controllers
             List<Project> projects = database.getProjects();
             Project current = new Project();
             int currentid = projectId;
+            if(versionId == -1)
+            {
+
+            }
+
+
+
             foreach (Project p in projects)
             {
                 if (p.id == currentid) current = p;
@@ -197,8 +278,9 @@ namespace Wallace.UI.Controllers
                 if (v.id == versionId) currentversion = v;
             }
             VersionEditPageModel model = new VersionEditPageModel();
+            
             model.version = currentversion;
-
+            
             return View(model);
         }
 

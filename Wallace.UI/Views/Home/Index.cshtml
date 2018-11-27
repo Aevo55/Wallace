@@ -20,8 +20,6 @@
         margin: 10px -382px 10px 10px;
     }
     .DIsplay-image{
-       
-        
         background-size:cover;
     }
     .title{
@@ -101,7 +99,7 @@ h1{
     </body>
 }
 
-@using (Html.BeginForm("ProjectEditPage", "Home", FormMethod.Post))
+@using (Html.BeginForm("NewProjectEditPage", "Home", FormMethod.Post))
 {
     <input type="hidden" name="projectId" value="-1" />
     <input type="submit" value="Add New Project" />

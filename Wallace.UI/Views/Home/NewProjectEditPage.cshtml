@@ -32,7 +32,7 @@
 <body>
     <table style="width=100%">
 
-        @using (Html.BeginForm("SubmitNewTeam", "Home", FormMethod.Post))
+        @using (Html.BeginForm("SubmitNewProject", "Home", FormMethod.Post))
         {
 
             <tr>
@@ -47,6 +47,17 @@
 
             </tr>
 
+            <tr>
+
+                <td>
+                    Budget:
+                </td>
+
+                <td>
+                    <input type="number" value="0" name="_budget" />
+                </td>
+
+            </tr>
 
             <tr>
 

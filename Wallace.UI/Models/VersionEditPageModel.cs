@@ -6,5 +6,6 @@ namespace Wallace.UI.Models
     public class VersionEditPageModel
     {
         public PVersion version;
+        public int pid;
     }
 }

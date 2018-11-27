@@ -13,6 +13,8 @@ namespace Wallace.Common.Database
                                                         Title,
                                                         Salary,
                                                         eName)
+                                                OUTPUT
+                                                    Inserted.eId
                                                 VALUES(
                                                     @title,
                                                     @salary,
@@ -23,6 +25,8 @@ namespace Wallace.Common.Database
                                                         pName,
                                                         pBudget,
                                                         pDesc)
+                                                OUTPUT
+                                                    Inserted.pId
                                                 VALUES(
                                                     @name,
                                                     @budget,
@@ -33,6 +37,8 @@ namespace Wallace.Common.Database
                                                         sName,
                                                         sDesc,
                                                         pId)
+                                                OUTPUT
+                                                    Inserted.sId
                                                 VALUES(
                                                     @name,
                                                     @desc,
@@ -49,6 +55,8 @@ namespace Wallace.Common.Database
                                                         tName,
                                                         tDesc,
                                                         tLeader)
+                                                OUTPUT
+                                                    Inserted.tId
                                                 VALUES(
                                                     @name,
                                                     @desc,
@@ -59,6 +67,8 @@ namespace Wallace.Common.Database
                                                         pId,
                                                         vNum,
                                                         ReleaseDate)
+                                                OUTPUT
+                                                    Inserted.vId
                                                 VALUES(
                                                     @pid,
                                                     @num,
@@ -91,37 +101,54 @@ namespace Wallace.Common.Database
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
             }
+
             finally
             {
                 cmd.Connection.Close();
             }
         }
 
-        public void addEmployee(DBEmployee e)
+        public int executeWithId(SqlCommand cmd)
+        {
+            try
+            {
+                cmd.Connection.Open();
+                return (int)cmd.ExecuteScalar();
+
+            }
+
+            finally
+            {
+                cmd.Connection.Close();
+            }
+        }
+
+
+        public int addEmployee(DBEmployee e)
         {
             cmd = new SqlCommand(insertEmpStr, conn);
             cmd.Parameters.AddWithValue("@title", e.title);
             cmd.Parameters.AddWithValue("@salary", e.salary);
             cmd.Parameters.AddWithValue("@name", e.name);
-            execute(cmd);
+            return executeWithId(cmd);
         }
 
-        public void addProject(DBProject p)
+        public int addProject(DBProject p)
         {
             cmd = new SqlCommand(insertProjStr, conn);
             cmd.Parameters.AddWithValue("@name", p.name);
             cmd.Parameters.AddWithValue("@budget", p.budget);
             cmd.Parameters.AddWithValue("@desc", p.desc);
-            execute(cmd);
+            return executeWithId(cmd);
         }
 
-        public void addSpec(DBSpecification s)
+        public int addSpec(DBSpecification s)
         {
             cmd = new SqlCommand(insertSpecStr, conn);
             cmd.Parameters.AddWithValue("@name", s.name);
             cmd.Parameters.AddWithValue("@desc", s.desc);
             cmd.Parameters.AddWithValue("@pid", s.pid);
-            execute(cmd);
+            return executeWithId(cmd);
         }
 
         public void addTeamMem(int eid, int tid)
@@ -132,22 +159,22 @@ namespace Wallace.Common.Database
             execute(cmd);
         }
 
-        public void addTeam(DBTeam t)
+        public int addTeam(DBTeam t)
         {
             cmd = new SqlCommand(insertTeamStr, conn);
             cmd.Parameters.AddWithValue("@name", t.name);
             cmd.Parameters.AddWithValue("@desc", t.desc);
             cmd.Parameters.AddWithValue("@leader", t.leader);
-            execute(cmd);
+            return executeWithId(cmd);
         }
 
-        public void addVersion(DBVersion v)
+        public int addVersion(DBVersion v)
         {
             cmd = new SqlCommand(insertVerStr, conn);
             cmd.Parameters.AddWithValue("@pid",v.id);
             cmd.Parameters.AddWithValue("@num",v.vnum);
             cmd.Parameters.AddWithValue("@date",v.release);
-            execute(cmd);
+            return executeWithId(cmd);
         }
 
         public void addVersionSpec(int v, int s)
