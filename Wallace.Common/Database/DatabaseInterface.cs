@@ -104,6 +104,7 @@ namespace Wallace.Common.Database
             }
             return specs;
         }
+
         /***************************************/
 
         public void deleteProject(int id)
