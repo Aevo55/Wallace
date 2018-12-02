@@ -278,7 +278,7 @@ namespace Wallace.UI.Controllers
             }
             
             ProjectEditPageModel model = new ProjectEditPageModel(current);
-
+            
             return View(model);
 
         }
