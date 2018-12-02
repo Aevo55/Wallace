@@ -327,10 +327,8 @@ namespace Wallace.UI.Controllers
             DatabaseInterface database = new DatabaseInterface();
             List<Project> projects = database.getProjects();
             Project current = new Project();
-            foreach (Project p in projects)// get the right project
-            {
-                if (p.id == projectId) current = p;
-            }
+
+            current = database.getProject(projectId);
 
             PVersion currentversion = new PVersion();
             
@@ -338,12 +336,10 @@ namespace Wallace.UI.Controllers
             {
                 currentversion.id = -1;
             }
+
             else if(versionId != -1)
             {
-                foreach (PVersion v in current.versions)// get the right version
-                {
-                    if (v.id == versionId) currentversion = v;
-                }
+                currentversion = database.getVersion(versionId);
             }
 
             
@@ -352,22 +348,13 @@ namespace Wallace.UI.Controllers
             model.pid = projectId;
             model.version = currentversion;
             model.projectSpecifications = current.specs;
-            
 
-            foreach(Spec s in model.projectSpecifications)
+            model.minVersionNumber = 0;
+
+
+            foreach(Spec s in database.getUnmetSpecs(versionId))
             {
-                bool isin = false;
-                foreach(Spec vs in model.version.specs)
-                {
-                    if (vs.id == s.id)
-                    {
-                        isin = true;
-                    }
-                }
-                if (!isin)
-                {
-                    model.NotMetSpecs.Add(s);
-                }
+                model.NotMetSpecs.Add(s);
             }
 
             List<Team> teams = database.getTeams();
