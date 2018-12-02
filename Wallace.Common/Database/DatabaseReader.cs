@@ -168,6 +168,7 @@ namespace Wallace.Common.Database
         {
             DBProject project = new DBProject();
             cmd = new SqlCommand(getProjectString, conn);
+            cmd.Parameters.AddWithValue("id", p);
             try
             {
                 conn.Open();
@@ -223,7 +224,7 @@ namespace Wallace.Common.Database
             try
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("pid", v);
+                cmd.Parameters.AddWithValue("id", v);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
