@@ -211,19 +211,6 @@ namespace Wallace.UI.Controllers
         public IActionResult RemoveTeamMember(int _empId, int _teamId)
         {
             DatabaseInterface database = new DatabaseInterface();
-            List<Team> teams = database.getTeams();
-            List<Employee> employees = database.getEmployees();
-            Team currentTeam = new Team();
-            Employee currentEmp = new Employee();
-            foreach(Team t in teams)
-            {
-                if (t.id == _teamId) currentTeam = t;
-            }
-            foreach(Employee e in employees)
-            {
-                if (e.id == _empId) currentEmp = e;
-            }
-
             database.deleteEmployeeFromTeam(_teamId, _empId);
             return RedirectToAction("TeamsPage");
         }
@@ -267,6 +254,13 @@ namespace Wallace.UI.Controllers
             DatabaseInterface database = new DatabaseInterface();
             database.deleteTeam(teamId);
             return RedirectToAction("TeamsPage");
+        }
+
+        public IActionResult DeleteProject(int projectId)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            database.deleteProject(projectId);
+            return RedirectToAction("CurrentProject");
         }
 
         public IActionResult ProjectEditPage(int projectId)

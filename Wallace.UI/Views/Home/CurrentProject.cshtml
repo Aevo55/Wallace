@@ -74,10 +74,18 @@
                             <input type="hidden" name="projectId" value="@p.id" />
                             <input type="submit" value="Edit" />
                         }
-                </td>
-            </tr>
-            <h1> </h1>
-        </table>
+                    </td>
+                <tr>
+                    <td spam class="HOT">
+                        @using (Html.BeginForm("DeleteProject", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" name="projectId" value="@p.id" />
+                            <input type="submit" value="Delete" />
+                        }
+                    </td>
+                </tr>
+                <h1> </h1>
+            </table>
     </li>
 </ul>
 </body>
