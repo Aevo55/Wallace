@@ -182,6 +182,16 @@ namespace Wallace.Common.Database
             return specs;
         }
 
+        public List<Team> getTeamsNotOnVer(int vid)
+        {
+            List<Team> teams = new List<Team>();
+            foreach (DBTeam t in reader.getTeamsNotOnVer(vid))
+            {
+                teams.Add(new Team(t));
+            }
+            return teams;
+        }
+
         /***************************************/
 
         public void deleteProject(int id)
