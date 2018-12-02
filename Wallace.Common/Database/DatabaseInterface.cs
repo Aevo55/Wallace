@@ -172,10 +172,10 @@ namespace Wallace.Common.Database
             return specs;
         }
 
-        public List<Spec> getUnmetSpecs(int id)
+        public List<Spec> getUnmetSpecs(int vid, int pid)
         {
             List<Spec> specs = new List<Spec>();
-            foreach (DBSpecification s in reader.getUnmetSpecs(id))
+            foreach (DBSpecification s in reader.getUnmetSpecs(vid, pid))
             {
                 specs.Add(new Spec(s));
             }
