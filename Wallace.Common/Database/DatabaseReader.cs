@@ -139,7 +139,9 @@ namespace Wallace.Common.Database
                                                             FROM
                                                                 VersionSpecs
                                                             WHERE
-                                                                vId = @id)";
+                                                                vId = @vid)
+                                                        AND
+                                                            pId = @pid";
 
         private SqlCommand cmd;
         private SqlConnection conn;
@@ -493,14 +495,15 @@ namespace Wallace.Common.Database
             return teams;
         }
 
-        public List<DBSpecification> getUnmetSpecs(int v)
+        public List<DBSpecification> getUnmetSpecs(int v, int p)
         {
             List<DBSpecification> specs = new List<DBSpecification>();
             cmd = new SqlCommand(getUnmetSpecsStr, conn);
             try
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("id", v);
+                cmd.Parameters.AddWithValue("vid", v);
+                cmd.Parameters.AddWithValue("pid", p);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
