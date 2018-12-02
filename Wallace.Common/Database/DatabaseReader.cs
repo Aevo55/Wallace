@@ -83,6 +83,8 @@ namespace Wallace.Common.Database
                                                             WHERE
                                                                 eId = @eid)";
 
+
+
         private const string getAllEmpsString = @"  SELECT
                                                         *
                                                     FROM
@@ -258,7 +260,17 @@ namespace Wallace.Common.Database
         {
             cmd = new SqlCommand(getMaxVerNum, conn);
             cmd.Parameters.AddWithValue("id", p);
-            return (int)cmd.ExecuteScalar();
+            int max;
+            try
+            {
+                conn.Open();
+                max = (int)cmd.ExecuteScalar();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return max;
         }
 
         public List<DBSpecification> getSpecsByVer(int v)
