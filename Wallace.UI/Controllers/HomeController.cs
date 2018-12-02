@@ -331,28 +331,27 @@ namespace Wallace.UI.Controllers
             current = database.getProject(projectId);
 
             PVersion currentversion = new PVersion();
-            
+
+            VersionEditPageModel model = new VersionEditPageModel();
+
             if (versionId == -1)
             {
+                model.isNew = true;
                 currentversion.id = -1;
+                model.minVersionNumber = database.getMaxVersionNum(projectId) + 1;
             }
 
             else if(versionId != -1)
             {
+                model.isNew = false;
                 currentversion = database.getVersion(versionId);
             }
 
-            
-            
-            VersionEditPageModel model = new VersionEditPageModel();
             model.pid = projectId;
             model.version = currentversion;
             model.projectSpecifications = current.specs;
 
-            model.minVersionNumber = 0;
-
-
-            foreach(Spec s in database.getUnmetSpecs(versionId))
+            foreach(Spec s in database.getUnmetSpecs(versionId, projectId))
             {
                 model.NotMetSpecs.Add(s);
             }

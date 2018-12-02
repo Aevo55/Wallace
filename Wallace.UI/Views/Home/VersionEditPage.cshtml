@@ -7,11 +7,20 @@
 {
     <h1>
         version:
-        <input type="number" value="@Model.version.versionNumber" name="_versionNumber" min="@Model.minVersionNumber"/>
+        @if (Model.isNew)
+        {
+        <input type="number" value="@Model.version.versionNumber" name="_versionNumber" min="@Model.minVersionNumber" />
+        }
+        else
+        {
+            <input type="number" value="@Model.version.versionNumber" name="_versionNumber"readonly/>
+        }
+        
 
     </h1>
 
     @Html.Raw("Release Date:")
+    
     <input type="datetime" value="@Model.version.releaseDate" name="_releaseDate" />
 
     <h2>Version Specifications</h2>
