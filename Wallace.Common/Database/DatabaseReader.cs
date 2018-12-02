@@ -34,6 +34,17 @@ namespace Wallace.Common.Database
                                                     wHeRe
                                                         vId = @id";
 
+        private const string getMaxVerNum = @"      SELECT
+                                                        TOP 1
+                                                        vNum
+                                                    FROM
+                                                        Versions
+                                                    WHERE
+                                                        pId = @id
+                                                    ORDER BY
+                                                        vNum
+                                                        DESC";
+
         private const string getVerSpecsString = @" SELECT
                                                         *
                                                     FROM
@@ -90,19 +101,19 @@ namespace Wallace.Common.Database
                                                             WHERE
                                                                 tId = @tid)";
 
-        private const string getEmployeeStr = @"SELECT
-                                                    *
-                                                FROM
-                                                    Employees
-                                                WHERE
-                                                    eId = @eId";
+        private const string getEmployeeStr =   @"  SELECT
+                                                        *
+                                                    FROM
+                                                        Employees
+                                                    WHERE
+                                                        eId = @eId";
 
-        private const string getTeamStr = @"    SELECT
-                                                    *
-                                                FROM
-                                                    Employees
-                                                WHERE
-                                                    tId = @id";
+        private const string getTeamStr = @"        SELECT
+                                                        *
+                                                    FROM
+                                                        Employees
+                                                    WHERE
+                                                        tId = @id";
 
         private const string getVersionTeamsStr = @"SELECT
                                                         *
@@ -117,18 +128,20 @@ namespace Wallace.Common.Database
                                                             WHERE
                                                                 vId = @vid)";
 
-        private const string getUnmetSpecsStr = @"SELECT
-                                                    *
-                                                FROM
-                                                    Specifications
-                                                WHERE
-                                                    sId NOT IN (
-                                                        SELECT
-                                                            sId
-                                                        FROM
-                                                            VersionSpecs
-                                                        WHERE
-                                                            vId = @id)";
+        private const string getUnmetSpecsStr = @"  SELECT
+                                                        *
+                                                    FROM
+                                                        Specifications
+                                                    WHERE
+                                                        sId NOT IN (
+                                                            SELECT
+                                                                sId
+                                                            FROM
+                                                                VersionSpecs
+                                                            WHERE
+                                                                vId = @vid)
+                                                        AND
+                                                            pId = @pid";
 
         private SqlCommand cmd;
         private SqlConnection conn;
@@ -239,6 +252,13 @@ namespace Wallace.Common.Database
                 conn.Close();
             }
             return version;
+        }
+
+        public int getMax(int p)
+        {
+            cmd = new SqlCommand(getMaxVerNum, conn);
+            cmd.Parameters.AddWithValue("id", p);
+            return (int)cmd.ExecuteScalar();
         }
 
         public List<DBSpecification> getSpecsByVer(int v)
@@ -475,14 +495,15 @@ namespace Wallace.Common.Database
             return teams;
         }
 
-        public List<DBSpecification> getUnmetSpecs(int v)
+        public List<DBSpecification> getUnmetSpecs(int v, int p)
         {
             List<DBSpecification> specs = new List<DBSpecification>();
             cmd = new SqlCommand(getUnmetSpecsStr, conn);
             try
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("id", v);
+                cmd.Parameters.AddWithValue("vid", v);
+                cmd.Parameters.AddWithValue("pid", p);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
