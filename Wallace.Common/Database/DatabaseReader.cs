@@ -94,7 +94,7 @@ namespace Wallace.Common.Database
                                                             FROM
                                                                 VersionTeams
                                                             WHERE
-                                                                vId = @id";
+                                                                vId = @id)";
 
         private const string getAllEmpsString = @"  SELECT
                                                         *
