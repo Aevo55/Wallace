@@ -147,6 +147,11 @@ namespace Wallace.Common.Database
             return v;
         }
 
+        public int getMaxVersionNum(int pid)
+        {
+            return reader.getMax(pid);
+        }
+
         public List<Spec> getSpecsByProject(int id)
         {
             List<Spec> specs = new List<Spec>();
