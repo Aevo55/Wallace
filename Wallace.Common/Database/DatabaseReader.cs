@@ -83,7 +83,18 @@ namespace Wallace.Common.Database
                                                             WHERE
                                                                 eId = @eid)";
 
-
+        private const string getTeamsNotOnVerStr = @"SELECT
+                                                        *
+                                                    FROM
+                                                        Teams
+                                                    WHERE
+                                                        tId NOT IN (
+                                                            SELECT
+                                                                tId
+                                                            FROM
+                                                                VersionTeams
+                                                            WHERE
+                                                                vId = @id";
 
         private const string getAllEmpsString = @"  SELECT
                                                         *
@@ -358,6 +369,33 @@ namespace Wallace.Common.Database
             List<DBTeam> teams = new List<DBTeam>();
             cmd = new SqlCommand(getTeamsByEmpStr, conn);
             cmd.Parameters.AddWithValue("eid", e);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DBTeam currTeam = new DBTeam();
+                    currTeam.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    currTeam.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    currTeam.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                    currTeam.leader = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
+
+                    teams.Add(currTeam);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return teams;
+        }
+
+        public List<DBTeam> getTeamsNotOnVer(int v)
+        {
+            List<DBTeam> teams = new List<DBTeam>();
+            cmd = new SqlCommand(getTeamsNotOnVerStr, conn);
+            cmd.Parameters.AddWithValue("id", v);
             try
             {
                 conn.Open();
