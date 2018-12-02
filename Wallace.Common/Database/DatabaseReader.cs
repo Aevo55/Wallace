@@ -13,12 +13,26 @@ namespace Wallace.Common.Database
                                                     FrOm
                                                         Projects";
 
+        private const string getProjectString = @"  SELECT
+                                                        *
+                                                    FROM
+                                                        Projects
+                                                    WHERE
+                                                        pId = @id";
+
         private const string getVersionsString = @" SeLeCt
                                                         *
                                                     FrOm
                                                         Versions
                                                     WhErE
                                                         pid = @pid";
+
+        private const string getVersionString = @"  SELECT
+                                                        *
+                                                    FROM
+                                                        Versions
+                                                    wHeRe
+                                                        vId = @id";
 
         private const string getVerSpecsString = @" SELECT
                                                         *
@@ -83,6 +97,13 @@ namespace Wallace.Common.Database
                                                 WHERE
                                                     eId = @eId";
 
+        private const string getTeamStr = @"    SELECT
+                                                    *
+                                                FROM
+                                                    Employees
+                                                WHERE
+                                                    tId = @id";
+
         private const string getVersionTeamsStr = @"SELECT
                                                         *
                                                     FROM
@@ -95,6 +116,19 @@ namespace Wallace.Common.Database
                                                                 VersionTeams
                                                             WHERE
                                                                 vId = @vid)";
+
+        private const string getUnmetSpecsStr = @"SELECT
+                                                    *
+                                                FROM
+                                                    Specifications
+                                                WHERE
+                                                    sId NOT IN (
+                                                        SELECT
+                                                            sId
+                                                        FROM
+                                                            VersionSpecs
+                                                        WHERE
+                                                            vId = @id)";
 
         private SqlCommand cmd;
         private SqlConnection conn;
@@ -130,6 +164,30 @@ namespace Wallace.Common.Database
             return projects;
         }
 
+        public DBProject getProject(int p)
+        {
+            DBProject project = new DBProject();
+            cmd = new SqlCommand(getProjectString, conn);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    project.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    project.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    project.budget = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0;
+                    project.desc = !reader.IsDBNull(3) ? reader.GetString(3) : "";
+                }
+                reader.Close();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return project;
+        }
+
         public List<DBVersion> getVersionsByProj(int p)
         {
             int id = p;
@@ -156,6 +214,30 @@ namespace Wallace.Common.Database
                 conn.Close();
             }
             return versions;
+        }
+
+        public DBVersion getVersion(int v)
+        {
+            DBVersion version = new DBVersion();
+            cmd = new SqlCommand(getVersionString, conn);
+            try
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("pid", v);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    version.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    version.pid = !reader.IsDBNull(1) ? reader.GetInt32(1) : -1;
+                    version.vnum = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
+                    version.release = !reader.IsDBNull(3) ? reader.GetDateTime(3) : DateTime.UtcNow;
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return version;
         }
 
         public List<DBSpecification> getSpecsByVer(int v)
@@ -342,6 +424,30 @@ namespace Wallace.Common.Database
             return employee;
         }
 
+        public DBTeam getTeam(int t)
+        {
+            cmd = new SqlCommand(getTeamStr, conn);
+            DBTeam team = new DBTeam();
+            cmd.Parameters.AddWithValue("id", t);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    team.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    team.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    team.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                    team.leader = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return team;
+        }
+        
         public List<DBTeam> getTeamsByVersion(int v)
         {
             List<DBTeam> teams = new List<DBTeam>();
@@ -366,6 +472,32 @@ namespace Wallace.Common.Database
                 conn.Close();
             }
             return teams;
+        }
+
+        public List<DBSpecification> getUnmetSpecs(int v)
+        {
+            List<DBSpecification> specs = new List<DBSpecification>();
+            cmd = new SqlCommand(getUnmetSpecsStr, conn);
+            try
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("id", v);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DBSpecification currSpec = new DBSpecification();
+                    currSpec.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    currSpec.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    currSpec.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                    currSpec.pid = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
+                    specs.Add(currSpec);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return specs;
         }
     }
 }

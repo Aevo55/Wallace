@@ -49,6 +49,29 @@ namespace Wallace.Common.Database
             return projects;
         }
 
+        public Project getProject(int id)
+        {
+            Project p = new Project(reader.getProject(id));
+            foreach (DBVersion v in reader.getVersionsByProj(id))
+            {
+                PVersion _v = new PVersion(v);
+                foreach (DBSpecification s in reader.getSpecsByVer(v.id))
+                {
+                    _v.specs.Add(new Spec(s));
+                }
+                foreach (DBTeam t in reader.getTeamsByVersion(v.id))
+                {
+                    _v.teams.Add(new Team(t));
+                }
+                p.versions.Add(_v);
+            }
+            foreach (DBSpecification s in reader.getSpecsByProj(id))
+            {
+                p.specs.Add(new Spec(s));
+            }
+            return p;
+        }
+
         public List<Team> getTeams()
         {
             List<Team> teams = new List<Team>();
@@ -62,6 +85,16 @@ namespace Wallace.Common.Database
                 teams.Add(_t);
             }
             return teams;
+        }
+
+        public Team getTeam(int id)
+        {
+            Team t = new Team(reader.getTeam(id));
+            foreach (DBEmployee e in reader.getEmpsByTeam(id))
+            {
+                t.members.Add(new Employee(e));
+            }
+            return t;
         }
 
         public List<Employee> getEmployees()
@@ -79,14 +112,39 @@ namespace Wallace.Common.Database
             return employees;
         }
 
+        public Employee getEmployee(int id)
+        {
+            Employee e = new Employee(reader.getEmployee(id));
+            foreach (DBTeam t in reader.getTeamsByEmp(e.id))
+            {
+                e.teams.Add(new Team(t));
+            }
+            return e;
+        }
+
         public List<PVersion> getVersionByProject(int id)
         {
             List<PVersion> vers = new List<PVersion>();
             foreach(DBVersion v in reader.getVersionsByProj(id))
             {
-                vers.Add(new PVersion(v));
+                PVersion _v = new PVersion(v);
+                foreach(DBSpecification s in reader.getSpecsByVer(_v.id))
+                {
+                    _v.specs.Add(new Spec(s));
+                }
+                vers.Add(_v);
             }
             return vers;
+        }
+
+        public PVersion getVersion(int id)
+        {
+            PVersion v = new PVersion(reader.getVersion(id));
+            foreach (DBSpecification s in reader.getSpecsByVer(id))
+            {
+                v.specs.Add(new Spec(s));
+            }
+            return v;
         }
 
         public List<Spec> getSpecsByProject(int id)
@@ -103,6 +161,16 @@ namespace Wallace.Common.Database
         {
             List<Spec> specs = new List<Spec>();
             foreach (DBSpecification s in reader.getSpecsByVer(id))
+            {
+                specs.Add(new Spec(s));
+            }
+            return specs;
+        }
+
+        public List<Spec> getUnmetSpecs(int id)
+        {
+            List<Spec> specs = new List<Spec>();
+            foreach (DBSpecification s in reader.getUnmetSpecs(id))
             {
                 specs.Add(new Spec(s));
             }
