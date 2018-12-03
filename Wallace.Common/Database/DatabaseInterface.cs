@@ -180,6 +180,11 @@ namespace Wallace.Common.Database
             return specs;
         }
 
+        public Spec getSpec(int sid)
+        {
+            return new Spec(reader.getSpec(sid));
+        }
+
         public List<Spec> getUnmetSpecs(int vid, int pid)
         {
             List<Spec> specs = new List<Spec>();

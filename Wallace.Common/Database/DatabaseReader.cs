@@ -65,6 +65,13 @@ namespace Wallace.Common.Database
                                                     WHERE
                                                         pId = @pid";
 
+        private const string getSpecString = @"           SELECT
+                                                        *
+                                                    FROM
+                                                        Specifications
+                                                    WHERE
+                                                        sId = @id";
+
         private const string getAllTeamsString = @" SELECT
                                                         *
                                                     FROM
@@ -336,6 +343,21 @@ namespace Wallace.Common.Database
                 conn.Close();
             }
             return specs;
+        }
+
+        public DBSpecification getSpec(int s)
+        {
+            DBSpecification spec = new DBSpecification();
+            cmd = new SqlCommand(getSpecString, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                spec.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                spec.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                spec.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                spec.pid = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
+            }
+            return spec;
         }
 
         public List<DBTeam> getAllTeams()
