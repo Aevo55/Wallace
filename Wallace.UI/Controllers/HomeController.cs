@@ -34,12 +34,14 @@ namespace Wallace.UI.Controllers
 
                     List<Spec> allspecs = database.getProjects().Find(x => x.id ==_pid).specs;
                     Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    
                     database.addSpecToVersion(newversion, spectoadd);
                 }
                 foreach (string t in _teams)
                 {
-                    List<Team> allteams = database.getTeams();
-                    Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    //List<Team> allteams = database.getTeams();
+                    //Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    Team teamtoadd = database.getTeam(int.Parse(t));
                     database.addTeamToVersion(teamtoadd,newversion);
                 }
 
@@ -62,8 +64,9 @@ namespace Wallace.UI.Controllers
                 }
                 foreach (string t in _teams)
                 {
-                    List<Team> allteams = database.getTeams();
-                    Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    //List<Team> allteams = database.getTeams();
+                    //Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    Team teamtoadd = database.getTeam(int.Parse(t));
                     database.addTeamToVersion(teamtoadd, newversion);
                 }
             }
