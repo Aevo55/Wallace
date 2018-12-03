@@ -278,7 +278,7 @@ namespace Wallace.UI.Controllers
             }
             
             ProjectEditPageModel model = new ProjectEditPageModel(current);
-
+            
             return View(model);
 
         }
@@ -327,66 +327,39 @@ namespace Wallace.UI.Controllers
             DatabaseInterface database = new DatabaseInterface();
             List<Project> projects = database.getProjects();
             Project current = new Project();
-            foreach (Project p in projects)// get the right project
-            {
-                if (p.id == projectId) current = p;
-            }
+
+            current = database.getProject(projectId);
 
             PVersion currentversion = new PVersion();
-            
+
+            VersionEditPageModel model = new VersionEditPageModel();
+
             if (versionId == -1)
             {
+                model.isNew = true;
                 currentversion.id = -1;
-            }
-            else if(versionId != -1)
-            {
-                foreach (PVersion v in current.versions)// get the right version
-                {
-                    if (v.id == versionId) currentversion = v;
-                }
+                model.minVersionNumber = database.getMaxVersionNum(projectId) + 1;
             }
 
-            
-            
-            VersionEditPageModel model = new VersionEditPageModel();
+            else if(versionId != -1)
+            {
+                model.isNew = false;
+                currentversion = database.getVersion(versionId);
+            }
+
             model.pid = projectId;
             model.version = currentversion;
             model.projectSpecifications = current.specs;
-            
 
-            foreach(Spec s in model.projectSpecifications)
+            foreach (Spec s in database.getUnmetSpecs(versionId, projectId))
             {
-                bool isin = false;
-                foreach(Spec vs in model.version.specs)
-                {
-                    if (vs.id == s.id)
-                    {
-                        isin = true;
-                    }
-                }
-                if (!isin)
-                {
-                    model.NotMetSpecs.Add(s);
-                }
+                model.NotMetSpecs.Add(s);
             }
 
-            List<Team> teams = database.getTeams();
-            foreach(Team t in teams)
+            foreach (Team t in database.getTeamsNotOnVer(versionId))
             {
-                bool isin = false;
-                foreach(Team vt in model.version.teams)
-                {
-                    if(t.id == vt.id)
-                    {
-                        isin = true;
-                    }
-                }
-                if (!isin)
-                {
-                    model.TeamsNotWorking.Add(t);
-                }
+                model.TeamsNotWorking.Add(t);
             }
-
 
             return View(model);
         }

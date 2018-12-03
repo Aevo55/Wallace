@@ -27,11 +27,14 @@
    }
     table {
         border-collapse: collapse;
-        border: 4px solid black;
+        border: 2px solid rgb(200, 200, 200);
         letter-spacing: 1px;
         font-family: sans-serif;
         font-size: 20px;
+        width: 800px;
+        margin: 30px;
     }
+
     td,
     th {
         border: 2px solid black;
@@ -41,6 +44,29 @@
     td {
         text-align: left;
         padding: 5px,20px,5px,200px;
+    }
+
+    th {
+        background-color: #a70000;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e8e8e8;
+    }
+
+    tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    #header {
+        text-align: center;
+        background-color: blue;
+        color: white;
+        font-stretch: expanded;
+        height: 60px;
+        font-family: sans-serif;
+        font-size: 40px;
     }
 </style>
 <body>
@@ -52,21 +78,22 @@
         </div>
 
         <div class="spec-container">
-            <h2>Project Specifications</h2>
             <table>
-                @{
-                    foreach (Spec s in Model.project.specs)
-                    {
+                <tr><th id="header" colspan="2">Project Specifications</th></tr>
+               
+                    @{
+                        foreach (Spec s in Model.project.specs)
+                        {
 
-                       <tr>
-                           <td>@s.name</td>
-                        <td>@s.description</td>
-                           <td>Edit</td>
-                           <td>Del</td>
-                           </tr>
+                            <tr>
+                                <td>@s.name</td>
+                                <td>@s.description</td>
+
+
+                            </tr>
+                        }
                     }
-                }
-            </table>
+                </table>
         </div>
         <div class="version-container">
             <h2>Versions</h2>
@@ -82,10 +109,10 @@
                             <td>@v.releaseDate.ToLongDateString()</td>
                             @using (Html.BeginForm("VersionViewPage", "Home", FormMethod.Post))
                             {
-                                <td> <input type="hidden" name="projectId" value="@Model.project.id" /></td>
-                                <td><input type="hidden" name="versionId" value="@v.id" /></td>
-                                <td><input type="hidden" name="projectId" value="@v.pid" /></td>
-                                <td><input type="submit" value="View" /></td>
+                                <td> <input type="hidden" name="projectId" value="@Model.project.id" />
+                                <input type="hidden" name="versionId" value="@v.id" />
+                                <input type="hidden" name="projectId" value="@v.pid" />
+                                <input type="submit" value="View" /></td>
                             }
                         </tr>
                     }
