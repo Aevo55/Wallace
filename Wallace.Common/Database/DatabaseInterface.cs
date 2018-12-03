@@ -132,6 +132,10 @@ namespace Wallace.Common.Database
                 {
                     _v.specs.Add(new Spec(s));
                 }
+                foreach(DBTeam t in reader.getTeamsByVersion(_v.id))
+                {
+                    _v.teams.Add(new Team(t));
+                }
                 vers.Add(_v);
             }
             return vers;
@@ -143,6 +147,10 @@ namespace Wallace.Common.Database
             foreach (DBSpecification s in reader.getSpecsByVer(id))
             {
                 v.specs.Add(new Spec(s));
+            }
+            foreach (DBTeam t in reader.getTeamsByVersion(id))
+            {
+                v.teams.Add(new Team(t));
             }
             return v;
         }
