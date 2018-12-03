@@ -168,7 +168,9 @@ namespace Wallace.Common.Database
                                                     FROM
                                                         Employees
                                                     WHERE
-                                                        eName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%@%' ";
+                                                        eName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%@search1%'
+                                                        OR
+                                                        Title COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%@search2%'";
 
         private SqlCommand cmd;
         private SqlConnection conn;
@@ -608,6 +610,34 @@ namespace Wallace.Common.Database
                 conn.Close();
             }
             return specs;
+        }
+
+        public List<DBEmployee> searchEmployees(string s)
+        {
+            List<DBEmployee> employees = new List<DBEmployee>();
+            cmd = new SqlCommand(searchEmployeesStr, conn);
+            cmd.Parameters.AddWithValue("search1", s);
+            cmd.Parameters.AddWithValue("search2", s);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DBEmployee currEmp = new DBEmployee();
+                    currEmp.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    currEmp.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    currEmp.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
+                    currEmp.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
+
+                    employees.Add(currEmp);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return employees;
         }
     }
 }
