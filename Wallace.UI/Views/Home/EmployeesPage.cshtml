@@ -100,6 +100,14 @@
     }
 </style>
 <body >
+
+    @using (Html.BeginForm("EmployeesPage", "Home", FormMethod.Post)) {
+
+        <input type="text"name="query"placeholder="Filter" value="@ViewData["Query"]"/>
+        <input type="submit"style="visibility:hidden;">
+
+    }
+
     <div class="container-table">
         <table align="left">
             <tr>
@@ -138,7 +146,7 @@
                     </td>
 
                     </tr>
-                }
+                    }
             }
         </table>
         
