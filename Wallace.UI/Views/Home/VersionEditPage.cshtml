@@ -1,13 +1,68 @@
 ﻿@model VersionEditPageModel
 @using Wallace.Common.Models
-<h2>Project View Page</h2>
+
 <h3>@ViewData["Information"]</h3>
 
+<style>
+
+    table {
+        border-collapse: collapse;
+        border: 2px solid rgb(200, 200, 200);
+        letter-spacing: 1px;
+        font-family: sans-serif;
+        font-size: 20px;
+        width: 800px;
+        margin: 30px;
+    }
+
+    td,
+    th {
+        border: 2px solid black;
+        padding: 5px 10px;
+    }
+
+    td {
+        text-align: left;
+        padding: 5px,20px,5px,200px;
+    }
+
+    th {
+        background-color: #a70000;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e8e8e8;
+    }
+
+    tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    #header {
+        text-align: center;
+        background-color: blue;
+        color: white;
+        font-stretch: expanded;
+        height: 60px;
+        font-family: sans-serif;
+        font-size: 40px;
+    }
+    #save{
+        text-align:center;
+    }
+
+</style>
+
+<body>
+    <table>
 @using (Html.BeginForm("SubmitVersion", "Home", FormMethod.Post))
 {
-    <h1>
-        version:
-        @if (Model.isNew)
+    <tr>
+        <th id="header" colspan="2">Version Edit page</th></tr>
+        <tr>
+        <td>version:</td>
+       <td> @if (Model.isNew)
         {
         <input type="number" value="@Model.version.versionNumber" name="_versionNumber" min="@Model.minVersionNumber" />
         }
@@ -15,62 +70,59 @@
         {
             <input type="number" value="@Model.version.versionNumber" name="_versionNumber"readonly/>
         }
-        
+        </td>
 
-    </h1>
-
-    @Html.Raw("Release Date:")
+    </tr>
+    <tr>
+    <td>@Html.Raw("Release Date:")</td>
     
-    <input type="datetime" value="@Model.version.releaseDate" name="_releaseDate" />
+    <td><input type="datetime" value="@Model.version.releaseDate" name="_releaseDate" /></td>
+        </tr>
 
-    <h2>Version Specifications</h2>
+    
 
     {
         foreach (Spec s in Model.version.specs)
         {
-            <h3>
+            
                 @s.name
-            </h3>
+            
             @s.description
         }
     }
-    <h2>
-        Add Specification to version
-    </h2>
-    <select name="_specs" multiple>
+    <tr>
+       <td> Add Specification to version</td>
+    
+   <td> <select name="_specs" multiple>
 
         @foreach (Spec s in Model.NotMetSpecs)
         {
             @Html.Raw("<option value=" + s.id + ">" + s.name + "</option>");
         }
-    </select>
+    </select></td>
+        </tr>
 
-
-    <h2>
-        Teams Working on this version
-    </h2>
-    {
-        foreach (Team t in Model.version.teams)
+    <tr>
         {
-            <h3>
-                @t.name
-            </h3>
-
-        }
-        <h2>Teams to Add to this Version</h2>
-        <select name="_teams" multiple>
+       
+        <td>Teams working on this version</td>
+        <td><select name="_teams" multiple>
 
             @foreach (Team t in Model.TeamsNotWorking)
             {
                 @Html.Raw("<option value=" + t.id + ">" + t.name + "</option>");
             }
 
-        </select>
+        </select></td>
+        </tr>
     }
-    <input type="hidden" name="_id" value="@Model.version.id" />
+     <tr>
+     <td colspan="2" id="save"><input type="hidden" name="_id" value="@Model.version.id" />
     <input type="hidden" name="_pid" value="@Model.pid" />
     <input type="hidden" name="_vid" value="@Model.version.id" />
-    <input type="submit" value="Save" />
+    <input type="submit" value="Save" /></td>
 }
 
-
+         </tr>
+        </table>
+    </body>
