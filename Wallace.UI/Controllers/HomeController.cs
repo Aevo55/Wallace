@@ -421,10 +421,10 @@ namespace Wallace.UI.Controllers
             string info = "Employees are people who work for your company.";
             ViewData["Information"] = info;
             ViewData["Query"] = query ?? null;
-            List<Employee> employees = new List<Employee>)();
+            List<Employee> employees = new List<Employee>();
             if(query != null)
             {
-                //employees = database.
+                employees = database.searchEmployees(query);
             }
             else
             {
