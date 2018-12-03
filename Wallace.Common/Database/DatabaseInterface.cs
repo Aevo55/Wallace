@@ -205,6 +205,15 @@ namespace Wallace.Common.Database
             return teams;
         }
 
+        public List<Employee> searchEmployees(string query)
+        {
+            List<Employee> emps = new List<Employee>();
+            foreach(DBEmployee e in reader.searchEmployees(query))
+            {
+                emps.Add(new Employee(e));
+            }
+            return emps;
+        }
         /***************************************/
 
         public void deleteProject(int id)
