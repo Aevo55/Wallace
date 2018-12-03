@@ -56,73 +56,85 @@
 
 <body>
     <table>
-@using (Html.BeginForm("SubmitVersion", "Home", FormMethod.Post))
-{
-    <tr>
-        <th id="header" colspan="2">Version Edit page</th></tr>
-        <tr>
-        <td>version:</td>
-       <td> @if (Model.isNew)
+        @using (Html.BeginForm("SubmitVersion", "Home", FormMethod.Post))
         {
-        <input type="number" value="@Model.version.versionNumber" name="_versionNumber" min="@Model.minVersionNumber" />
-        }
-        else
-        {
-            <input type="number" value="@Model.version.versionNumber" name="_versionNumber"readonly/>
-        }
-        </td>
+            <tr>
+                <th id="header" colspan="2">Version Edit page</th>
+            </tr>
+            <tr>
+                <td>version:</td>
+                <td>
+                    @if (Model.isNew)
+                    {
+                        <input type="number" value="@Model.version.versionNumber" name="_versionNumber" min="@Model.minVersionNumber" />
+                    }
+                    else
+                    {
+                        <input type="number" value="@Model.version.versionNumber" name="_versionNumber" readonly />
+                    }
+                </td>
 
-    </tr>
-    <tr>
-    <td>@Html.Raw("Release Date:")</td>
-    
-    <td><input type="datetime" value="@Model.version.releaseDate" name="_releaseDate" /></td>
-        </tr>
+            </tr>
+            <tr>
+                <td>@Html.Raw("Release Date:")</td>
 
-    
+                <td><input type="datetime" value="@Model.version.releaseDate" name="_releaseDate" /></td>
+            </tr>
 
-    {
-        foreach (Spec s in Model.version.specs)
-        {
-            
-                @s.name
-            
-            @s.description
-        }
-    }
-    <tr>
-       <td> Add Specification to version</td>
-    
-   <td> <select name="_specs" multiple>
 
-        @foreach (Spec s in Model.NotMetSpecs)
-        {
-            @Html.Raw("<option value=" + s.id + ">" + s.name + "</option>");
-        }
-    </select></td>
-        </tr>
 
-    <tr>
-        {
-       
-        <td>Teams working on this version</td>
-        <td><select name="_teams" multiple>
-
-            @foreach (Team t in Model.TeamsNotWorking)
             {
-                @Html.Raw("<option value=" + t.id + ">" + t.name + "</option>");
+                foreach (Spec s in Model.version.specs)
+                {
+
+                    @s.name
+
+                    @s.description
+                }
             }
+            <tr>
+                <td> Add Specification to version</td>
 
-        </select></td>
-        </tr>
-    }
-     <tr>
-     <td colspan="2" id="save"><input type="hidden" name="_id" value="@Model.version.id" />
-    <input type="hidden" name="_pid" value="@Model.pid" />
-    <input type="hidden" name="_vid" value="@Model.version.id" />
-    <input type="submit" value="Save" /></td>
-}
+                <td>
+                    <select name="_specs" multiple>
 
-         </tr>
-        </table>
+                        @foreach (Spec s in Model.NotMetSpecs)
+                        {
+                            @Html.Raw("<option value=" + s.id + ">" + s.name + "</option>");
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+
+
+                <td>Teams working on this version</td>
+                <td>
+                    <select name="_teams" multiple>
+
+                        @foreach (Team t in Model.TeamsNotWorking)
+                        {
+                            @Html.Raw("<option value=" + t.id + ">" + t.name + "</option>");
+                        }
+
+                    </select>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td colspan="2" id="save">
+                    <input type="hidden" name="_id" value="@Model.version.id" />
+                    <input type="hidden" name="_pid" value="@Model.pid" />
+                    <input type="hidden" name="_vid" value="@Model.version.id" />
+                    <input type="submit" value="Save" />
+                </td>
+            </tr>
+
+        }
+    </table>
+
     </body>
