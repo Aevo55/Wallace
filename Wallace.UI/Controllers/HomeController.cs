@@ -269,6 +269,13 @@ namespace Wallace.UI.Controllers
             return RedirectToAction("CurrentProject");
         }
 
+        public IActionResult DeleteVersion(int _projectId, int _versionId)
+        {
+            DatabaseInterface database = new DatabaseInterface();
+            database.deleteVersion(_versionId);
+            return RedirectToAction("ProjectEditPage", new { projectId = _projectId });
+        }
+
         public IActionResult ProjectEditPage(int projectId)
         {
 
@@ -408,13 +415,21 @@ namespace Wallace.UI.Controllers
 
         public IActionResult EmployeesPage(string query)
         {
+
+            EmployeesPageModel model = new EmployeesPageModel();
+            DatabaseInterface database = new DatabaseInterface();
             string info = "Employees are people who work for your company.";
             ViewData["Information"] = info;
             ViewData["Query"] = query ?? null;
-            EmployeesPageModel model = new EmployeesPageModel();
-            DatabaseInterface database = new DatabaseInterface();
-            List<Employee> employees = new List<Employee>();
-            employees = database.getEmployees();
+            List<Employee> employees = new List<Employee>)();
+            if(query != null)
+            {
+                //employees = database.
+            }
+            else
+            {
+                employees = database.getEmployees();
+            }
             model.Employees = employees;
             return View(model);
         }

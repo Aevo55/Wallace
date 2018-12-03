@@ -102,6 +102,15 @@
                                 <input type="hidden" name="projectId" value="@v.pid" />
                                 <td><input type="submit" value="Edit" /></td>
                             }
+
+                            @using (Html.BeginForm("DeleteVersion", "Home", FormMethod.Post))
+                            {
+                                <td>
+                                    <input type="hidden" name="_versionId" value="@v.id" />
+                                    <input type="hidden" name="_projectId" value="@v.pid" />
+                                    <input type="submit" value="Delete" />
+                                </td>
+                            }
                         </tr>
                     }
                 }
