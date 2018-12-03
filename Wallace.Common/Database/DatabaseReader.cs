@@ -356,6 +356,7 @@ namespace Wallace.Common.Database
         {
             DBSpecification spec = new DBSpecification();
             cmd = new SqlCommand(getSpecString, conn);
+            cmd.Parameters.AddWithValue("id", s);
             try
             {
                 conn.Open();
