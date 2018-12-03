@@ -351,28 +351,15 @@ namespace Wallace.UI.Controllers
             model.version = currentversion;
             model.projectSpecifications = current.specs;
 
-            foreach(Spec s in database.getUnmetSpecs(versionId, projectId))
+            foreach (Spec s in database.getUnmetSpecs(versionId, projectId))
             {
                 model.NotMetSpecs.Add(s);
             }
 
-            List<Team> teams = database.getTeams();
-            foreach(Team t in teams)
+            foreach (Team t in database.getTeamsNotOnVer(versionId))
             {
-                bool isin = false;
-                foreach(Team vt in model.version.teams)
-                {
-                    if(t.id == vt.id)
-                    {
-                        isin = true;
-                    }
-                }
-                if (!isin)
-                {
-                    model.TeamsNotWorking.Add(t);
-                }
+                model.TeamsNotWorking.Add(t);
             }
-
 
             return View(model);
         }
