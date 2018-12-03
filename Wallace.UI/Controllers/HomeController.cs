@@ -9,13 +9,14 @@ using Wallace.Common.Models;
 using Wallace.Common.Database;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
+
 namespace Wallace.UI.Controllers
 {
     public class HomeController : Controller
     {
 
         
-        public IActionResult SubmitVersion (int _versionNumber, DateTime _releaseDate, string[] _specs, string[] _teams, int _id, int _pid, int _vid)
+        public IActionResult SubmitVersion(int _versionNumber, DateTime _releaseDate, string[] _specs, string[] _teams, int _id, int _pid, int _vid)
         {
             
 
@@ -32,14 +33,17 @@ namespace Wallace.UI.Controllers
                 foreach(string s in _specs)
                 {
 
-                    List<Spec> allspecs = database.getProjects().Find(x => x.id ==_pid).specs;
-                    Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    //List<Spec> allspecs = database.getProjects().Find(x => x.id ==_pid).specs;
+                    //Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    Spec spectoadd = database.getSpec(int.Parse(s));
                     database.addSpecToVersion(newversion, spectoadd);
                 }
+
                 foreach (string t in _teams)
                 {
-                    List<Team> allteams = database.getTeams();
-                    Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    //List<Team> allteams = database.getTeams();
+                    //Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    Team teamtoadd = database.getTeam(int.Parse(t));
                     database.addTeamToVersion(teamtoadd,newversion);
                 }
 
@@ -56,20 +60,22 @@ namespace Wallace.UI.Controllers
                 {
 
                     //List<Spec> allspecs = database.getProjects().Find(x => x.id == _pid).specs;
-                    List<Spec> allspecs = database.getSpecsByProject(_pid);
-                    Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    //List<Spec> allspecs = database.getSpecsByProject(_pid);
+                    //Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    Spec spectoadd = database.getSpec(int.Parse(s));
                     database.addSpecToVersion(newversion, spectoadd);
                 }
                 foreach (string t in _teams)
                 {
-                    List<Team> allteams = database.getTeams();
-                    Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    //List<Team> allteams = database.getTeams();
+                    //Team teamtoadd = allteams.Find(x => x.id == int.Parse(t));
+                    Team teamtoadd = database.getTeam(int.Parse(t));
                     database.addTeamToVersion(teamtoadd, newversion);
                 }
             }
             
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ProjectEditPage", new { projectId = _pid});
         }
 
         public IActionResult SubmitNewProject(string _name, int _budget,string _desc, int _manager)
@@ -400,10 +406,11 @@ namespace Wallace.UI.Controllers
             return View(model);
         }
 
-        public IActionResult EmployeesPage()
+        public IActionResult EmployeesPage(string query)
         {
             string info = "Employees are people who work for your company.";
             ViewData["Information"] = info;
+            ViewData["Query"] = query ?? null;
             EmployeesPageModel model = new EmployeesPageModel();
             DatabaseInterface database = new DatabaseInterface();
             List<Employee> employees = new List<Employee>();
