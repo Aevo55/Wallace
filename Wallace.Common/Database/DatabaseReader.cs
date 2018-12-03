@@ -349,13 +349,21 @@ namespace Wallace.Common.Database
         {
             DBSpecification spec = new DBSpecification();
             cmd = new SqlCommand(getSpecString, conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                spec.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
-                spec.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
-                spec.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
-                spec.pid = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    spec.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    spec.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    spec.desc = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                    spec.pid = !reader.IsDBNull(3) ? reader.GetInt32(3) : -1;
+                }
+            }
+            finally
+            {
+                conn.Close();
             }
             return spec;
         }
