@@ -131,7 +131,7 @@ namespace Wallace.Common.Database
         private const string getTeamStr = @"        SELECT
                                                         *
                                                     FROM
-                                                        Employees
+                                                        Teams
                                                     WHERE
                                                         tId = @id";
 
