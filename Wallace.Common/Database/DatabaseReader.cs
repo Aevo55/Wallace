@@ -8,6 +8,7 @@ namespace Wallace.Common.Database
     
     public class DatabaseReader
     {
+        #region Queries
         private const string getProjectsQuery = @"  SeLeCt
                                                         *
                                                     FrOm
@@ -171,6 +172,7 @@ namespace Wallace.Common.Database
                                                         eName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%@search1%'
                                                         OR
                                                         Title COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%@search2%'";
+        #endregion
 
         private SqlCommand cmd;
         private SqlConnection conn;
@@ -283,7 +285,7 @@ namespace Wallace.Common.Database
             return version;
         }
 
-        public int getMax(int p)
+        public int getMaxVersionNum(int p)
         {
             cmd = new SqlCommand(getMaxVerNum, conn);
             cmd.Parameters.AddWithValue("id", p);
@@ -291,7 +293,15 @@ namespace Wallace.Common.Database
             try
             {
                 conn.Open();
-                max = (int)cmd.ExecuteScalar();
+                var temp = cmd.ExecuteScalar();
+                if(temp == null)
+                {
+                    max = 0;
+                }
+                else
+                {
+                    max = (int)temp;
+                }
             }
             finally
             {
