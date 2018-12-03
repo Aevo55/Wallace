@@ -163,6 +163,13 @@ namespace Wallace.Common.Database
                                                         AND
                                                             pId = @pid";
 
+        private const string searchEmployeesStr = @"SELECT
+                                                        *
+                                                    FROM
+                                                        Employees
+                                                    WHERE
+                                                        ";
+
         private SqlCommand cmd;
         private SqlConnection conn;
 
