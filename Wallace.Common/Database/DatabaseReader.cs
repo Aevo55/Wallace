@@ -169,9 +169,10 @@ namespace Wallace.Common.Database
                                                     FROM
                                                         Employees
                                                     WHERE
-                                                        eName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%@search1%'
+                                                        eName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%'+@search1+'%'
                                                         OR
-                                                        Title COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%@search2%'";
+                                                        Title COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%'+@search2+'%'";
+        
         #endregion
 
         private SqlCommand cmd;
