@@ -8,6 +8,7 @@ namespace Wallace.Common.Database
 {
     class DatabaseUpdater
     {
+        #region Queries
         private const string updateEmpsStr = @" UPDATE
                                                     Employees
                                                 SET
@@ -51,6 +52,7 @@ namespace Wallace.Common.Database
                                                     ReleaseDate = @date
                                                 WHERE
                                                     vId = @id";
+        #endregion
 
         private SqlCommand cmd;
         private SqlConnection conn;

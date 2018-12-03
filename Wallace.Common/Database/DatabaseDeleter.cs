@@ -8,6 +8,7 @@ namespace Wallace.Common.Database
 {
     class DatabaseDeleter
     {
+        #region Queries
         private const string deleteEmployeeString = @"  DELETE FROM
                                                             Employees
                                                         WHERE
@@ -83,9 +84,7 @@ namespace Wallace.Common.Database
                                                             tId = @tid
                                                             AND
                                                             vId = @vid";
-
-
-
+        #endregion
         
         private SqlCommand cmd;
         private SqlConnection conn;
