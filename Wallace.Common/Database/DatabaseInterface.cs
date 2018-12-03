@@ -224,6 +224,7 @@ namespace Wallace.Common.Database
         public void deleteVersion(int id)
         {
             deleter.delVerSpecByVer(id);
+            deleter.delVerTeamByVer(id);
             deleter.delVersion(id);
         }
 
