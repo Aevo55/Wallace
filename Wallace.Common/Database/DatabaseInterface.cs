@@ -50,11 +50,11 @@ namespace Wallace.Common.Database
             return projects;
         }
 
-        public Project getProject(int id)
+        public Project getProject(int pid)
         {
-            DBProject temp = reader.getProject(id);
+            DBProject temp = reader.getProject(pid);
             Project p = new Project(temp);
-            foreach (DBVersion v in reader.getVersionsByProj(id))
+            foreach (DBVersion v in reader.getVersionsByProj(pid))
             {
                 PVersion _v = new PVersion(v);
                 foreach (DBSpecification s in reader.getSpecsByVer(v.id))
@@ -67,7 +67,7 @@ namespace Wallace.Common.Database
                 }
                 p.versions.Add(_v);
             }
-            foreach (DBSpecification s in reader.getSpecsByProj(id))
+            foreach (DBSpecification s in reader.getSpecsByProj(pid))
             {
                 p.specs.Add(new Spec(s));
             }
@@ -90,10 +90,10 @@ namespace Wallace.Common.Database
             return teams;
         }
 
-        public Team getTeam(int id)
+        public Team getTeam(int tid)
         {
-            Team t = new Team(reader.getTeam(id));
-            foreach (DBEmployee e in reader.getEmpsByTeam(id))
+            Team t = new Team(reader.getTeam(tid));
+            foreach (DBEmployee e in reader.getEmpsByTeam(tid))
             {
                 t.members.Add(new Employee(e));
             }
@@ -115,9 +115,9 @@ namespace Wallace.Common.Database
             return employees;
         }
 
-        public Employee getEmployee(int id)
+        public Employee getEmployee(int eid)
         {
-            Employee e = new Employee(reader.getEmployee(id));
+            Employee e = new Employee(reader.getEmployee(eid));
             foreach (DBTeam t in reader.getTeamsByEmp(e.id))
             {
                 e.teams.Add(new Team(t));
@@ -125,10 +125,10 @@ namespace Wallace.Common.Database
             return e;
         }
 
-        public List<PVersion> getVersionByProject(int id)
+        public List<PVersion> getVersionByProject(int pid)
         {
             List<PVersion> vers = new List<PVersion>();
-            foreach(DBVersion v in reader.getVersionsByProj(id))
+            foreach(DBVersion v in reader.getVersionsByProj(pid))
             {
                 PVersion _v = new PVersion(v);
                 foreach(DBSpecification s in reader.getSpecsByVer(_v.id))
@@ -144,14 +144,14 @@ namespace Wallace.Common.Database
             return vers;
         }
 
-        public PVersion getVersion(int id)
+        public PVersion getVersion(int vid)
         {
-            PVersion v = new PVersion(reader.getVersion(id));
-            foreach (DBSpecification s in reader.getSpecsByVer(id))
+            PVersion v = new PVersion(reader.getVersion(vid));
+            foreach (DBSpecification s in reader.getSpecsByVer(vid))
             {
                 v.specs.Add(new Spec(s));
             }
-            foreach (DBTeam t in reader.getTeamsByVersion(id))
+            foreach (DBTeam t in reader.getTeamsByVersion(vid))
             {
                 v.teams.Add(new Team(t));
             }
@@ -163,20 +163,20 @@ namespace Wallace.Common.Database
             return reader.getMaxVersionNum(pid);
         }
 
-        public List<Spec> getSpecsByProject(int id)
+        public List<Spec> getSpecsByProject(int pid)
         {
             List<Spec> specs = new List<Spec>();
-            foreach (DBSpecification s in reader.getSpecsByProj(id))
+            foreach (DBSpecification s in reader.getSpecsByProj(pid))
             {
                 specs.Add(new Spec(s));
             }
             return specs;
         }
 
-        public List<Spec> getSpecsByVersion(int id)
+        public List<Spec> getSpecsByVersion(int vid)
         {
             List<Spec> specs = new List<Spec>();
-            foreach (DBSpecification s in reader.getSpecsByVer(id))
+            foreach (DBSpecification s in reader.getSpecsByVer(vid))
             {
                 specs.Add(new Spec(s));
             }
