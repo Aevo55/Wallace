@@ -222,8 +222,6 @@ namespace Wallace.UI.Controllers
 
             }
 
-
-
             return RedirectToAction("TeamsPage");
         }
 
