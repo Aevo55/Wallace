@@ -1,11 +1,60 @@
 ﻿@model TeamEditPageModel
 @using Wallace.Common.Models;
-<h2>Employees Page</h2>
-<h3>@ViewData["Information"]</h3>
 
+
+<style>
+    table {
+        border-collapse: collapse;
+        border: 2px solid rgb(200, 200, 200);
+        letter-spacing: 1px;
+        font-family: sans-serif;
+        font-size: 20px;
+        width: 800px;
+        margin: 30px;
+    }
+
+    td,
+    th {
+        border: 2px solid black;
+        padding: 5px 10px;
+    }
+
+    td {
+        text-align: left;
+        padding: 5px,20px,5px,200px;
+    }
+
+    th {
+        background-color: #a70000;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e8e8e8;
+    }
+
+    tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    #header {
+        text-align: center;
+        background-color: #a70000;
+        color: white;
+        font-stretch: expanded;
+        height: 60px;
+        font-family: sans-serif;
+        font-size: 40px;
+    }
+
+    #confirm {
+        text-align: center;
+    }
+
+</style>
 <body>
-    <table style="width=100%">
-
+    <table>
+        <tr><th colspan="2" id="header">Edit Team</th></tr>
         @using (Html.BeginForm("SubmitTeam", "Home", FormMethod.Post))
         {
 
@@ -53,9 +102,9 @@
                                 }
                                 else
                                 {
-                                    
-                                        @Html.Raw("<option value=" + e.id + ">" + e.name + "</option>");
-                                    
+
+                                    @Html.Raw("<option value=" + e.id + ">" + e.name + "</option>");
+
                                 }
                             }
                             else
@@ -70,12 +119,13 @@
             </tr>
 
             <tr>
+                <td>Pick the team members</td>
                 <td>
                     <select name="_employees" multiple>
 
                         @foreach (Employee e in Model.employeesNotOnTeam)
                         {
-                            @Html.Raw("<option value="+e.id + ">" + e.name + "</option>");
+                            @Html.Raw("<option value=" + e.id + ">" + e.name + "</option>");
                         }
 
                     </select>
@@ -83,8 +133,8 @@
             </tr>
 
             <tr>
-                <td>
-                    <input type="hidden" name="_id"value="@Model.team.id" />
+                <td colspan="2" id="confirm">
+                    <input type="hidden" name="_id" value="@Model.team.id" />
                     <input type="submit" value="confirm" />
                 </td>
             </tr>
