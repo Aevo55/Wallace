@@ -149,7 +149,7 @@ namespace Wallace.UI.Controllers
             return View(model);
         }
 
-        public IActionResult SubmitTeam(string _name, string _desc, int _id, string[] _employees)
+        public IActionResult SubmitTeam(string _name, string _desc, int _id, string[] _employees, int _leader)
         {
             DatabaseInterface database = new DatabaseInterface();
             List<Employee> employees = database.getEmployees();
@@ -159,6 +159,7 @@ namespace Wallace.UI.Controllers
                 Team newteam = new Team();
                 newteam.name = _name;
                 newteam.desc = _desc;
+                newteam.leader = database.getEmployee(_leader);
                 int newid = database.addTeam(newteam);
                 newteam.id = newid;
                 foreach (Employee e in employees)// add the employees from the array into the team
@@ -171,12 +172,12 @@ namespace Wallace.UI.Controllers
                         }
                     }
                 }
-
             }
             if(_id != -1)
             {
                 List<Team> teams = database.getTeams();
                 Team current = new Team();
+
                 foreach(Team t in teams)
                 {
                     if (t.id == _id) current = t;
@@ -204,8 +205,13 @@ namespace Wallace.UI.Controllers
                     }
                 }
 
-                current.name = _name;
-                current.desc = _desc;
+                Team temp = database.getTeam(_id);
+                Employee newlead = database.getEmployee(_leader);
+                temp.name = _name;
+                temp.desc = _desc;
+
+                temp.leader = newlead;
+                database.updateTeam(temp);
 
             }
 
