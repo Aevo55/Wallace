@@ -44,6 +44,7 @@ namespace Wallace.Common.Database
                 {
                     _p.specs.Add(new Spec(s));
                 }
+                _p.manager = new Employee(reader.getEmployee(p.manager));
                 projects.Add(_p);
             }
             return projects;
@@ -51,7 +52,8 @@ namespace Wallace.Common.Database
 
         public Project getProject(int id)
         {
-            Project p = new Project(reader.getProject(id));
+            DBProject temp = reader.getProject(id);
+            Project p = new Project(temp);
             foreach (DBVersion v in reader.getVersionsByProj(id))
             {
                 PVersion _v = new PVersion(v);
@@ -69,6 +71,7 @@ namespace Wallace.Common.Database
             {
                 p.specs.Add(new Spec(s));
             }
+            p.manager = new Employee(reader.getEmployee(temp.manager));
             return p;
         }
 
