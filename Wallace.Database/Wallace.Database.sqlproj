@@ -68,10 +68,6 @@
     <Build Include="Versions.sql" />
     <Build Include="Relations\TeamMembers.sql" />
     <Build Include="Relations\VersionTeams.sql" />
-    <Build Include="Clients.sql" />
-    <Build Include="Relations\ProjectClients.sql" />
-    <Build Include="Experience.sql" />
-    <Build Include="Relations\EmpExp.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Wallace.Database.refactorlog" />

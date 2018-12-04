@@ -197,7 +197,8 @@ namespace Wallace.Common.Database
                     currProject.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
                     currProject.budget = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0;
                     currProject.desc = !reader.IsDBNull(3) ? reader.GetString(3) : "";
-                    
+                    currProject.manager = !reader.IsDBNull(4) ? reader.GetInt32(4) : -1;
+
                     projects.Add(currProject);
                 }
                 reader.Close();
@@ -224,6 +225,7 @@ namespace Wallace.Common.Database
                     project.name = !reader.IsDBNull(1) ? reader.GetString(1) : "";
                     project.budget = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0;
                     project.desc = !reader.IsDBNull(3) ? reader.GetString(3) : "";
+                    project.manager = !reader.IsDBNull(4) ? reader.GetInt32(4) : -1;
                 }
                 reader.Close();
             }

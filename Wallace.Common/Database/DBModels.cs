@@ -13,7 +13,7 @@ namespace Wallace.Common.Database
         public string name;
         public int budget;
         public string desc;
-        public int? manager;
+        public int manager;
 
         public DBProject() { }
 
