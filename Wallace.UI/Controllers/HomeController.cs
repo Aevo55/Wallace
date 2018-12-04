@@ -444,6 +444,7 @@ namespace Wallace.UI.Controllers
             model.Employees = employees;
             return View(model);
         }
+
         public IActionResult CurrentProject()
         {
             IndexPageModel model = new IndexPageModel();
@@ -452,6 +453,7 @@ namespace Wallace.UI.Controllers
             model.Projects = database.getProjects();
             return View(model);
         }
+
         public IActionResult Index()
         {
             IndexPageModel model = new IndexPageModel();
