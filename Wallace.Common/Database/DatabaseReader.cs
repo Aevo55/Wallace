@@ -172,7 +172,19 @@ namespace Wallace.Common.Database
                                                         eName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%'+@search1+'%'
                                                         OR
                                                         Title COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%'+@search2+'%'";
-        
+
+        private const string getEmpsNotOnTeamStr = @"SELECT
+                                                        *
+                                                    FROM
+                                                        Employees
+                                                    WHERE
+                                                        eId NOT IN (
+                                                            SELECT
+                                                                eId
+                                                            FROM
+                                                                TeamMembers
+                                                            WHERE
+                                                                tId = @id)";
         #endregion
 
         private SqlCommand cmd;
@@ -631,6 +643,33 @@ namespace Wallace.Common.Database
             cmd = new SqlCommand(searchEmployeesStr, conn);
             cmd.Parameters.AddWithValue("search1", s);
             cmd.Parameters.AddWithValue("search2", s);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DBEmployee currEmp = new DBEmployee();
+                    currEmp.id = !reader.IsDBNull(0) ? reader.GetInt32(0) : -1;
+                    currEmp.title = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    currEmp.salary = !reader.IsDBNull(2) ? reader.GetInt32(2) : -1;
+                    currEmp.name = !reader.IsDBNull(3) ? reader.GetString(3) : "";
+
+                    employees.Add(currEmp);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return employees;
+        }
+
+        public List<DBEmployee> getEmpsNotOnTeam(int t)
+        {
+            List<DBEmployee> employees = new List<DBEmployee>();
+            cmd = new SqlCommand(getEmpsNotOnTeamStr, conn);
+            cmd.Parameters.AddWithValue("id", t);
             try
             {
                 conn.Open();
