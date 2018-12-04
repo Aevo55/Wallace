@@ -1,6 +1,5 @@
 ﻿@model EmployeesPageModel
-<h2>Employees Page</h2>
-<h3>@ViewData["Information"]</h3>
+
 
 <style>
    .container-table{
@@ -98,17 +97,29 @@
     p{
         font-size:30px;
     }
+    .search {
+        margin: 123px 0px -93px 891px;
+        font-size: 20px;
+        height: 40px;
+        width: 60px;
+    }
 </style>
 <body >
-
-    @using (Html.BeginForm("EmployeesPage", "Home", FormMethod.Post)) {
-
-        <input type="text"name="query"placeholder="Filter" value="@ViewData["Query"]"/>
-        <input type="submit"style="visibility:hidden;">
-
-    }
+ 
+    
 
     <div class="container-table">
+        <div class="search">
+            @using (Html.BeginForm("EmployeesPage", "Home", FormMethod.Post))
+            {
+
+                <input type="text" name="query" placeholder="Search...." value="@ViewData["Query"]" />
+                <input type="submit" style="visibility:hidden;">
+
+            }
+
+
+        </div>
         <table align="left">
             <tr>
                 <td id="header" colspan="6">Employees Record</td>
@@ -124,46 +135,46 @@
                 for (int i = 0; i < Model.Employees.Count; i++)
                 {
                     <tr>
-                    @Html.Raw("<td>" + Model.Employees[i].name + "</td>")
-                    @Html.Raw("<td>" + Model.Employees[i].title + "</td>")
-                    @Html.Raw("<td>" + Model.Employees[i].salary.ToString() + "</td>")
+                        @Html.Raw("<td>" + Model.Employees[i].name + "</td>")
+                        @Html.Raw("<td>" + Model.Employees[i].title + "</td>")
+                        @Html.Raw("<td>" + Model.Employees[i].salary.ToString() + "</td>")
 
 
-                    <td>
-                        @using (Html.BeginForm("DeleteEmployee", "Home", FormMethod.Post))
-                        {
-                            <input type="hidden" name="employeeId" value="@Model.Employees[i].id" />
-                            <input type="submit" value="FIRE" />
-                        }
-                    </td>
+                        <td>
+                            @using (Html.BeginForm("DeleteEmployee", "Home", FormMethod.Post))
+                            {
+                                <input type="hidden" name="employeeId" value="@Model.Employees[i].id" />
+                                <input type="submit" value="FIRE" />
+                            }
+                        </td>
 
-                    <td>
-                        @using (Html.BeginForm("EditEmployeePage", "Home", FormMethod.Post))
-                        {
-                            <input type="hidden" name="employeeId" value="@Model.Employees[i].id" />
-                            <input type="submit" value="Edit" />
-                        }
-                    </td>
+                        <td>
+                            @using (Html.BeginForm("EditEmployeePage", "Home", FormMethod.Post))
+                            {
+                                <input type="hidden" name="employeeId" value="@Model.Employees[i].id" />
+                                <input type="submit" value="Edit" />
+                            }
+                        </td>
 
                     </tr>
-                    }
+                }
             }
         </table>
-        
+
         <div class="add-employee">
             <p>
                 @using (Html.BeginForm("EditEmployeePage", "Home", FormMethod.Post))
                 {
                     <input type="hidden" name="employeeId" value="-1" />
-                    <input id="button-add" type="submit" value="Add" />
+                    <input id="button-add" type="submit" value="Add Employee" />
                 }
             </p>
         </div>
         <div class="Search-Bar">
             <form action="">
-            <input id ="search-button" type ="text" placeholder="Search..." name="Search-Bar" />
-            <button type="submit" >Find</button>
-            
+                <input id="search-button" type="text" placeholder="Search..." name="Search-Bar" />
+                <button type="submit">Find</button>
+
             </form>
 
         </div>
