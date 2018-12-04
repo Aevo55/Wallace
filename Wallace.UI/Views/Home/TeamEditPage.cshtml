@@ -51,8 +51,14 @@
                                 {
                                     @Html.Raw("<option selected=selected value=" + e.id + ">" + e.name + "</option>");
                                 }
+                                else
+                                {
+                                    
+                                        @Html.Raw("<option value=" + e.id + ">" + e.name + "</option>");
+                                    
+                                }
                             }
-                            
+                            else
                             {
                                 @Html.Raw("<option value=" + e.id + ">" + e.name + "</option>");
                             }
@@ -67,7 +73,7 @@
                 <td>
                     <select name="_employees" multiple>
 
-                        @foreach (Employee e in Model.employees)
+                        @foreach (Employee e in Model.employeesNotOnTeam)
                         {
                             @Html.Raw("<option value="+e.id + ">" + e.name + "</option>");
                         }

@@ -7,6 +7,7 @@ namespace Wallace.UI.Models
     {
 
         public List<Employee> employees = new List<Employee>();
+        public List<Employee> employeesNotOnTeam = new List<Employee>();
         public Team team= new Team();
         public bool isNew = false;
 
