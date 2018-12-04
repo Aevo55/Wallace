@@ -217,6 +217,16 @@ namespace Wallace.Common.Database
             }
             return emps;
         }
+
+        public List<Employee> getEmployeesNotOnTeam(int tid)
+        {
+            List<Employee> emps = new List<Employee>();
+            foreach(DBEmployee e in reader.getEmpsNotOnTeam(tid))
+            {
+                emps.Add(new Employee(e));
+            }
+            return emps;
+        }
         /***************************************/
 
         public void deleteProject(int id)
