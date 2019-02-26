@@ -62,13 +62,6 @@ namespace Wallace.UI.Controllers
                     //List<Spec> allspecs = database.getProjects().Find(x => x.id == _pid).specs;
                     //List<Spec> allspecs = database.getSpecsByProject(_pid);
                     //Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
-                    /*
-                     sss
-                     sss
-                     sss
-                     */
-
-                    ///sdsdeedede
                     Spec spectoadd = database.getSpec(int.Parse(s));
                     database.addSpecToVersion(newversion, spectoadd);
                 }
@@ -150,73 +143,84 @@ namespace Wallace.UI.Controllers
             model.team = current;
 
             List<Employee> _employees = database.getEmployees();
+            List<Employee> _employeesNotOnTeam = database.getEmployeesNotOnTeam(teamId);
             model.employees = _employees;
+            model.employeesNotOnTeam = _employeesNotOnTeam;
 
             ViewData["Information"] = "This is where you can edit a team";
             return View(model);
         }
 
-        public IActionResult SubmitTeam(string _name, string _desc, int _id, string[] _employees)
+        public IActionResult SubmitTeam(string _name, string _desc, int _id, string[] _employees, int _leader)
         {
             DatabaseInterface database = new DatabaseInterface();
             List<Employee> employees = database.getEmployees();
-            List<String> strings;
-            if(_id == -1)
+
+            List<int> newemployees = new List<int>();
+            foreach(String s in _employees)
+            {
+                newemployees.Add(int.Parse(s));
+            }
+            List<int> teamemployees = new List<int>();
+
+            foreach (int i in newemployees) teamemployees.Add(i);
+
+            foreach(Employee e in database.getTeam(_id).members)
+            {
+                teamemployees.Add(e.id);
+            }
+
+            if (!teamemployees.Contains(_leader))
+            {
+                newemployees.Add(_leader);
+            }
+
+            if (_id == -1)
             {
                 Team newteam = new Team();
                 newteam.name = _name;
                 newteam.desc = _desc;
+                newteam.leader = database.getEmployee(_leader);
                 int newid = database.addTeam(newteam);
                 newteam.id = newid;
                 foreach (Employee e in employees)// add the employees from the array into the team
                 {
-                    foreach(string s in _employees)
+                    foreach(int i in newemployees)
                     {
-                        if (int.Parse(s) == e.id)
+                        if (i == e.id)
                         {
                             database.addEmpToTeam(e, newteam); 
                         }
                     }
                 }
-
             }
+
             if(_id != -1)
             {
                 List<Team> teams = database.getTeams();
                 Team current = new Team();
+
                 foreach(Team t in teams)
                 {
                     if (t.id == _id) current = t;
                 }
 
-                foreach(string s in _employees)
+                foreach(int i in newemployees)
                 {
-                    bool isin = false;
-                    foreach(Employee e in current.members)
-                    {
-                        if (int.Parse(s) == e.id) isin = true;
-                    }
-                    if (!isin)
-                    {
-                        Employee newmember = new Employee();
-                        List<Employee> allemployees = database.getEmployees();
-                        foreach(Employee e in allemployees)
-                        {
-                            if(e.id == int.Parse(s))
-                            {
-                                newmember = e;
-                            }
-                        }
+                        Employee newmember = database.getEmployee(i);
                         database.addEmpToTeam(newmember, current);
-                    }
+                    
                 }
 
-                current.name = _name;
-                current.desc = _desc;
+                Team temp = database.getTeam(_id);
+                Employee newlead = database.getEmployee(_leader);
+                temp.name = _name;
+                temp.desc = _desc;
+
+                temp.leader = newlead;
+                database.updateTeam(temp);
 
             }
-
-
 
             return RedirectToAction("TeamsPage");
         }

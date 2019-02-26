@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Clients]
-(
-	[cId] INT NOT NULL PRIMARY KEY,
-	[cName] VARCHAR(MAX) NOT NULL,
-	[Company] VARCHAR(MAX) NULL,
-	[Contact] VARCHAR(MAX) NOT NULL,
-)

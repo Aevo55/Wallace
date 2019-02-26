@@ -65,7 +65,6 @@
     <table width:"100%">
       <h1><b> @Model.teams[i].name</b></h1>
 
-
       <tr>
           <th>Name</th>
           <th>Title</th>
@@ -78,7 +77,14 @@
 
             <tr>
                 @Html.Raw("<td>" + Model.teams[i].members[j].name + "</td>")
-                @Html.Raw("<td>" + Model.teams[i].members[j].title + "</td>")
+                @if(Model.teams[i].members[j].id == Model.teams[i].leader.id) {
+                    @Html.Raw("<td>" + Model.teams[i].members[j].title + "/Team Leader </td>")
+                }
+                else {
+                    @Html.Raw("<td>" + Model.teams[i].members[j].title + "</td>")
+                }
+                
+
                 @Html.Raw("<td>" + Model.teams[i].members[j].salary.ToString() + "</td>")
 
                 <td>

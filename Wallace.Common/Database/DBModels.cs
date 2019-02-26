@@ -13,7 +13,7 @@ namespace Wallace.Common.Database
         public string name;
         public int budget;
         public string desc;
-        public int? manager;
+        public int manager;
 
         public DBProject() { }
 
@@ -95,6 +95,7 @@ namespace Wallace.Common.Database
         public string name;
         public string desc;
         public int leader;
+
         public DBTeam() { }
 
 
@@ -103,6 +104,7 @@ namespace Wallace.Common.Database
             id = t.id;
             name = t.name;
             desc = t.desc;
+            leader = t.leader.id;
         }
     }
 
