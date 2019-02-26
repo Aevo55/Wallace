@@ -62,6 +62,13 @@ namespace Wallace.UI.Controllers
                     //List<Spec> allspecs = database.getProjects().Find(x => x.id == _pid).specs;
                     //List<Spec> allspecs = database.getSpecsByProject(_pid);
                     //Spec spectoadd = allspecs.Find(x => x.id == int.Parse(s));
+                    /*
+                     sss
+                     sss
+                     sss
+                     */
+
+                    ///sdsdeedede
                     Spec spectoadd = database.getSpec(int.Parse(s));
                     database.addSpecToVersion(newversion, spectoadd);
                 }
@@ -153,7 +160,7 @@ namespace Wallace.UI.Controllers
         {
             DatabaseInterface database = new DatabaseInterface();
             List<Employee> employees = database.getEmployees();
-
+            List<String> strings;
             if(_id == -1)
             {
                 Team newteam = new Team();

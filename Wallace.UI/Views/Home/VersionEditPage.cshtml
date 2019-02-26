@@ -66,7 +66,7 @@
                 <td>
                     @if (Model.isNew)
                     {
-                        <input type="number" value="@Model.version.versionNumber" name="_versionNumber" min="@Model.minVersionNumber" />
+                        <input type="number" value="@Model.minVersionNumber" name="_versionNumber" min="@Model.minVersionNumber" />
                     }
                     else
                     {
@@ -109,7 +109,7 @@
             <tr>
 
 
-                <td>Teams working on this version</td>
+                <td>Teams to add to this Version</td>
                 <td>
                     <select name="_teams" multiple>
 
